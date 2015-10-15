@@ -1,17 +1,8 @@
 {
-  "name": "basic",
+  "name": "miestietis.lt",
   "version": "1.0.0",
-  "description": "The Basic Game",
-  "repository": "git@github.com:gytlak/basic.git",
+  "description": "Miestietis.lt VM",
+  "repository": "git@github.com:miestietis-lt/miestietis.lt.git",
   "license": "UNLICENSED",
-  "private": true,
-  "devDependencies": {
-    "base": "git://github.com/matthewhartman/base.git",
-    "grunt": "^0.4.5",
-    "grunt-cli": "^0.1.13",
-    "grunt-contrib-concat": "^0.5.1",
-    "grunt-contrib-less": "^1.0.1",
-    "grunt-contrib-watch": "^0.6.1",
-    "jit-grunt": "^0.9.1"
-  }
+  "private": false
 }
