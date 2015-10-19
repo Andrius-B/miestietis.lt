@@ -49,11 +49,11 @@ vagrantfile-local:
     ssh:
         host: null
         port: null
-        private_key_path: null
+        private_key_path: ~/.ssh/id_rsa
         username: vagrant
         guest_port: null
         keep_alive: true
-        forward_agent: false
+        forward_agent: true
         forward_x11: false
         shell: 'bash -l'
     vagrant:
