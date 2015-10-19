@@ -17,8 +17,6 @@ Vagrant.require_version '>= 1.6.0'
 Vagrant.configure('2') do |config|
   config.vm.box     = "#{data['vm']['box']}"
   config.vm.box_url = "#{data['vm']['box_url']}"
-  config.ssh.private_key_path = "~/.ssh/id_rsa"
-  config.ssh.forward_agent = true
 
   if data['vm']['hostname'].to_s.strip.length != 0
     config.vm.hostname = "#{data['vm']['hostname']}"
@@ -243,6 +241,28 @@ Vagrant.configure('2') do |config|
     s.args = ['startup-once', 'startup-always']
   end
   config.vm.provision :shell, :path => 'puphpet/shell/important-notices.sh'
+
+  customKey  = "#{dir}/puphpet/files/dot/ssh/id_rsa"
+  vagrantKey = "#{dir}/.vagrant/machines/default/#{ENV['VAGRANT_DEFAULT_PROVIDER']}/private_key"
+
+  if File.file?(customKey)
+    config.ssh.private_key_path = [
+      customKey,
+      "#{ENV['HOME']}/.vagrant.d/insecure_private_key"
+    ]
+
+    if File.file?(vagrantKey) and ! FileUtils.compare_file(customKey, vagrantKey)
+      File.delete(vagrantKey)
+    end
+
+    if ! File.directory?(File.dirname(vagrantKey))
+      FileUtils.mkdir_p(File.dirname(vagrantKey))
+    end
+
+    if ! File.file?(vagrantKey)
+      FileUtils.cp(customKey, vagrantKey)
+    end
+  end
 
   if !data['ssh']['host'].nil?
     config.ssh.host = "#{data['ssh']['host']}"
