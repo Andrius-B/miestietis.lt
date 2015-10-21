@@ -1,0 +1,7 @@
+miestietis_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: MiestietisBundle:Default:index }
+
+index:
+    path:     /index
+    defaults: { _controller: MiestietisBundle:Main:index }
