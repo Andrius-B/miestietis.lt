@@ -1,8 +1,4 @@
-miestietis:
-    resource: "@MiestietisBundle/Resources/config/routing.yml"
-    prefix:   /
-
-nfq_home:
-    resource: "@NFQHomeBundle/Resources/config/routing.yml"
+miestietis_main:
+    resource: "@MiestietisMainBundle/Resources/config/routing.yml"
     prefix:   /
 
