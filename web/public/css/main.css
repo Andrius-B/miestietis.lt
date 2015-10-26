@@ -1,4 +1,5 @@
 body {
+
     background: #e3e3e3;
 }
 .wrapper{
@@ -8,4 +9,8 @@ body {
 .content{
     background: white;
     min-height: 200px;
+}
+.login_img{
+    padding-top: 5px;
+    width: 40px;
 }
