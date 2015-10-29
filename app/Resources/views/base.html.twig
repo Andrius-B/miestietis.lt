@@ -1,69 +1,119 @@
 <!DOCTYPE html>
-<html>
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="Projektas politiškai aktyviems Kauno miesto gyventojams">
+        <meta name="author" content="NFQ #3 komanda">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" >
-        <link rel="stylesheet" href="{{ asset('public/css/main.css') }}" />
-        {% block stylesheets %}{% endblock %}
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700,300&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Raleway:700,400,300' rel='stylesheet' type='text/css'>
+        <title>{% block title %}{% endblock %}</title>
+        {% block stylesheets %}
+            <link href="{{ asset('public/css/bootstrap.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('public/css/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+            <link href="{{ asset('public/css/animations.css') }}" rel="stylesheet">
+            <link href="{{ asset('public/css/style.css') }}" rel="stylesheet">
+            <link href="{{ asset('public/css/main.css') }}" rel="stylesheet" >
+        {% endblock %}
     </head>
-    <body>
-        <div class="wrapper">
-            <div class="content">
-            <h1>miestietis.lt</h1>
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="#">Brand</a>
-                    </div>
+    <body class="no-trans">
 
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                            <li><a href="#">Link</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#">One more separated link</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <form class="navbar-form navbar-left" role="search">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search">
+        <div class="scrollToTop"><i class="icon-up-open-big"></i></div>
+
+        <!-- header start -->
+        <!-- ================ -->
+        <header class="header fixed clearfix navbar navbar-fixed-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+
+                        <!-- header-left start -->
+                        <!-- ================ -->
+                        <div class="header-left clearfix">
+
+                            <!-- logo -->
+                            <div class="logo smooth-scroll">
+                                <a href="#banner"><img id="logo" src="{{ asset('public/images/logo.png') }}" alt="miestietis"></a>
                             </div>
-                            <button type="submit" class="btn btn-default">Submit</button>
-                        </form>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><img class="login_img" src="{{ asset('public/img/login.png') }}"/></li>
-                            <li><a href="#">Prisijungti</a></li>
-                        </ul>
-                    </div><!-- /.navbar-collapse -->
-                </div><!-- /.container-fluid -->
-            </nav>
-                {% block body %}{% endblock %}
+
+                            <!-- name-and-slogan -->
+                            <div class="site-name-and-slogan smooth-scroll">
+                                <div class="site-name"><a href="#banner">Miestietis.lt</a></div>
+                                <div class="site-slogan">Būk pilietiškas</div>
+                            </div>
+
+                        </div>
+                        <!-- header-left end -->
+
+                    </div>
+                    <div class="col-md-8">
+
+                        <!-- header-right start -->
+                        <!-- ================ -->
+                        <div class="header-right clearfix">
+
+                            <!-- main-navigation start -->
+                            <!-- ================ -->
+                            <div class="main-navigation animated">
+
+                                <!-- navbar start -->
+                                <!-- ================ -->
+                                <nav class="navbar navbar-default" role="navigation">
+                                    <div class="container-fluid">
+
+                                        <!-- Toggle get grouped for better mobile display -->
+                                        <div class="navbar-header">
+                                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                                                <span class="sr-only">Toggle navigation</span>
+                                                <span class="icon-bar"></span>
+                                                <span class="icon-bar"></span>
+                                                <span class="icon-bar"></span>
+                                            </button>
+                                        </div>
+
+                                        <!-- Collect the nav links, forms, and other content for toggling -->
+                                        <div class="collapse navbar-collapse scrollspy smooth-scroll" id="navbar-collapse-1">
+                                            <ul class="nav navbar-nav navbar-right">
+                                                <li class="active"><a href="#banner">Pradinis</a></li>
+                                                <li><a href="#list">Miesto problemos</a></li>
+                                                <li><a href="#about">Apie projektą</a></li>
+                                                <li><a href="#contact">Kontaktai</a></li>
+                                                <li><a href="#login">Prisijungimas</a></li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </nav>
+                                <!-- navbar end -->
+
+                            </div>
+                            <!-- main-navigation end -->
+
+                        </div>
+                        <!-- header-right end -->
+
+                    </div>
+                </div>
             </div>
-        </div>
+        </header>
+        <!-- header end -->
+
+        {% block body %}{% endblock %}
+
         {% block javascripts %}
-            <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="{{ asset('public/plugins/jquery.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('public/bootstrap/js/bootstrap.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('public/plugins/modernizr.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('public/plugins/isotope/isotope.pkgd.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('public/plugins/jquery.backstretch.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('public/plugins/jquery.appear.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('public/js/template.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('public/js/custom.js') }}"></script>
         {% endblock %}
     </body>
 </html>
