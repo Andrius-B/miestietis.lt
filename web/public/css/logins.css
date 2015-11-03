@@ -1,0 +1,17 @@
+#banner.banner-image{
+    background-image: url("../images/banner.jpg");
+}
+.lbl{
+    width: 25%;
+}
+.row{
+    padding: 10px;
+    text-align: center;
+}
+.btn{
+    padding: 5px;
+}
+.text-field{
+    width: 25%;
+    color: black;
+}
