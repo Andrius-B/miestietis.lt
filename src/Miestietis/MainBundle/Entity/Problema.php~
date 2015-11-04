@@ -1,0 +1,43 @@
+<?php
+// src/Miestietis/MainBundle/Entity/Product.php
+namespace Miestietis\MainBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="problema")
+ */
+class Problema
+{
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $user_id;
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $name;
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $date;
+    /**
+     * @ORM\Column(type="text")
+     */
+    protected $description;
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    protected $votes;
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $picture;
+
+}
