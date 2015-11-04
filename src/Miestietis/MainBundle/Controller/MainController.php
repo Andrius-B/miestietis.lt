@@ -19,7 +19,7 @@ class MainController extends Controller
                 ->find($i);
         }
 
-        return $this->render('MiestietisMainBundle:Main:index.html.twig', array('problemos' => $problemos
+        return $this->render('MiestietisMainBundle:Main:index.html.twig', array('problems' => $problems
                 // ...
             ));
     }

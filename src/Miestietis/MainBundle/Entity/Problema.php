@@ -24,7 +24,7 @@ class Problema
      */
     protected $name;
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string")
      */
     protected $date;
     /**
