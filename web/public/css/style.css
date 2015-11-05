@@ -509,7 +509,7 @@ input[readonly] {
 
 /* Login modal */
 
-#login h2, h4 {
+#login h2, #login h4 {
     padding-top: 30px;
 	color: #339BEB;
 }
