@@ -6,8 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class MainController extends Controller
 {
-
-
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
