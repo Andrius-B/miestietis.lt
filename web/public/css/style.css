@@ -476,6 +476,55 @@ textarea {
 	text-indent: 30px;
 }
 
+/* Add item modal form */
+
+.btn-file {
+	position: relative;
+	overflow: hidden;
+}
+.btn-file input[type=file] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	min-width: 100%;
+	min-height: 100%;
+	font-size: 100px;
+	text-align: right;
+	filter: alpha(opacity=0);
+	opacity: 0;
+	outline: none;
+	background: white;
+	cursor: inherit;
+	display: block;
+}
+input[readonly] {
+	background-color: white !important;
+	cursor: text !important;
+	height: 38px;
+}
+
+#add .modal-footer, #login .modal-footer {
+	padding: 15px;
+}
+
+/* Login modal */
+
+#login h2, h4 {
+    padding-top: 30px;
+	color: #339BEB;
+}
+
+#login #user {
+	margin-top:35px;
+}
+
+#login a i {
+    font-size: 3em;
+    margin: 15px 15px 35px 15px;
+}
+
+
+
 /* Large devices (Large desktops 1200px and up) */
 @media (min-width:1200px) {
 	.modal-lg {
