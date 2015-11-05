@@ -114,6 +114,10 @@ blockquote {
 }
 #addForm {
 	color: #FFD454;
+	cursor: pointer;
+}
+#addForm:hover {
+	color: #FFBF00;
 }
 /* Layout
 ----------------------------------------------------------------------------- */
