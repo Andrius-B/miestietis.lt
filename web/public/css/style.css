@@ -69,6 +69,7 @@ h4 span {
 a {
 	color: #55acee;
 }
+
 a:hover {
 	color: #339BEB;
 }
@@ -111,7 +112,9 @@ blockquote {
 .title {
 	margin-top: 0;
 }
-
+#addForm {
+	color: #FFD454;
+}
 /* Layout
 ----------------------------------------------------------------------------- */
 .header {
