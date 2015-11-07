@@ -36,7 +36,9 @@
 
                     <!-- list items start -->
                     <div class="isotope-container row grid-space-20">
-                        {{ include('items.html.twig') }}
+                        {% for problem in problems %}
+                            {{ include('items.html.twig') }}
+                        {% endfor %}
                     </div>
                     <!-- list items end -->
 
