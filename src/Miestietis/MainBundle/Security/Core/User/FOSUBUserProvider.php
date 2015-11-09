@@ -35,6 +35,7 @@ class FOSUBUserProvider extends BaseClass
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
         $username = $response->getUsername();
+        $data = $response->getResponse();
         $user = $this->userManager->findUserBy(array($this->getProperty($response) => $username));
         //when the user is registrating
         if (null === $user) {
@@ -49,9 +50,18 @@ class FOSUBUserProvider extends BaseClass
             //I have set all requested data with the user's username
             //modify here with relevant data
             $user->setUsername($username);
-            $user->setEmail($username);
+            $user->setEmail($data['email']);
             $user->setPassword($username);
             $user->setEnabled(true);
+            if($user->getFacebookId() != null){
+                $fbid = $user->getFacebookId();
+                $user_fb = "https://graph.facebook.com/" .$fbid;
+                $picture = $user_fb."/picture?width=260&height=260";
+                $user->setProfilePicture($picture);
+            }
+
+            $user->setFirstName($data['first_name']);
+            $user->setLastName($data['last_name']);
             $this->userManager->updateUser($user);
             return $user;
         }

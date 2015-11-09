@@ -103,4 +103,5 @@ hwi_oauth:
                 type:                facebook
                 client_id:           918606604861892
                 client_secret:       acd307e1758af36c12a67a624abdc242
-                scope:               ""
+                scope:               "email"
+                infos_url:           "https://graph.facebook.com/me?fields=id,email,first_name,last_name,gender,birthday"

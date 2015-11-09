@@ -27,9 +27,34 @@ class User extends BaseUser
     protected $google_id;
     /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
     protected $google_access_token;
-
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="profile_picture", type="string", length=250, nullable=true)
+     *
+     */
+    protected $profilePicture;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="first_name", type="string", length=250, nullable=true)
+     *
+     */
+    protected $firstName;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="last_name", type="string", length=250, nullable=true)
+     *
+     */
+    protected $lastName;
 
     //YOU CAN ADD MORE CODE HERE !
+
+
+
+
+
     /**
      * Get id
      *
@@ -142,5 +167,74 @@ class User extends BaseUser
     public function getGoogleAccessToken()
     {
         return $this->google_access_token;
+    }
+    /**
+     * Set profilePicture
+     *
+     * @param string $profilePicture
+     *
+     * @return User
+     */
+    public function setProfilePicture($profilePicture)
+    {
+        $this->profilePicture = $profilePicture;
+
+        return $this;
+    }
+
+    /**
+     * Get profilePicture
+     *
+     * @return string
+     */
+    public function getProfilePicture()
+    {
+        return $this->profilePicture;
+    }
+    /**
+     * Set firstName
+     *
+     * @param string $firstName
+     *
+     * @return User
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * Get firstName
+     *
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+    /**
+     * Set lastName
+     *
+     * @param string $lastName
+     *
+     * @return User
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * Get lastName
+     *
+     * @return string
+     */
+    public function getLAstName()
+    {
+        return $this->lastName;
     }
 }

@@ -1,0 +1,27 @@
+<!-- Modal -->
+<div class="modal fade" id="profile" tabindex="-1" role="dialog" aria-labelledby="login-label" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h2 class="modal-title text-center">Profilis</h2>
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <div class="footer-content">
+                            {% if  user  != null %}
+                            <row><img src="{{ user.getProfilePicture() }}" alt="{{ user.getId()  }}" class = "profile_picture_medium"></row>
+                            <p class="user_name_profile">{{ user.getFirstName() }} {{ user.getLastName() }}</p>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="text-center">
+                    <a href="{{ path('fos_user_security_logout') }}"><input type="submit" value="Atsijungti" class="btn btn-default"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal end -->
