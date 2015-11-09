@@ -24,8 +24,9 @@
                                     <p>užmiršai slaptažodį? <a href="#">spausk čia</a></p>
                                     <h4 class="text-center">arba prisijunkite su:</h4>
                                     <div class="text-center">
-                                        <a href="#"><i class="fa fa-facebook"></i></a>
-                                        <a href="#"><i class="fa fa-google-plus"></i></a>
+
+                                        <a href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook' }) }}" alt="Prisijungti su Facebook"><i class="fa fa-facebook"></i></a>
+                                        <a href="{{ path('hwi_oauth_service_redirect', {'service': 'google' }) }}" alt="Prisijungti su Google"><i class="fa fa-google-plus"></i></a>
                                     </div>
                                 </div>
                             </form>
