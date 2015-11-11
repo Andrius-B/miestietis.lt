@@ -11,7 +11,7 @@
 	$(document).ready(function(){
 	
 		$(".banner-image").backstretch('/public/images/banner.jpg');
-		
+
 		// Fixed header
 		//-----------------------------------------------
 		$(window).scroll(function() {
@@ -103,11 +103,13 @@
 
 		//Modal
 		//-----------------------------------------------
+
+
 		if($(".modal").length>0) {
 			$(".modal").each(function() {
 				$(".modal").prependTo( "body" );
 			});
 		}
-
+		$('[data-toggle="tooltip"]').tooltip();
 	}); // End document ready
 })(this.jQuery);
