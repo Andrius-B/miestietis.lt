@@ -82,3 +82,26 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: Miestietis\MainBundle\Entity\User
+
+hwi_oauth:
+    connect:
+        account_connector: my_user_provider
+    firewall_name: main
+    fosub:
+        username_iterations: 30
+        properties:
+            # these properties will be used/redefined later in the custom FOSUBUserProvider service.
+            facebook: facebook_id
+            google: google_id
+    resource_owners:
+            google:
+                type:                google
+                client_id:           367910392207-80iu099b0joh01h2beh494fvebnkdtmt.apps.googleusercontent.com
+                client_secret:        d9vfX_AqCL6Emw56j_scM6Rq
+                scope:               "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
+            facebook:
+                type:                facebook
+                client_id:           918606604861892
+                client_secret:       acd307e1758af36c12a67a624abdc242
+                scope:               "email"
+                infos_url:           "https://graph.facebook.com/me?fields=id,email,first_name,last_name,gender,birthday"

@@ -1,14 +1,15 @@
 <?php
 // src/Miestietis/MainBundle/Entity/User.php
+//  puslapis:    https://gist.github.com/danvbe/4476697
+
 
 namespace Miestietis\MainBundle\Entity;
-
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\ArrayCollection;
 /**
- * @ORM\Entity
- * @ORM\Table(name="fos_user")
+ * @ORM\Entity(repositoryClass="Miestietis\MainBundle\Repository\UserRepository")
+ * @ORM\Table(name="lcl_user")
  */
 class User extends BaseUser
 {
@@ -18,14 +19,222 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    /** @ORM\Column(name="facebook_id", type="string", length=255, nullable=true) */
+    protected $facebook_id;
+    /** @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true) */
+    protected $facebook_access_token;
+    /** @ORM\Column(name="google_id", type="string", length=255, nullable=true) */
+    protected $google_id;
+    /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
+    protected $google_access_token;
     /**
-     * @ORM\Column(type="string", length=100)
+     * @var string
+     *
+     * @ORM\Column(name="profile_picture", type="string", length=250, nullable=true)
+     *
      */
-    protected $name;
+    protected $profilePicture;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="first_name", type="string", length=250, nullable=true)
+     *
+     */
+    protected $firstName;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="last_name", type="string", length=250, nullable=true)
+     *
+     */
+    protected $lastName;
 
-    public function __construct()
+    //YOU CAN ADD MORE CODE HERE !
+
+
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
     {
-        parent::__construct();
-        // your own logic
+        return $this->id;
+    }
+    /**
+     * Set id
+     *
+     * @return User
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+    /**
+     * Set facebook_id
+     *
+     * @param string $facebook_id
+     *
+     * @return User
+     */
+    public function setFacebookId($facebook_id)
+    {
+        $this->facebook_id = $facebook_id;
+
+        return $this;
+    }
+
+    /**
+     * Get facebook_id
+     *
+     * @return string
+     */
+    public function getFacebookId()
+    {
+        return $this->facebook_id;
+    }
+    /**
+     * Set facebook_access_token
+     *
+     * @param string $facebook_access_token
+     *
+     * @return User
+     */
+    public function setFacebookAccessToken($facebook_access_token)
+    {
+        $this->facebook_access_token = $facebook_access_token;
+
+        return $this;
+    }
+
+    /**
+     * Get facebook_access_token
+     *
+     * @return string
+     */
+    public function getFacebookAccessToken()
+    {
+        return $this->facebook_access_token;
+    }
+
+    /**
+     * Set googleId
+     *
+     * @param string $googleId
+     *
+     * @return User
+     */
+    public function setGoogleId($googleId)
+    {
+        $this->google_id = $googleId;
+
+        return $this;
+    }
+
+    /**
+     * Get googleId
+     *
+     * @return string
+     */
+    public function getGoogleId()
+    {
+        return $this->google_id;
+    }
+
+    /**
+     * Set googleAccessToken
+     *
+     * @param string $googleAccessToken
+     *
+     * @return User
+     */
+    public function setGoogleAccessToken($googleAccessToken)
+    {
+        $this->google_access_token = $googleAccessToken;
+
+        return $this;
+    }
+
+    /**
+     * Get googleAccessToken
+     *
+     * @return string
+     */
+    public function getGoogleAccessToken()
+    {
+        return $this->google_access_token;
+    }
+    /**
+     * Set profilePicture
+     *
+     * @param string $profilePicture
+     *
+     * @return User
+     */
+    public function setProfilePicture($profilePicture)
+    {
+        $this->profilePicture = $profilePicture;
+
+        return $this;
+    }
+
+    /**
+     * Get profilePicture
+     *
+     * @return string
+     */
+    public function getProfilePicture()
+    {
+        return $this->profilePicture;
+    }
+    /**
+     * Set firstName
+     *
+     * @param string $firstName
+     *
+     * @return User
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * Get firstName
+     *
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+    /**
+     * Set lastName
+     *
+     * @param string $lastName
+     *
+     * @return User
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * Get lastName
+     *
+     * @return string
+     */
+    public function getLAstName()
+    {
+        return $this->lastName;
     }
 }
