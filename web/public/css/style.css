@@ -557,6 +557,7 @@ input[readonly] {
 	padding: 10px 20px;
 	font-size: 18px;
 	font-weight: 300;
+	cursor: pointer;
 }
 .main-navigation .navbar-default .navbar-nav > li.active > a {
 	background-color: transparent;
@@ -566,6 +567,23 @@ input[readonly] {
 .main-navigation .navbar-default .navbar-nav > li.active > a:hover {
 	color: #55acee;
 }
+.profile-picture {
+	height: 3em;
+	border-radius: 50%;
+}
+.profile-picture:hover {
+
+}
+.main-navigation .navbar-default .navbar-nav > li > a[data-target="#profile"] {
+    padding-top: 15px;
+    padding-bottom: 0;
+}
+
+.fixed-header-on .main-navigation .navbar-default .navbar-nav > li > a[data-target="#profile"] {
+    padding-top: 5px;
+
+}
+
 @media (min-width:768px) {
 	.main-navigation .navbar-default .navbar-nav > li > a {
 		padding-top: 30px;
@@ -592,11 +610,25 @@ input[readonly] {
 	}
 }
 
+/* Profile modal
+----------------------------------------------------------------------------- */
+
+.profile-picture_medium{
+    padding: 10px;
+    height: 120px;
+    border-radius: 50%;
+    margin: auto;
+}
+.user-name-profile {
+    text-align: center;
+}
+
+
 /* Fixed Header
 ----------------------------------------------------------------------------- */
 .fixed-header-on .header {
 	background-color: rgba(0, 0, 0, 0.95);
-	padding: 5px 0;
+	padding: 7px 0;
 }
 .fixed-header-on .site-name {
 	font-size: 24px;
