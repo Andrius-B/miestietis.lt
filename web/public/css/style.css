@@ -461,19 +461,26 @@ textarea {
 
 .itemContent a, .modal-footer a {
 	font-size: 2.5em;
-	padding-right: 0.2em;
     text-decoration: none;
 }
 .modal-footer {
 	padding: 5px;
 }
+.modal-footer a {
+	padding-right: 0.2em;
+}
 .fa:hover {
 	cursor: pointer;
 }
 
+.disabled {
+	color: #ccc;
+	cursor: text !important;
+}
+
 /* Content of an item */
 
-.authorInfo div {
+.itemInfo div {
 	float: left;
 	margin-right: 15px;
 }
@@ -482,12 +489,17 @@ textarea {
     border-radius: 0;
 }
 
-.authorInfo .tooltip.top {
-    padding-left: 15px; /* tooltip arrow position fixed, due to .authorInfo div {margin property} */
+.itemInfo .tooltip.top {
+    padding-left: 15px; /* tooltip arrow position fixed, due to .itemInfo div {margin property} */
 }
 
 .modal-body p {
 	text-indent: 30px;
+	padding-top: 10px;
+}
+
+.modal-body address {
+	display:inline-block;
 }
 
 /* Add item modal form */
@@ -528,13 +540,11 @@ input[readonly] {
 	color: #339BEB;
 }
 
-#login #user {
-	margin-top:35px;
-}
+
 
 #login a i {
     font-size: 3em;
-    margin: 15px 15px 35px 15px;
+    margin: 35px 15px 50px 15px;
 }
 
 
