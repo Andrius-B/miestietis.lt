@@ -6,7 +6,7 @@
                 <h2 class="modal-title text-center">Profilis</h2>
                 <div class="row">
                     <div class="col-sm-8 col-sm-offset-2">
-                        <div class="footer-content">
+                        <div class="footer-content text-center">
                             {% if  user  != null %}
                             <img src="{{ user.getProfilePicture() }}" alt="{{ user.getId()  }}" class = "profile-picture_medium">
                             <p class="user-name-profile">{{ user.getFirstName() }} {{ user.getLastName() }}</p>

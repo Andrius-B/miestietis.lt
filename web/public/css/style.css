@@ -525,7 +525,7 @@ textarea {
 }
 input[readonly] {
 	background-color: white !important;
-	cursor: text !important;
+	cursor: default !important;
 	height: 38px;
 }
 
@@ -539,8 +539,6 @@ input[readonly] {
     padding-top: 30px;
 	color: #339BEB;
 }
-
-
 
 #login a i {
     font-size: 3em;
@@ -637,13 +635,22 @@ input[readonly] {
 /* Profile modal
 ----------------------------------------------------------------------------- */
 
-.profile-picture_medium{
+#profile .modal-footer {
+	padding: 15px;
+}
+
+#profile .modal-footer a {
+	padding-right: 0px;
+	font-size: 0;
+}
+
+.profile-picture_medium {
     padding: 10px;
     height: 120px;
     border-radius: 50%;
     margin: auto;
 }
-.user-name-profile{
+.user-name-profile {
     text-align: center;
 }
 
