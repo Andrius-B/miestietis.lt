@@ -113,7 +113,7 @@
 		$('[data-toggle="tooltip"]').tooltip();
 
 
-
+        // $("#itemFile").fileinput(); initialize file upload preview plugin
 	}); // End document ready
 })(this.jQuery);
 
