@@ -10,8 +10,11 @@
         <section class="itemContent">
             <h4>{{ problem.name() }}</h4>
             <div class="itemInfo">
-                <div data-toggle="tooltip" data-placement="top" title="Problemos autorius">{#<i class="fa fa-user"></i>#}
-                    <img src="{{ problem.getUSerId().getProfilePicture() }}"class = "profile-picture" alt=""> {{ problem.getUserId().getFirstName }} {{ problem.getUserId().getLastName() }}</div>
+                <div data-toggle="tooltip" data-placement="top" title="Problemos autorius">
+                    <img src="{{ problem.getUSerId().getProfilePicture() }}" class = "profile-picture" alt="">
+                    {{ problem.getUserId().getFirstName }}
+                    {{ problem.getUserId().getLastName() }}
+                </div>
                 <div data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data"><i class="fa fa-calendar-plus-o"></i> {{  problem.date() }}</div>
                 <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria"><i class="fa fa-check-circle"></i> {{  problem.votes() }}</div>
                 {#<div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius"><i class="fa fa-users"></i> 0</div>#}

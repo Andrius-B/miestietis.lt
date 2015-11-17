@@ -485,6 +485,19 @@ textarea {
 	margin-right: 15px;
 }
 
+.itemInfo div img {
+	display: inline-block;
+}
+
+.itemInfo div:not(:first-child) {
+	/*padding-top: 9.25px;*/
+}
+
+.itemInfo .profile-picture {
+	height: 1em;
+	vertical-align: -10%;
+}
+
 .tooltip-inner {
     border-radius: 0;
 }
@@ -543,6 +556,13 @@ input[readonly] {
 #login a i {
     font-size: 3em;
     margin: 35px 15px 50px 15px;
+}
+
+/* fixed issue with modal-open adding padding-right of 13px to the body */
+
+.modal-open {
+    padding-right: 0px !important;
+    overflow: auto;
 }
 
 

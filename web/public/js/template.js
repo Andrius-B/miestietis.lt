@@ -111,5 +111,9 @@
 			});
 		}
 		$('[data-toggle="tooltip"]').tooltip();
+
+
+
 	}); // End document ready
 })(this.jQuery);
+

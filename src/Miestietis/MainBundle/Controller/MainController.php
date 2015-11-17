@@ -9,12 +9,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class MainController extends Controller
 {
+
     public function indexAction()
     {
 
         $problems = [];
 
-        for($i = 6; $i<9; $i++) {
+        for($i = 1; $i<4; $i++) {
             $problems[] = $this->getDoctrine()
                 ->getRepository('MiestietisMainBundle:Problema')
                 ->find($i);
@@ -49,5 +50,3 @@ class MainController extends Controller
         return $response;//$data;
     }
 }
-
-
