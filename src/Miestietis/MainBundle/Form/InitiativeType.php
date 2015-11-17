@@ -11,10 +11,8 @@ class InitiativeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-//            ->add('initiative_date','datetime', array(
-//                'widget' => 'single_text',
-//                // this is actually the default format for single_text
-//                'format' => 'yyyy-MM-dd',
+//            ->add('initiative_date','datetime',
+//    'placeholder' => array('year' => 'Year', 'month' => 'Month', 'day' => 'Day')
 //            ))
             ->add('description', 'textarea',array('data'=>'Aprašymas'))
             ->add('save','submit',array('label'=>'Pateikti'));

@@ -1,4 +1,17 @@
 <!-- Modal -->
+{#{% use "bootstrap_3_layout.html.twig" %}#}
+{% if initiativeForm is defined %}
+    {% form_theme initiativeForm _self %}
+{% endif %}
+
+{% block textarea_widget %}
+    <div class="textarea_widget">
+        {% set type = type|default('text') %}
+        {{ block('form_widget_simple') }}
+    </div>
+{% endblock %}
+
+
 <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="add-label" aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
@@ -40,7 +53,8 @@
                             {#</form>#}
                             <div id="footer-form">
                                 {{ form_start(initiativeForm) }}
-                                {{ form_widget(initiativeForm) }}
+                                {{ form_widget(initiativeForm.description, { 'attr':{'class':'form-control'}})}}
+                                {{ form_widget(initiativeForm.save, { 'attr':{'class':'btn btn-default'}}) }}
                                 {{ form_end(initiativeForm) }}
                             </div>
                         </div>
