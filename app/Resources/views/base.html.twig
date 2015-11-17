@@ -77,9 +77,9 @@
                                                 {#<li><a href="app_dev.php/login">Prisijungimas</a></li>#}
                                                 <li><a data-toggle="modal" data-target="#add" id="addForm">Paskelbk problemą!</a></li>
                                                 {% if  user  != null %}
-                                                <li><a data-toggle="modal" data-target="#profile"><img src="{{ user.getProfilePicture() }}" alt="{{ user.getId()  }}" class = "profile-picture"></a></li>
+                                                <li id="profileLi" rel="Connected"><a data-toggle="modal" data-target="#profile"><img src="{{ user.getProfilePicture() }}" alt="{{ user.getId()  }}" class = "profile-picture"></a></li>
                                                 {% else %}
-                                                <li><a data-toggle="modal" data-target="#login">Prisijungimas</a></li>
+                                                <li id="profileLi" rel="notConnected"><a data-toggle="modal" data-target="#login">Prisijungimas</a></li>
                                                 {% endif %}
 
                                             </ul>

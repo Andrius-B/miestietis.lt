@@ -26,4 +26,39 @@ $(document).ready( function() {
         }
 
     });
+
+
+    var $addProblem = $('#newProblemAjaxForm');
+    $('body').on('submit', $addProblem, function(e){
+        e.preventDefault();
+        if($('#profileLi').attr('rel') == 'Connected'){
+            var name =$('#itemName').val();
+            var description = $('#itemDescription').val();
+            var file = $('#itemFile').val();
+            if(name != '' & description!= ''& file != ''){
+                var url = $('#beletristika').attr('url');
+                var data = {name: name, description: description, picture: file};
+                console.log(data);
+                console.log(url);
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    success: function(data)
+                    {
+                        alert(data.picture);
+                    },
+
+                    error: function(XMLHttpRequest, textStatus, errorThrown)
+                    {
+                        alert('Error : ' + errorThrown);
+                    }
+                });
+            }else {
+                alert('Visi laukai turi būti užpildyti');
+            }
+        }else{
+            alert('Norėdami paskelti miesto problemą prisijunkite');
+        }
+    });
 });
