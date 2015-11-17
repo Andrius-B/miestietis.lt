@@ -1,0 +1,57 @@
+<?php
+// src/Miestietis/MainBundle/Entity/Product.php
+namespace Miestietis\MainBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="initiative")
+ */
+class Initiative
+{
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="problems")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user_id;
+    /**
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="participations")
+     * @ORM\JoinTable(name="initiatives_join")
+     */
+    protected $participants;
+    /**
+     * @ORM\OneToOne(targetEntity="Problema")
+     * @ORM\JoinColumn(name="problem_id", referencedColumnName="id")
+     */
+    protected $problem_id;
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $registration_date;
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $initiative_date;
+    /**
+     * @ORM\Column(type="text")
+     */
+    protected $description;
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    protected $votes;
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $is_active;
+
+    public function __construct() {
+        $this->participants = new ArrayCollection();
+    }
+
+}

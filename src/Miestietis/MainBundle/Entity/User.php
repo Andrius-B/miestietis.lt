@@ -48,13 +48,32 @@ class User extends BaseUser
      *
      */
     protected $lastName;
+    /**
+     * @ORM\OneToMany(targetEntity="Problema", mappedBy="user_id")
+     */
+    protected $problems;
+    /**
+     * @ORM\OneToMany(targetEntity="Initiative", mappedBy="user_id")
+     */
+    protected $initiatives;
+    /**
+     * @ORM\ManyToMany(targetEntity="Initiative", mappedBy="user_id")
+     */
+    protected $participations;
 
     //YOU CAN ADD MORE CODE HERE !
+    public function __construct()
+    {
+        parent::__construct();
+        $this->problems = new ArrayCollection();
+        $this->initiatives = new ArrayCollection();
+        $this->participations = new ArrayCollection();
+
+    }
 
 
 
-
-
+ //----------------------------------------------------------------
     /**
      * Get id
      *
@@ -236,5 +255,107 @@ class User extends BaseUser
     public function getLAstName()
     {
         return $this->lastName;
+    }
+
+    /**
+     * Add problem
+     *
+     * @param \Miestietis\MainBundle\Entity\Problema $problem
+     *
+     * @return User
+     */
+    public function addProblem(\Miestietis\MainBundle\Entity\Problema $problem)
+    {
+        $this->problems[] = $problem;
+
+        return $this;
+    }
+
+    /**
+     * Remove problem
+     *
+     * @param \Miestietis\MainBundle\Entity\Problema $problem
+     */
+    public function removeProblem(\Miestietis\MainBundle\Entity\Problema $problem)
+    {
+        $this->problems->removeElement($problem);
+    }
+
+    /**
+     * Get problems
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProblems()
+    {
+        return $this->problems;
+    }
+
+    /**
+     * Add initiative
+     *
+     * @param \Miestietis\MainBundle\Entity\Initiative $initiative
+     *
+     * @return User
+     */
+    public function addInitiative(\Miestietis\MainBundle\Entity\Initiative $initiative)
+    {
+        $this->initiatives[] = $initiative;
+
+        return $this;
+    }
+
+    /**
+     * Remove initiative
+     *
+     * @param \Miestietis\MainBundle\Entity\Initiative $initiative
+     */
+    public function removeInitiative(\Miestietis\MainBundle\Entity\Initiative $initiative)
+    {
+        $this->initiatives->removeElement($initiative);
+    }
+
+    /**
+     * Get initiatives
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getInitiatives()
+    {
+        return $this->initiatives;
+    }
+
+    /**
+     * Add participation
+     *
+     * @param \Miestietis\MainBundle\Entity\Initiative $participation
+     *
+     * @return User
+     */
+    public function addParticipation(\Miestietis\MainBundle\Entity\Initiative $participation)
+    {
+        $this->participations[] = $participation;
+
+        return $this;
+    }
+
+    /**
+     * Remove participation
+     *
+     * @param \Miestietis\MainBundle\Entity\Initiative $participation
+     */
+    public function removeParticipation(\Miestietis\MainBundle\Entity\Initiative $participation)
+    {
+        $this->participations->removeElement($participation);
+    }
+
+    /**
+     * Get participations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getParticipations()
+    {
+        return $this->participations;
     }
 }

@@ -1,8 +1,8 @@
 <?php
 // src/Miestietis/MainBundle/Entity/Product.php
 namespace Miestietis\MainBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="problema")
@@ -16,7 +16,8 @@ class Problema
      */
     protected $id;
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="problems")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user_id;
     /**
@@ -39,8 +40,17 @@ class Problema
      * @ORM\Column(type="string")
      */
     protected $picture;
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $is_active;
+    /**
+     * @ORM\OneToOne(targetEntity="Initiative", mappedBy="problem_id")
+     */
+    private $initiative;
 
 
+    // -------------------------------------------------
     /**
      * Get id
      *
@@ -54,7 +64,7 @@ class Problema
     /**
      * Set userId
      *
-     * @param integer $userId
+     * @param User $userId
      *
      * @return Problema
      */
@@ -68,7 +78,7 @@ class Problema
     /**
      * Get userId
      *
-     * @return integer
+     * @return User
      */
     public function getUserId()
     {
@@ -193,5 +203,53 @@ class Problema
     public function getPicture()
     {
         return $this->picture;
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     *
+     * @return Problema
+     */
+    public function setIsActive($isActive)
+    {
+        $this->is_active = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean
+     */
+    public function getIsActive()
+    {
+        return $this->is_active;
+    }
+
+    /**
+     * Set initiative
+     *
+     * @param \Miestietis\MainBundle\Entity\Initiative $initiative
+     *
+     * @return Problema
+     */
+    public function setInitiative(\Miestietis\MainBundle\Entity\Initiative $initiative = null)
+    {
+        $this->initiative = $initiative;
+
+        return $this;
+    }
+
+    /**
+     * Get initiative
+     *
+     * @return \Miestietis\MainBundle\Entity\Initiative
+     */
+    public function getInitiative()
+    {
+        return $this->initiative;
     }
 }
