@@ -8,21 +8,21 @@
             </a>
         </div>
         <section class="itemContent">
-            <h4>{{ problem.name() }}</h4>
+            <img src="{{ problem.getUSerId().getProfilePicture() }}" class = "profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Problemos autorius">
             <div class="itemInfo">
+                <h4>{{ problem.name() }}</h4>
+                <div data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data"><i class="fa fa-calendar-plus-o"></i> {{  problem.date() }}</div>
+                <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria"><i class="fa fa-check-circle"></i> {{  problem.votes() }}</div>
+                <div class="clearfix"></div>
                 <div data-toggle="tooltip" data-placement="top" title="Problemos autorius">
-                    <img src="{{ problem.getUSerId().getProfilePicture() }}" class = "profile-picture" alt="">
                     {{ problem.getUserId().getFirstName }}
                     {{ problem.getUserId().getLastName() }}
                 </div>
-                <div data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data"><i class="fa fa-calendar-plus-o"></i> {{  problem.date() }}</div>
-                <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria"><i class="fa fa-check-circle"></i> {{  problem.votes() }}</div>
                 {#<div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius"><i class="fa fa-users"></i> 0</div>#}
             </div>
-            <div class="clearfix"></div>
-            <div class="text-left">
+            <div class="text-right">
                 <a data-toggle="modal" data-target="#project-{{ problem.id() }}" >
-                    <i data-toggle="tooltip" data-placement="top" title="Skaityti plačiau" class="fa fa-info-circle"></i>
+                    <i data-toggle="tooltip" data-placement="top" title="Skaityti plačiau" class="fa fa-info-circle"></i> {# tooltip is going crazy again #}
                 </a>
                 <a data-toggle="modal">
                     <i data-toggle="tooltip" data-placement="top" title="Pritariu problemai" class="fa fa-check-circle"></i>

@@ -453,10 +453,46 @@ textarea {
 .itemContent {
 	padding: 5px 15px;
 	border: 1px solid #cccccc;
+    position:relative;
 }
 
-.itemContent p {
-    margin: 10px 0 0 0;
+.itemContent > * {
+    vertical-align: middle;
+    margin: 5px 15px 5px 0;
+}
+
+.itemContent img {
+    height: 5em;
+    display: inline-block;
+}
+
+.itemContent > div {
+    display: inline-block;
+}
+
+.itemContent .text-right {
+    margin: 0;
+    position:absolute;
+    right: 15px;
+    bottom: 0;
+}
+
+.itemContent .fa:hover {
+    cursor: default;
+}
+
+.itemInfo h4 {
+    margin: 0 0 4px 0;
+}
+
+.itemInfo > div[title] {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.itemInfo div[data-original-title="Problemos autorius"] {
+    float: none;
+    cursor: default;
 }
 
 .itemContent a, .modal-footer a {
@@ -480,30 +516,13 @@ textarea {
 
 /* Content of an item */
 
-.itemInfo div {
-	float: left;
-	margin-right: 15px;
-}
 
-.itemInfo div img {
-	display: inline-block;
-}
 
-.itemInfo div:not(:first-child) {
-	/*padding-top: 9.25px;*/
-}
 
-.itemInfo .profile-picture {
-	height: 1em;
-	vertical-align: -10%;
-}
 
 .tooltip-inner {
+    white-space:pre; /* stopping tooltip from wrapping words */
     border-radius: 0;
-}
-
-.itemInfo .tooltip.top {
-    padding-left: 15px; /* tooltip arrow position fixed, due to .itemInfo div {margin property} */
 }
 
 .modal-body p {
