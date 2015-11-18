@@ -483,6 +483,11 @@ textarea {
 
 .itemInfo h4 {
     margin: 0 0 4px 0;
+    max-width: 400px;
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
 }
 
 .itemInfo > div[title] {
@@ -515,10 +520,6 @@ textarea {
 }
 
 /* Content of an item */
-
-
-
-
 
 .tooltip-inner {
     white-space:pre; /* stopping tooltip from wrapping words */
