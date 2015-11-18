@@ -51,7 +51,7 @@ class Initiative
     protected $is_active;
 
     public function __construct() {
-        $this->participants = new ArrayCollection();
+        //$this->participants = new ArrayCollection();
     }
 
     //------------------------------------------------------------------
