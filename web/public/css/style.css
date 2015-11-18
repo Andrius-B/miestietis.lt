@@ -640,7 +640,7 @@ input[readonly] {
 }
 
 #profile .modal-footer a {
-	padding-right: 0px;
+	padding-right: 0;
 	font-size: 0;
 }
 
