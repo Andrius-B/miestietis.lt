@@ -27,16 +27,18 @@ class MainController extends Controller
         $a = $i->findOneBy(array('username' => 895797333822283));
         echo $a;
         exit();*/
+
+        //initiative form'os set-up
         $initiative = new Initiative();
+        $initiative->setVotes(0);
+        $initiative->setIsActive(true);
+        $initiative->setRegistrationDate(date("Y-m-d"));
         $form = $this->createForm(new InitiativeType(), $initiative);
         $form->handleRequest($request);
-
-//        if($form->isValid()){ //patikrina ar bent vienas formos laukas uzpildytas
-//            $em = $this->getDoctrine()->getManager();
-//            $em->persist($initiative);//paruosia siuntimui i DB
-//            $em->flush();//nusiuncia i DB
-//            return $this->redirectToRoute('/');//nuveda i main page kad panaikintu requesta
-//        }
+        /*if($form->isValid()){
+            var_dump($initiative);
+            die(1);
+        }*/
 
         return $this->render('MiestietisMainBundle:Main:index.html.twig', array('problems' => $problems,
             'user' => $this->getUser(),

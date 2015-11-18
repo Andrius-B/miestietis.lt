@@ -1,17 +1,4 @@
 <!-- Modal -->
-{#{% use "bootstrap_3_layout.html.twig" %}#}
-{% if initiativeForm is defined %}
-    {% form_theme initiativeForm _self %}
-{% endif %}
-
-{% block textarea_widget %}
-    <div class="textarea_widget">
-        {% set type = type|default('text') %}
-        {{ block('form_widget_simple') }}
-    </div>
-{% endblock %}
-
-
 <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="add-label" aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
@@ -26,37 +13,33 @@
 
                     <div class="col-sm-12">
                         <div class="footer-content">
-                            {#<form role="form" id="footer-form">#}
-                                {#<div class="form-group has-feedback">#}
-                                    {#<label class="sr-only" for="itemName">Problemos/iniciatyvos pavadinimas</label>#}
-                                    {#<input type="text" class="form-control" id="itemName" placeholder="Problemos/iniciatyvos pavadinimas" name="itemName" required>#}
-                                    {#<i class="fa fa-info form-control-feedback"></i>#}
-                                {#</div>#}
-                                {#<div class="form-group has-feedback">#}
-                                    {#<label class="sr-only" for="itemDescription">Problemos/iniciatyvos aprašymas</label>#}
-                                    {#<textarea class="form-control" rows="8" id="itemDescription" placeholder="Problemos/iniciatyvos aprašymas" name="itemDescription" required></textarea>#}
-                                    {#<i class="fa fa-pencil form-control-feedback"></i>#}
-                                {#</div>#}
-                                {#<div class="form-group has-feedback">#}
-                                    {#<label class="sr-only" for="address">Adresas</label>#}
-                                    {#<input type="text" class="form-control" id="address" placeholder="Adresas" name="address" required>#}
-                                    {#<i class="fa fa-map-marker form-control-feedback"></i>#}
-                                {#</div>#}
-                                {#<div class="input-group has-feedback">#}
-                                    {#<span class="input-group-btn">#}
-                                        {#<span class="btn btn-default btn-file">#}
-                                            {#Įkelti nuotrauką <input type="file"> <!-- sutvarkyti css -->#}
-                                        {#</span>#}
-                                    {#</span>#}
-                                    {#<input type="text" class="form-control" readonly="readonly" disabled>#}
-                                {#</div>#}
-                            {#</form>#}
+                            <form role="form" id="footer-form">
+                                <div class="form-group has-feedback">
+                                    <label class="sr-only" for="itemName">Problemos/iniciatyvos pavadinimas</label>
+                                    <input type="text" class="form-control" id="itemName" placeholder="Problemos/iniciatyvos pavadinimas" name="itemName" required>
+                                    <i class="fa fa-info form-control-feedback"></i>
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <label class="sr-only" for="itemDescription">Problemos/iniciatyvos aprašymas</label>
+                                    <textarea class="form-control" rows="8" id="itemDescription" placeholder="Problemos/iniciatyvos aprašymas" name="itemDescription" required></textarea>
+                                    <i class="fa fa-pencil form-control-feedback"></i>
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <label class="sr-only" for="address">Adresas</label>
+                                    <input type="text" class="form-control" id="address" placeholder="Adresas" name="address" required>
+                                    <i class="fa fa-map-marker form-control-feedback"></i>
+                                </div>
+                                <div class="input-group has-feedback">
+                                    <span class="input-group-btn">
+                                        <span class="btn btn-default btn-file">
+                                            Įkelti nuotrauką <input type="file"> <!-- sutvarkyti css -->
+                                        </span>
+                                    </span>
+                                    <input type="text" class="form-control" readonly="readonly" disabled>
+                                </div>
+                            </form>
                             <div id="footer-form">
-                                {{ form_start(initiativeForm) }}
-                                {{ form_widget(initiativeForm.description, { 'attr':{'class':'form-control'}})}}
-                                {{ form_widget(initiativeForm.save, { 'attr':{'class':'btn btn-default'}}) }}
-                                {{ form_end(initiativeForm) }}
-                            </div>
+                          </div>
                         </div>
                     </div>
 
