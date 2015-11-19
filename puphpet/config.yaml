@@ -140,7 +140,7 @@ nginx:
             ssl_key: ''
 php:
     install: '1'
-    version: '56'
+    version: '55'
     composer: '1'
     composer_home: ''
     modules:
