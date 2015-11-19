@@ -27,7 +27,6 @@ $(document).ready( function() {
 
     });
 
-
     var $addProblem = $('#newProblemAjaxForm');
     $('body').on('submit', $addProblem, function(e){
         e.preventDefault();
@@ -55,10 +54,10 @@ $(document).ready( function() {
                     }
                 });
             }else {
-                alert('Visi laukai turi būti užpildyti');
+                alert('Visi laukai turi būti užpildyti'); // custom modal or message line
             }
         }else{
-            alert('Norėdami paskelti miesto problemą prisijunkite');
+            alert('Norėdami paskelbti miesto problemą prisijunkite'); // custom modal or message line
         }
     });
 });

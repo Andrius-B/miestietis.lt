@@ -453,22 +453,60 @@ textarea {
 .itemContent {
 	padding: 5px 15px;
 	border: 1px solid #cccccc;
+    position:relative;
 }
 
-.itemContent p {
-    margin: 10px 0 0 0;
+.itemContent > * {
+    vertical-align: middle;
+    margin: 5px 15px 5px 0;
+}
+
+.itemContent img {
+    height: 5em;
+}
+
+.itemContent img,
+.itemContent > div,
+.itemInfo > div[title],
+.modal-body .itemInfo,
+.modal-body .profile-picture,
+.modal-body .itemInfo > div {
+    display: inline-block;
+}
+
+.itemContent .text-right {
+    margin: 0;
+    position:absolute;
+    right: 15px;
+    bottom: 0;
+}
+
+.itemContent .fa:hover {
+    cursor: default;
+}
+
+.itemInfo h4 {
+    margin: 0 0 4px 0;
+    max-width: 400px;
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+.itemInfo > div[title] {
+    margin-right: 15px;
+}
+
+.itemInfo div[data-original-title="Problemos autorius"] {
+    cursor: default;
 }
 
 .itemContent a, .modal-footer a {
 	font-size: 2.5em;
     text-decoration: none;
 }
-.modal-footer {
-	padding: 5px;
-}
-.modal-footer a {
-	padding-right: 0.2em;
-}
+
 .fa:hover {
 	cursor: pointer;
 }
@@ -480,26 +518,62 @@ textarea {
 
 /* Content of an item */
 
-.itemInfo div {
-	float: left;
-	margin-right: 15px;
-}
-
 .tooltip-inner {
+    white-space:pre; /* stopping tooltip from wrapping words */
     border-radius: 0;
-}
-
-.itemInfo .tooltip.top {
-    padding-left: 15px; /* tooltip arrow position fixed, due to .itemInfo div {margin property} */
 }
 
 .modal-body p {
 	text-indent: 30px;
-	padding-top: 10px;
+	padding-top: 5px;
 }
 
-.modal-body address {
+.modal-body .profile-picture {
+    margin-right: 10px;
+}
+
+.modal-body .itemInfo {
+    vertical-align: middle;
+}
+
+.modal-body .itemInfo div[data-original-title="Problemos autorius"] {
+	display: inline-block;
+}
+
+hr {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.modal-footer {
+    height:4.5em;
+    padding: 5px 5px 5px 15px;
+    text-align:left;
+    position: relative;
+}
+.modal-footer a {
+    padding-right: 0.3em;
+    line-height: 0;
+}
+
+.modal-footer .wrap-item-info-left > * {
 	display:inline-block;
+	padding-right: 15px; /* needs fix for tooltip */
+}
+
+.modal-footer .wrap-item-info-left > * ~ div[role] { /* tooltip fix */
+    padding-right: 0;
+}
+
+.modal-footer .wrap-item-info-left {
+	margin-top: 17px;
+}
+
+.modal-footer .wrap-buttons-right {
+    position: absolute;
+    right:0;
+    top:50%;
+    transform: translate(0, -50%);
 }
 
 /* Add item modal form */
@@ -545,7 +619,12 @@ input[readonly] {
     margin: 35px 15px 50px 15px;
 }
 
+/* fixed issue with modal-open adding padding-right of 13px to the body */
 
+.modal-open {
+    padding-right: 0px !important;
+    overflow: auto;
+}
 
 /* Large devices (Large desktops 1200px and up) */
 @media (min-width:1200px) {

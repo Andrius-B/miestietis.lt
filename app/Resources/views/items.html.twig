@@ -8,16 +8,19 @@
             </a>
         </div>
         <section class="itemContent">
-            <h4>{{ problem.name() }}</h4>
+            <img src="{{ problem.getUSerId().getProfilePicture() }}" class = "profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Problemos autorius">
             <div class="itemInfo">
-                <div data-toggle="tooltip" data-placement="top" title="Problemos autorius">{#<i class="fa fa-user"></i>#}
-                    <img src="{{ problem.getUSerId().getProfilePicture() }}"class = "profile-picture" alt=""> {{ problem.getUserId().getFirstName }} {{ problem.getUserId().getLastName() }}</div>
+                <h4>{{ problem.name() }}</h4>
                 <div data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data"><i class="fa fa-calendar-plus-o"></i> {{  problem.date() }}</div>
                 <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria"><i class="fa fa-check-circle"></i> {{  problem.votes() }}</div>
+                <div class="clearfix"></div>
+                <div data-toggle="tooltip" data-placement="top" title="Problemos autorius">
+                    {{ problem.getUserId().getFirstName }}
+                    {{ problem.getUserId().getLastName() }}
+                </div>
                 {#<div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius"><i class="fa fa-users"></i> 0</div>#}
             </div>
-            <div class="clearfix"></div>
-            <div class="text-left">
+            <div class="text-right">
                 <a data-toggle="modal" data-target="#project-{{ problem.id() }}" >
                     <i data-toggle="tooltip" data-placement="top" title="Skaityti plačiau" class="fa fa-info-circle"></i>
                 </a>
@@ -46,26 +49,39 @@
                             <img src="{{ asset('/public/images/problems/'~ problem.picture()) }}" alt="">
                         </div>
                         <div class="col-md-6">
+                            <img src="{{ problem.getUSerId().getProfilePicture() }}" class="profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Problemos autorius">
                             <div class="itemInfo">
-                                <div data-toggle="tooltip" data-placement="top" title="Problemos autorius">{#<i class="fa fa-user"></i>#}<img src="{{ problem.getUSerId().getProfilePicture() }}"class = "profile-picture" alt=""> {{ problem.getUserId().getFirstName }} {{ problem.getUserId().getLastName() }}</div>
+                                <div data-toggle="tooltip" data-placement="top" title="Problemos autorius"> {# tooltip is going crazy again #}
+                                    {{ problem.getUserId().getFirstName }} {{ problem.getUserId().getLastName() }}
+                                </div>
+                                <br> {# quick hax for tooltip, will not work is div display property is changed #}
                                 <div data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data"><i class="fa fa-calendar-plus-o"></i> {{  problem.date() }}</div>
-                                <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria"><i class="fa fa-check-circle"></i> {{  problem.votes() }}</div>
-                                <div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius"><i class="fa fa-users"></i> 38</div>
+                                <div data-toggle="tooltip" data-placement="top" title="Redaguoti problemą"><i class="fa fa-pencil"></i> Redaguoti</div>
+
                             </div>
                             <div class="clearfix"></div>
+                            <hr>
                             <p>{{ problem.description() }}</p>
-                            <address data-toggle="tooltip" data-placement="top" title="Problemos adresas">
-                                <i class="fa fa-map-marker"></i> Karaliaus Mindaugo pr. 38<br>
-                            </address>
                         </div>
 
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a data-toggle="modal"><i data-toggle="tooltip" data-placement="top" title="Pritariu problemai" class="fa fa-check-circle"></i></a>
-                    {#<a data-toggle="modal"><i data-toggle="tooltip" data-placement="top" title="Prisijungti prie iniciatyvos" class="fa fa-arrow-circle-right"></i></a>#}
-                    <a data-toggle="modal"><i data-toggle="tooltip" data-placement="top" title="Skelbti iniciatyvą" class="fa fa-bullhorn"></i></a>
-                    {#<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Uždaryti</button>#}
+                    <div class="wrap-item-info-left">
+                        <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria"><i class="fa fa-check-circle"></i> {{  problem.votes() }}</div>
+                        <div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius"><i class="fa fa-users"></i> 38</div>
+                        <address data-toggle="tooltip" data-placement="top" title="Problemos adresas">
+                            <i class="fa fa-map-marker"></i> Karaliaus Mindaugo pr. 38<br>
+                        </address>
+                    </div>
+                    <div class="wrap-buttons-right">
+                        <a data-toggle="modal"><i data-toggle="tooltip" data-placement="top" title="Pritariu problemai" class="fa fa-check-circle"></i></a>
+                        <a data-toggle="modal"><i data-toggle="tooltip" data-placement="top" title="Komentarai" class="fa fa-comments"></i></a>
+                        <a data-toggle="modal"><i data-toggle="tooltip" data-placement="top" title="Skelbti iniciatyvą" class="fa fa-bullhorn"></i></a>
+                        {#<a data-toggle="modal"><i data-toggle="tooltip" data-placement="top" title="Prisijungti prie iniciatyvos" class="fa fa-arrow-circle-right"></i></a>#}
+                    </div>
+
+
                 </div>
             </div>
         </div>

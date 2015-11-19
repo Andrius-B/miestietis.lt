@@ -9,7 +9,6 @@ use Miestietis\MainBundle\Entity\Initiative;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-
 class MainController extends Controller
 {
     public function indexAction(Request $request)
@@ -17,7 +16,7 @@ class MainController extends Controller
 
         $problems = [];
 
-        for($i = 6; $i<9; $i++) {
+        for($i = 1; $i<4; $i++) {
             $problems[] = $this->getDoctrine()
                 ->getRepository('MiestietisMainBundle:Problema')
                 ->find($i);
@@ -66,5 +65,3 @@ class MainController extends Controller
         return $response;//$data;
     }
 }
-
-
