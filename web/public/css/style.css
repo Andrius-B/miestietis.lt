@@ -463,10 +463,14 @@ textarea {
 
 .itemContent img {
     height: 5em;
-    display: inline-block;
 }
 
-.itemContent > div {
+.itemContent img,
+.itemContent > div,
+.itemInfo > div[title],
+.modal-body .itemInfo,
+.modal-body .profile-picture,
+.modal-body .itemInfo > div {
     display: inline-block;
 }
 
@@ -491,7 +495,6 @@ textarea {
 }
 
 .itemInfo > div[title] {
-    display: inline-block;
     margin-right: 15px;
 }
 
@@ -504,12 +507,7 @@ textarea {
 	font-size: 2.5em;
     text-decoration: none;
 }
-.modal-footer {
-	padding: 5px;
-}
-.modal-footer a {
-	padding-right: 0.2em;
-}
+
 .fa:hover {
 	cursor: pointer;
 }
@@ -528,11 +526,31 @@ textarea {
 
 .modal-body p {
 	text-indent: 30px;
-	padding-top: 10px;
+	padding-top: 5px;
 }
 
-.modal-body address {
-	display:inline-block;
+.modal-body .profile-picture {
+    margin-right: 10px;
+}
+
+.modal-body .itemInfo {
+    vertical-align: middle;
+}
+
+.modal-body .itemInfo div[data-original-title="Problemos autorius"] {
+	display: block;
+}
+
+hr {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.modal-footer {
+    padding: 5px;
+}
+.modal-footer a {
+    padding-right: 0.2em;
 }
 
 /* Add item modal form */
@@ -584,8 +602,6 @@ input[readonly] {
     padding-right: 0px !important;
     overflow: auto;
 }
-
-
 
 /* Large devices (Large desktops 1200px and up) */
 @media (min-width:1200px) {
