@@ -4,13 +4,17 @@ namespace Miestietis\MainBundle\Services;
 use Symfony\Component\HttpFoundation\Response;
 use Miestietis\MainBundle\Entity\Problema;
 use Miestietis\MainBundle\Entity\User;
+use Doctrine\ORM\EntityManager;
 
 class Database
 {
+    private $em;
+    public function __construct(EntityManager $entityManager){
+        $this->em = $entityManager;
+    }
     public function insertProblem($name, $description, $picture, User $user){
         $problem = new Problema();
         $time = getdate();
-        $em = $this->getDoctrine()->getManager();
 
         $problem->setName($name);
         $problem->setPicture($picture);
@@ -20,8 +24,11 @@ class Database
         $problem->setIsActive(true);
         $problem->setDate($time['year'].' '.$time['mon'].' '.$time['yday']);
 
-        $em->persist($problem);
-        $em->flush;
+        if($this->em == null){
+            return 0;
+        }
+        $this->em->persist($problem);
+        $this->em->flush();
 
         return $problem;
     }

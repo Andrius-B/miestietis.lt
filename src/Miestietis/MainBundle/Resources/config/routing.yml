@@ -10,4 +10,4 @@ delete:
     defaults: { _controller: MiestietisMainBundle:User:delete }
 ajax_problem:
     path:     /ajaxProblem
-    defaults: { _controller: MiestietisMainBundle:Main:problem }
+    defaults: { _controller: MiestietisMainBundle:Ajax:problem }

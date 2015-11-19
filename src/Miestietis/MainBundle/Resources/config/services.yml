@@ -12,3 +12,4 @@ services:
         arguments: [@fos_user.user_manager,{facebook: facebook_id, google: google_id}]
     db_handler:
         class: Miestietis\MainBundle\Services\Database
+        arguments: [ "@doctrine.orm.entity_manager" ]
