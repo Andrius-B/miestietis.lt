@@ -499,7 +499,6 @@ textarea {
 }
 
 .itemInfo div[data-original-title="Problemos autorius"] {
-    float: none;
     cursor: default;
 }
 
@@ -538,7 +537,7 @@ textarea {
 }
 
 .modal-body .itemInfo div[data-original-title="Problemos autorius"] {
-	display: block;
+	display: inline-block;
 }
 
 hr {
@@ -547,10 +546,34 @@ hr {
 }
 
 .modal-footer {
-    padding: 5px;
+    height:4.5em;
+    padding: 5px 5px 5px 15px;
+    text-align:left;
+    position: relative;
 }
 .modal-footer a {
-    padding-right: 0.2em;
+    padding-right: 0.3em;
+    line-height: 0;
+}
+
+.modal-footer .wrap-item-info-left > * {
+	display:inline-block;
+	padding-right: 15px; /* needs fix for tooltip */
+}
+
+.modal-footer .wrap-item-info-left > * ~ div[role] { /* tooltip fix */
+    padding-right: 0;
+}
+
+.modal-footer .wrap-item-info-left {
+	margin-top: 17px;
+}
+
+.modal-footer .wrap-buttons-right {
+    position: absolute;
+    right:0;
+    top:50%;
+    transform: translate(0, -50%);
 }
 
 /* Add item modal form */
