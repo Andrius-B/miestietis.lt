@@ -11,6 +11,9 @@
                             <img src="{{ user.getProfilePicture() }}" alt="{{ user.getId()  }}" class = "profile-picture_medium">
                             <p class="user-name-profile">{{ user.getFirstName() }} {{ user.getLastName() }}</p>
                             {% endif %}
+                            <div class="history-content">
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -18,7 +21,8 @@
             <div class="modal-footer">
                 <div class="text-center">
                     <a href="{{ path('fos_user_security_logout') }}"><input type="submit" value="Atsijungti" class="btn btn-default"></a>
-                    <a id="loadHistory" href="{{ path('ajax_history') }}"><input type="submit" value="Resize" class="btn btn-default"></a><!-- here should add ajax request from database -->
+                    <a class="moreHistory" href="{{ path('ajax_history') }}"><input type="submit" id="historyButtonMore" value="Peržiūrėti istoriją" class="btn btn-default"></a>
+                    <!-- here should add ajax request from database -->
                 </div>
             </div>
         </div>

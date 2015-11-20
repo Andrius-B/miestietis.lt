@@ -733,6 +733,14 @@ input[readonly] {
     text-align: center;
 }
 
+#profile .btn-default:focus {
+	background-color: #ffffff;
+}
+#profile .btn:focus {
+	outline: none;
+	color: #55acee;
+	border: 1px solid #cccccc;
+}
 
 /* Fixed Header
 ----------------------------------------------------------------------------- */
