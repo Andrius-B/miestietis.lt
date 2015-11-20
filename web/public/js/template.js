@@ -112,6 +112,9 @@
 		}
 		$('[data-toggle="tooltip"]').tooltip();
 
+		//$('#resize').click(function(){
+		//	$(".modal-dialog").animate({"width":"200px"},600,'linear');
+		//});
 
         // $("#itemFile").fileinput(); initialize file upload preview plugin
 	}); // End document ready

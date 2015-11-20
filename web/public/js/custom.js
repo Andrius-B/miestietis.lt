@@ -60,4 +60,23 @@ $(document).ready( function() {
             alert('Norėdami paskelbti miesto problemą prisijunkite'); // custom modal or message line
         }
     });
+
+    $("#loadHistory").click(function(event){
+        event.preventDefault();
+        var url = $('#loadHistory').attr('href');
+        $.ajax({
+            type: "POST",
+            url: url,
+            cache: "false",
+            dataType: "html",
+            success: function(result)
+            {
+                $("div.footer-content").append(result);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown)
+            {
+                alert('Error : ' + errorThrown);
+            }
+        });
+    });
 });
