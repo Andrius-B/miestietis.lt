@@ -1,18 +1,20 @@
-<!-- Modal -->
+<!-- Modal less -->
 <div class="modal fade" id="profile" tabindex="-1" role="dialog" aria-labelledby="login-label" aria-hidden="true">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-body">
-                <h2 class="modal-title text-center">Profilis</h2>
+                {#<h2 class="modal-title text-center">Profilis</h2>#}
                 <div class="row">
                     <div class="col-sm-8 col-sm-offset-2">
                         <div class="footer-content text-center">
                             {% if  user  != null %}
                             <img src="{{ user.getProfilePicture() }}" alt="{{ user.getId()  }}" class = "profile-picture_medium">
-                            <p class="user-name-profile">{{ user.getFirstName() }} {{ user.getLastName() }}</p>
+                            {#<p class="user-name-profile">{{ user.getFirstName() }} {{ user.getLastName() }}</p>#}
+                                {#<a class="moreHistory" href="{{ path('ajax_history') }}"><i data-toggle="tooltip" data-placement="top" title="Peržiūrėti istoriją" class="fa fa-ellipsis-h"></i></a>#}
+                                <a data-toggle="modal" data-target="#profileMore" data-dismiss="modal"><i data-toggle="tooltip" data-placement="top" title="Peržiūrėti istoriją" class="fa fa-ellipsis-h"></i></a>
                             {% endif %}
                             <div class="history-content">
-
+                                <a href="{{ path('fos_user_security_logout') }}"></a>
                             </div>
                         </div>
                     </div>
@@ -21,7 +23,52 @@
             <div class="modal-footer">
                 <div class="text-center">
                     <a href="{{ path('fos_user_security_logout') }}"><input type="submit" value="Atsijungti" class="btn btn-default"></a>
-                    <a class="moreHistory" href="{{ path('ajax_history') }}"><input type="submit" id="historyButtonMore" value="Peržiūrėti istoriją" class="btn btn-default"></a>
+
+                    <!-- here should add ajax request from database -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal end -->
+
+<!-- Modal more -->
+<div class="modal fade" id="profileMore" tabindex="-1" role="dialog" aria-labelledby="login-label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                {% if  user  != null %}
+                    <img src="{{ user.getProfilePicture() }}" alt="{{ user.getId()  }}" class = "profile-picture_medium">
+                    <p class="user-name-profile">{{ user.getFirstName() }} {{ user.getLastName() }}</p>
+                    <p class="last-login">Paskutinis prisijungimas: {{ user.getLastLogin() }}</p>
+                {% endif %}
+            </div>
+
+            <div class="modal-body">
+                {#<h2 class="modal-title text-center">Profilis</h2>#}
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <div class="footer-content text-center">
+                            {% if  user  != null %}
+                                <img src="{{ user.getProfilePicture() }}" alt="{{ user.getId()  }}" class = "profile-picture_medium">
+                                <p class="user-name-profile">{{ user.getFirstName() }} {{ user.getLastName() }}</p>
+                            {% endif %}
+
+
+
+                            <div class="history-content">
+
+                            </div>
+                            <a class="moreHistory" href="{{ path('ajax_history') }}"><i data-toggle="tooltip" data-placement="top" title="Peržiūrėti istoriją" class="fa fa-ellipsis-h"></i></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="text-center">
+                    <a href="{{ path('fos_user_security_logout') }}"><input type="submit" value="Atsijungti" class="btn btn-default"></a>
+
                     <!-- here should add ajax request from database -->
                 </div>
             </div>
