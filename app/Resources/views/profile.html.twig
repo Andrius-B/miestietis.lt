@@ -9,13 +9,12 @@
                         <div class="footer-content text-center">
                             {% if  user  != null %}
                             <img src="{{ user.getProfilePicture() }}" alt="{{ user.getId()  }}" class = "profile-picture_medium">
-                            {#<p class="user-name-profile">{{ user.getFirstName() }} {{ user.getLastName() }}</p>#}
-                                {#<a class="moreHistory" href="{{ path('ajax_history') }}"><i data-toggle="tooltip" data-placement="top" title="Peržiūrėti istoriją" class="fa fa-ellipsis-h"></i></a>#}
-                                <a data-toggle="modal" data-target="#profileMore" data-dismiss="modal"><i data-toggle="tooltip" data-placement="top" title="Peržiūrėti istoriją" class="fa fa-ellipsis-h"></i></a>
+                                {# last_login turbut rodo kaip paskutini o ne pries paskutini #}
+                            <p class="last-login">Paskutinis prisijungimas: {{ user.getLastLogin|date('Y-m-d H:i:s') }}</p>
+                                {# t.b. ajax'ine uzklausa #}
+                            <a data-toggle="modal" data-target="#profile-more" data-dismiss="modal"><i data-toggle="tooltip" data-placement="top" title="Peržiūrėti istoriją" class="fa fa-ellipsis-h"></i></a>
                             {% endif %}
-                            <div class="history-content">
-                                <a href="{{ path('fos_user_security_logout') }}"></a>
-                            </div>
+                            <a href="{{ path('fos_user_security_logout') }}"></a>
                         </div>
                     </div>
                 </div>
@@ -33,32 +32,74 @@
 <!-- Modal end -->
 
 <!-- Modal more -->
-<div class="modal fade" id="profileMore" tabindex="-1" role="dialog" aria-labelledby="login-label" aria-hidden="true">
+<div class="modal fade" id="profile-more" tabindex="-1" role="dialog" aria-labelledby="login-label" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 {% if  user  != null %}
                     <img src="{{ user.getProfilePicture() }}" alt="{{ user.getId()  }}" class = "profile-picture_medium">
-                    <p class="user-name-profile">{{ user.getFirstName() }} {{ user.getLastName() }}</p>
-                    <p class="last-login">Paskutinis prisijungimas: {{ user.getLastLogin() }}</p>
+                    <div>
+                        <h4>
+                            {{ user.getFirstName() }} {{ user.getLastName() }}
+                            <a href="{{ path('fos_user_security_logout') }}">
+                                <i class="fa fa-sign-out"></i>
+                            </a>
+                        </h4>
+                        <p class="last-login">Paskutinis prisijungimas: {{ user.getLastLogin|date('Y-m-d H:i:s') }}</p>
+                    </div>
+                    <div class="counter-wrapper">
+                        <div class="item-counter">
+                            <span>28</span><br>
+                            Sukurta <br>
+                            problemų
+                        </div>
+                        <div class="item-counter">
+                            <span>13</span><br>
+                            Pritarta <br>
+                            problemų
+                        </div>
+                    </div>
                 {% endif %}
             </div>
-
+            <hr>
             <div class="modal-body">
                 {#<h2 class="modal-title text-center">Profilis</h2>#}
                 <div class="row">
                     <div class="col-sm-8 col-sm-offset-2">
                         <div class="footer-content text-center">
-                            {% if  user  != null %}
-                                <img src="{{ user.getProfilePicture() }}" alt="{{ user.getId()  }}" class = "profile-picture_medium">
-                                <p class="user-name-profile">{{ user.getFirstName() }} {{ user.getLastName() }}</p>
-                            {% endif %}
-
-
-
+                            <table class="table">
+                                <tr>
+                                    <td>Griuvėsiai prie akropolio
+                                        <i data-toggle="tooltip" data-placement="top" title="Redaguoti problemą" class="fa fa-pencil">
+                                            Redaguoti
+                                        </i>
+                                    </td>
+                                    <td>Problema</td>
+                                    <td>
+                                        <div data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data"><i class="fa fa-calendar-plus-o"></i> 2015-11-20</div>
+                                    </td>
+                                    <td>
+                                        <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria"><i class="fa fa-check-circle"></i> 0</div>
+                                    </td>
+                                    <td>
+                                        <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria"><i class="fa fa-check-circle"></i> 38</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Mary</td>
+                                    <td>Moe</td>
+                                    <td>mary@example.com</td>
+                                </tr>
+                                <tr>
+                                    <td>July</td>
+                                    <td>Dooley</td>
+                                    <td>july@example.com</td>
+                                </tr>
+                            </table>
                             <div class="history-content">
 
                             </div>
+
                             <a class="moreHistory" href="{{ path('ajax_history') }}"><i data-toggle="tooltip" data-placement="top" title="Peržiūrėti istoriją" class="fa fa-ellipsis-h"></i></a>
 
                         </div>

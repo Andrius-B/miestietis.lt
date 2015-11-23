@@ -27,8 +27,28 @@ class User extends BaseUser
     protected $google_id;
     /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
     protected $google_access_token;
-    /** @ORM\Column(name="last_login", type="string", nullable=true) */
-    protected $lastLogin;
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="last_login", type="datetime", nullable=true)
+//     */
+//    protected $lastLogin;
+//
+//    /**
+//     * @ORM\Column(name="last_login", type="datetime", nullable=true)
+//     */
+//    public function getLastLogin()
+//    {
+//        return $this->lastLogin;
+//    }
+//
+//    /**
+//     * @param mixed $lastLogin
+//     */
+//    public function setLastLogin($lastLogin)
+//    {
+//        $this->lastLogin = $lastLogin;
+//    }
 
 
     /**
@@ -78,13 +98,6 @@ class User extends BaseUser
 
 
  //----------------------------------------------------------------
-    /**
-     * @ORM\Column(name="last_login", type="datetime", nullable=true)
-     */
-    public function getLastLogin()
-    {
-        return $this->lastLogin;
-    }
 
     /**
      * Get id

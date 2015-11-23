@@ -711,11 +711,18 @@ input[readonly] {
 	}
 }
 
-/* Profile modal
+/* Profile modal less
 ----------------------------------------------------------------------------- */
 
 #profile .modal-body {
 	padding-bottom: 5px;
+}
+
+#profile .last-login {
+	padding-top: 0;
+	text-indent: 0;
+    font-size: 0.9em;
+    margin-bottom: 0;
 }
 
 #profile .modal-footer {
@@ -733,9 +740,6 @@ input[readonly] {
     border-radius: 50%;
     margin: auto;
 }
-.user-name-profile {
-    text-align: center;
-}
 
 #profile .btn-default:focus {
 	background-color: #ffffff;
@@ -746,8 +750,79 @@ input[readonly] {
 	border: 1px solid #cccccc;
 }
 
-.moreHistory .fa {
+/* Profile modal more
+------------------------------*/
+
+.fa[class*="ellipsis"] {
 	font-size: 2.5em;
+}
+
+#profile-more .modal-header {
+    color: #000;
+    background-color: #fff;
+    border-bottom: none;
+    padding: 0;
+}
+
+
+#profile-more .modal-header img,
+#profile-more .modal-header div {
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px;
+}
+
+#profile-more .modal-header div {
+    padding-top:10px;
+    margin-left:-5px;
+}
+
+#profile-more .modal-header h4 {
+    color: #000;
+    font-family: "Open Sans";
+    font-weight: 400;
+    font-size: 1.5em;
+    line-height: 1;
+    margin: 0;
+}
+
+#profile-more .modal-header p {
+    margin-bottom: 0;
+    font-size: 0.75em;
+}
+
+#profile-more .modal-header .counter-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+}
+
+#profile-more .item-counter {
+    font-size: 0.65em;
+    text-align: center;
+    line-height: 1.195;
+    width: 100px;
+    height: 100px;
+    border: 1px solid #000;
+    border-radius: 50%;
+    margin: 20px 15px 0 0 !important;
+}
+
+#profile-more .item-counter span {
+    font-family: "Raleway";
+    font-size: 40px;
+}
+
+#profile-more hr {
+    max-width: 98%;
+    margin:0;
+}
+
+#profile-more .modal-footer a {
+    padding-right: 0;
+    line-height: 1.35;
 }
 
 /* Fixed Header
