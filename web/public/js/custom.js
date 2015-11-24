@@ -27,8 +27,8 @@ $(document).ready( function() {
 
     });
 
-    var $addProblem = $('#newProblemAjaxForm');
-    $('body').on('submit', $addProblem, function(e){
+    var addProblem = $('#newProblemAjaxForm');
+    $('#newProblem').on('click', addProblem, function(e){
         e.preventDefault();
         if($('#profileLi').attr('rel') == 'Connected'){
             var name =$('#itemName').val();

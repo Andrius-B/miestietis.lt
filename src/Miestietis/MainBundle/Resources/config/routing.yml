@@ -11,3 +11,9 @@ delete:
 ajax_problem:
     path:     /ajaxProblem
     defaults: { _controller: MiestietisMainBundle:Ajax:problem }
+ajax_initiative:
+    path: /ajaxInitiative
+    defaults: { _controller: MiestietisMainBundle:Ajax:initiative }
+ajax_upvote:
+    path: /ajaxUpvote
+    defaults: {_controller: MiestietisMainBundle:Ajax:upvote}

@@ -12,7 +12,7 @@
             <div class="itemInfo">
                 <h4>{{ problem.name() }}</h4>
                 <div data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data"><i class="fa fa-calendar-plus-o"></i> {{  problem.date() }}</div>
-                <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria"><i class="fa fa-check-circle"></i> {{  problem.votes() }}</div>
+                <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria"><i class="fa fa-check-circle"></i><span class="votes-{{ problem.id() }}">{{  problem.votes() }}</span></div>
                 <div class="clearfix"></div>
                 <div data-toggle="tooltip" data-placement="top" title="Problemos autorius">
                     {{ problem.getUserId().getFirstName }}
@@ -24,7 +24,7 @@
                 <a data-toggle="modal" data-target="#project-{{ problem.id() }}" >
                     <i data-toggle="tooltip" data-placement="top" title="Skaityti plačiau" class="fa fa-info-circle"></i>
                 </a>
-                <a data-toggle="modal">
+                <a data-toggle="modal" class="incVote" probId="{{ problem.id() }}" url="{{ path('ajax_upvote') }}">
                     <i data-toggle="tooltip" data-placement="top" title="Pritariu problemai" class="fa fa-check-circle"></i>
                 </a>{#
                 <a data-toggle="modal">
@@ -68,16 +68,16 @@
                 </div>
                 <div class="modal-footer">
                     <div class="wrap-item-info-left">
-                        <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria"><i class="fa fa-check-circle"></i> {{  problem.votes() }}</div>
-                        <div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius"><i class="fa fa-users"></i> 38</div>
+                        <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria"><i class="fa fa-check-circle"></i><span class="votes-{{ problem.id() }}">{{  problem.votes() }}</span></div>
+                        <div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius"><i class="fa fa-users"></i>38</div>
                         <address data-toggle="tooltip" data-placement="top" title="Problemos adresas">
                             <i class="fa fa-map-marker"></i> Karaliaus Mindaugo pr. 38<br>
                         </address>
                     </div>
                     <div class="wrap-buttons-right">
-                        <a data-toggle="modal"><i data-toggle="tooltip" data-placement="top" title="Pritariu problemai" class="fa fa-check-circle"></i></a>
+                        <a data-toggle="modal" class="incVote" probId="{{ problem.id() }}" url="{{ path('ajax_upvote') }}"><i data-toggle="tooltip" data-placement="top"  title="Pritariu problemai" class="fa fa-check-circle"></i></a>
                         <a data-toggle="modal"><i data-toggle="tooltip" data-placement="top" title="Komentarai" class="fa fa-comments"></i></a>
-                        <a data-toggle="modal"><i data-toggle="tooltip" data-placement="top" title="Skelbti iniciatyvą" class="fa fa-bullhorn"></i></a>
+                        <a data-toggle="modal" class="openInitiativeModal" data-target="#addInitiative" probId="{{ problem.id() }}"><i data-toggle="tooltip" data-placement="top" title="Skelbti iniciatyvą" class="fa fa-bullhorn"></i></a>
                         {#<a data-toggle="modal"><i data-toggle="tooltip" data-placement="top" title="Prisijungti prie iniciatyvos" class="fa fa-arrow-circle-right"></i></a>#}
                     </div>
 

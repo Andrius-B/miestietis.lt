@@ -51,6 +51,11 @@ class Problema
 
 
     // -------------------------------------------------
+    public function  incrementVote(){
+        $this->votes++;
+        return $this->votes;
+    }
+
     /**
      * Get id
      *
