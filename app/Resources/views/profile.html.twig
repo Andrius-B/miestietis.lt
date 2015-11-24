@@ -12,7 +12,7 @@
                                 {# last_login turbut rodo kaip paskutini o ne pries paskutini #}
                             <p class="last-login">Paskutinis prisijungimas: {{ user.getLastLogin|date('Y-m-d H:i:s') }}</p>
                                 {# t.b. ajax'ine uzklausa #}
-                            <a data-toggle="modal" data-target="#profile-more" data-dismiss="modal"><i data-toggle="tooltip" data-placement="top" title="Peržiūrėti istoriją" class="fa fa-ellipsis-h"></i></a>
+                            <a data-toggle="modal" data-target="#profile-more" data-dismiss="modal"><i data-toggle="tooltip" data-placement="top" title="Peržiūrėti istoriją" class="fa fa-angle-double-down"></i></a>
                             {% endif %}
                             <a href="{{ path('fos_user_security_logout') }}"></a>
                         </div>
@@ -63,46 +63,130 @@
             </div>
             <hr>
             <div class="modal-body">
-                {#<h2 class="modal-title text-center">Profilis</h2>#}
                 <div class="row">
-                    <div class="col-sm-8 col-sm-offset-2">
-                        <div class="footer-content text-center">
-                            <table class="table">
-                                <tr>
-                                    <td>Griuvėsiai prie akropolio
-                                        <i data-toggle="tooltip" data-placement="top" title="Redaguoti problemą" class="fa fa-pencil">
-                                            Redaguoti
-                                        </i>
-                                    </td>
-                                    <td>Problema</td>
-                                    <td>
-                                        <div data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data"><i class="fa fa-calendar-plus-o"></i> 2015-11-20</div>
-                                    </td>
-                                    <td>
-                                        <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria"><i class="fa fa-check-circle"></i> 0</div>
-                                    </td>
-                                    <td>
-                                        <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria"><i class="fa fa-check-circle"></i> 38</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Mary</td>
-                                    <td>Moe</td>
-                                    <td>mary@example.com</td>
-                                </tr>
-                                <tr>
-                                    <td>July</td>
-                                    <td>Dooley</td>
-                                    <td>july@example.com</td>
-                                </tr>
-                            </table>
-                            <div class="history-content">
+                    <div class="col-sm-10 col-sm-offset-1">
 
-                            </div>
+                        <!-- isotope filters start -->
+                        <div class="filters text-center">
+                            <ul class="nav nav-pills">
+                                <li class="active"><a href="#" data-filter="*">Visi</a></li>
+                                <li><a href="#" data-filter=".uploads">Įkėlimai</a></li>
+                                <li><a href="#" data-filter=".activeInitiatives">Aktyvios iniciatyvos</a></li>
+                            </ul>
+                        </div>
+                        <!-- isotope filters end -->
 
-                            <a class="moreHistory" href="{{ path('ajax_history') }}"><i data-toggle="tooltip" data-placement="top" title="Peržiūrėti istoriją" class="fa fa-ellipsis-h"></i></a>
+                        <!-- list items start -->
+                        <ul class="table-like">
+                            <li class="table-like__item uploads">
+                                <div class="description">
+                                    <h4>Griuvėsiai prie akropolio</h4>
+                                    <i data-toggle="tooltip" data-placement="top" title="Redaguoti problemą" class="fa fa-pencil">
+                                        <span>Redaguoti</span>
+                                    </i>
+                                </div>
+                                <div class="type">Problema</div>
+
+                                <div class="votes">
+                                    <i data-toggle="tooltip" data-placement="top" title="Problemai pritaria" class="fa fa-check-circle"> 0</i>
+                                </div>
+                                <div class="joined">
+                                    <i data-toggle="tooltip" data-placement="top" title="Problemai pritaria" class="fa fa-users"> 0</i>
+                                </div>
+                                <div class="date">
+                                    <i data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data" class="fa fa-calendar-plus-o"> 2015-11-20</i>
+                                </div>
+                            </li>
+
+                            <li class="table-like__item uploads">
+                                <div class="description">
+                                    <h4>Duobėtos gatvės</h4>
+                                    <i data-toggle="tooltip" data-placement="top" title="Redaguoti problemą" class="fa fa-pencil">
+                                        <span>Redaguoti</span>
+                                    </i>
+                                </div>
+                                <div class="type">Problema</div>
+
+                                <div class="votes">
+                                    <i data-toggle="tooltip" data-placement="top" title="Problemai pritaria" class="fa fa-check-circle"> 256</i>
+                                </div>
+                                <div class="joined">
+                                    <i data-toggle="tooltip" data-placement="top" title="Problemai pritaria" class="fa fa-users"> 23</i>
+                                </div>
+                                <div class="date">
+                                    <i data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data" class="fa fa-calendar-plus-o"> 2015-11-20</i>
+                                </div>
+                            </li>
+
+                            <li class="table-like__item activeInitiatives">
+                                <div class="description">
+                                    <h4>Vietų darželiuose trūkumas</h4>
+                                    <i data-toggle="tooltip" data-placement="top" title="Redaguoti problemą" class="fa fa-pencil">
+                                        <span>Redaguoti</span>
+                                    </i>
+                                </div>
+                                <div class="type">Problema</div>
+
+                                <div class="votes">
+                                    <i data-toggle="tooltip" data-placement="top" title="Problemai pritaria" class="fa fa-check-circle"> 1000</i>
+                                </div>
+                                <div class="joined">
+                                    <i data-toggle="tooltip" data-placement="top" title="Problemai pritaria" class="fa fa-users"> 329</i>
+                                </div>
+                                <div class="date">
+                                    <i data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data" class="fa fa-calendar-plus-o"> 2015-11-20</i>
+                                </div>
+                            </li>
+
+                            <li class="table-like__item activeInitiatives">
+                                <div class="description">
+                                    <h4>Griuvėsiai prie akropolio</h4>
+                                    <i data-toggle="tooltip" data-placement="top" title="Redaguoti problemą" class="fa fa-pencil">
+                                        <span>Redaguoti</span>
+                                    </i>
+                                </div>
+                                <div class="type">Problema</div>
+
+                                <div class="votes">
+                                    <i data-toggle="tooltip" data-placement="top" title="Problemai pritaria" class="fa fa-check-circle"> 0</i>
+                                </div>
+                                <div class="joined">
+                                    <i data-toggle="tooltip" data-placement="top" title="Problemai pritaria" class="fa fa-users"> 0</i>
+                                </div>
+                                <div class="date">
+                                    <i data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data" class="fa fa-calendar-plus-o"> 2015-11-20</i>
+                                </div>
+                            </li>
+
+                            <li class="table-like__item activeInitiatives">
+                                <div class="description">
+                                    <h4>Pavojinga Baltų pr. ir J. Grušo sankryža</h4>
+                                    <i data-toggle="tooltip" data-placement="top" title="Redaguoti problemą" class="fa fa-pencil">
+                                        <span>Redaguoti</span>
+                                    </i>
+                                </div>
+                                <div class="type">Problema</div>
+
+                                <div class="votes">
+                                    <i data-toggle="tooltip" data-placement="top" title="Problemai pritaria" class="fa fa-check-circle"> 65</i>
+                                </div>
+                                <div class="joined">
+                                    <i data-toggle="tooltip" data-placement="top" title="Problemai pritaria" class="fa fa-users"> 8</i>
+                                </div>
+                                <div class="date">
+                                    <i data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data" class="fa fa-calendar-plus-o"> 2015-11-20</i>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div class="history-content">
 
                         </div>
+
+                        <div class="text-center">
+                            <a class="moreHistory" href="{{ path('ajax_history') }}"><i data-toggle="tooltip" data-placement="top" title="Peržiūrėti istoriją" class="fa fa-angle-double-down"></i></a>
+                        </div>
+                        <!-- list items end -->
                     </div>
                 </div>
             </div>

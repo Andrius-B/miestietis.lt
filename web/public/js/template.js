@@ -21,7 +21,7 @@
 				} else {
 					$("body").removeClass("fixed-header-on");
 				}
-			};
+			}
 		});
 
 		$(window).load(function() {
@@ -31,7 +31,7 @@
 				} else {
 					$("body").removeClass("fixed-header-on");
 				}
-			};
+			}
 		});
 
 		//Scroll Spy
@@ -77,7 +77,7 @@
 					$this.addClass('object-visible');
 				}
 			});
-		};
+		}
 
 		// Isotope filters
 		//-----------------------------------------------
@@ -99,7 +99,29 @@
 					return false;
 				});
 			});
-		};
+		}
+
+        if ($('.table-like').length>0) {
+            $(window).load(function() {
+                $('.table-like').fadeIn();
+                var $container = $('.table-like').isotope({
+                    itemSelector: '.table-like__item',
+                    layoutMode: 'vertical',
+                    transitionDuration: '0.6s',
+                    filter: "*"
+                });
+                // filter items on button click
+                $('.filters').on( 'click', 'ul.nav li a', function() {
+                    var filterValue = $(this).attr('data-filter');
+                    $(".filters").find("li.active").removeClass("active");
+                    $(this).parent().addClass("active");
+                    $container.isotope({ filter: filterValue });
+
+                    return false;
+                });
+                $('.table-like').isotope('layout');
+            });
+        }
 
 		//Modal
 		//-----------------------------------------------
@@ -118,5 +140,6 @@
 
         // $("#itemFile").fileinput(); initialize file upload preview plugin
 	}); // End document ready
+
 })(this.jQuery);
 

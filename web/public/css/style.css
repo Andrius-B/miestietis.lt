@@ -753,7 +753,7 @@ input[readonly] {
 /* Profile modal more
 ------------------------------*/
 
-.fa[class*="ellipsis"] {
+.fa[class*="angle"] {
 	font-size: 2.5em;
 }
 
@@ -820,10 +820,76 @@ input[readonly] {
     margin:0;
 }
 
+.table-like {
+    max-width: 1200px;
+	min-height: 200px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+	-webkit-transition: all linear 0.4s;
+	-moz-transition: all linear 0.4s;
+	-ms-transition: all linear 0.4s;
+	-o-transition: all linear 0.4s;
+	transition: all linear 0.4s;
+}
+
+.table-like:after {
+    content: '';
+    display: block;
+    clear:both;
+}
+
+.table-like__item {
+    width: 100%;
+    clear: both;
+    border-top: 1px solid #EEE;
+}
+
+.table-like__item > * {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.table-like__item .description { width: 61%; }
+.table-like__item .type {
+    width: 9%;
+    font-style: italic;
+}
+.table-like__item .votes,
+.table-like__item .joined {
+    width: 8%;
+}
+.table-like__item .date { width: 12%; }
+
+.table-like__item div h4 {
+    display: inline-block;
+    vertical-align:middle;
+    padding-right: 4px;
+    max-width: 87%;
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+.table-like__item div span {
+    font-family: "Open Sans";
+    font-weight: 400;
+
+}
+
+.table-like__item div h4+i,
+.table-like__item div span {
+    font-size: 0.75em;
+    vertical-align: middle;
+}
+
 #profile-more .modal-footer a {
     padding-right: 0;
     line-height: 1.35;
 }
+
+
 
 /* Fixed Header
 ----------------------------------------------------------------------------- */
