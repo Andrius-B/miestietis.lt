@@ -78,7 +78,16 @@
                                                 {#<li><a href="app_dev.php/login">Prisijungimas</a></li>#}
                                                 <li><a data-toggle="modal" data-target="#add" id="addForm">Paskelbk problemą!</a></li>
                                                 {% if  user  != null %}
-                                                <li id="profileLi" rel="Connected"><a data-toggle="modal" data-target="#profile"><img src="{{ user.getProfilePicture() }}" alt="{{ user.getId()  }}" class = "profile-picture"></a></li>
+                                                    <li id="profileLi" rel="Connected">
+                                                        <a data-toggle="modal" data-target="#profile-more">
+                                                            <img src="{{ user.getProfilePicture() }}" alt="{{ user.getId()  }}" class = "profile-picture">
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{ path('fos_user_security_logout') }}">
+                                                            <i class="fa fa-sign-out"></i>
+                                                        </a>
+                                                    </li>
                                                 {% else %}
                                                 <li id="profileLi" rel="notConnected"><a href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook' }) }}" alt="Prisijungti su Facebook"><i class="fa fa-facebook"></i></a></li>
                                                 {% endif %}

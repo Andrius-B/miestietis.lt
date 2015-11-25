@@ -644,6 +644,9 @@ input[readonly] {
 	background-color: transparent;
 	color: #55acee;
 }
+.main-navigation .navbar-default .navbar-nav > li > a[href*="logout"] {
+    padding: 30px 0;
+}
 .main-navigation .navbar-default .navbar-nav > li > a:hover,
 .main-navigation .navbar-default .navbar-nav > li.active > a:hover {
 	color: #55acee;
@@ -652,16 +655,22 @@ input[readonly] {
     font-size: 2em;
     line-height: 0.6;
 }
+
+.main-navigation .navbar-default .navbar-nav > li > a > .fa-sign-out {
+    font-size: 1.5em;
+    line-height: 0.8;
+}
+
 .profile-picture {
 	height: 3em;
 	border-radius: 50%;
 }
-.main-navigation .navbar-default .navbar-nav > li > a[data-target="#profile"] {
+.main-navigation .navbar-default .navbar-nav > li > a[data-target="#profile-more"] {
     padding-top: 15px;
     padding-bottom: 0;
 }
 
-.fixed-header-on .main-navigation .navbar-default .navbar-nav > li > a[data-target="#profile"] {
+.fixed-header-on .main-navigation .navbar-default .navbar-nav > li > a[data-target="#profile-more"] {
     padding-top: 5px;
 
 }
@@ -692,28 +701,8 @@ input[readonly] {
 	}
 }
 
-/* Profile modal less
------------------------------------------------------------------------------ */
-
-#profile .modal-body {
-	padding-bottom: 5px;
-}
-
-#profile .last-login {
-	padding-top: 0;
-	text-indent: 0;
-    font-size: 0.9em;
-    margin-bottom: 0;
-}
-
-#profile .modal-footer {
-	padding: 15px;
-}
-
-#profile .modal-footer a {
-	padding-right: 0;
-	font-size: 0;
-}
+/* Profile modal more
+------------------------------*/
 
 .profile-picture_medium {
     padding: 10px;
@@ -721,18 +710,6 @@ input[readonly] {
     border-radius: 50%;
     margin: auto;
 }
-
-#profile .btn-default:focus {
-	background-color: #ffffff;
-}
-#profile .btn:focus {
-	outline: none;
-	color: #55acee;
-	border: 1px solid #cccccc;
-}
-
-/* Profile modal more
-------------------------------*/
 
 .fa[class*="angle"] {
 	font-size: 2.5em;
