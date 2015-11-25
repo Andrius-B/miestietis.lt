@@ -647,6 +647,12 @@ input[readonly] {
 .main-navigation .navbar-default .navbar-nav > li > a[href*="logout"] {
     padding: 30px 0;
 }
+
+.main-navigation .navbar-default .navbar-nav > li > a[data-target="#profile-more"] {
+    padding-top: 15px;
+    padding-bottom: 0;
+}
+
 .main-navigation .navbar-default .navbar-nav > li > a:hover,
 .main-navigation .navbar-default .navbar-nav > li.active > a:hover {
 	color: #55acee;
@@ -665,14 +671,14 @@ input[readonly] {
 	height: 3em;
 	border-radius: 50%;
 }
-.main-navigation .navbar-default .navbar-nav > li > a[data-target="#profile-more"] {
-    padding-top: 15px;
+
+.fixed-header-on .main-navigation .navbar-default .navbar-nav > li > a[href*="logout"] {
+    padding-top: 20px;
     padding-bottom: 0;
 }
 
 .fixed-header-on .main-navigation .navbar-default .navbar-nav > li > a[data-target="#profile-more"] {
     padding-top: 5px;
-
 }
 
 @media (min-width:768px) {
