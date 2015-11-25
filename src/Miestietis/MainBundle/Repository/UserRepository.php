@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mantas
- * Date: 15.11.8
- * Time: 09.37
- */
 
 namespace Miestietis\MainBundle\Repository;
 use Doctrine\ORM\EntityRepository;
@@ -26,8 +20,8 @@ class UserRepository extends EntityRepository
                 return null;
             }
         }
-
     }
+
 }
 
 

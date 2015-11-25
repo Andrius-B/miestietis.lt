@@ -158,7 +158,7 @@ blockquote {
 }
 .section {
 	background-color: #ffffff;
-	padding: 80px 0;
+	padding: 80px 0 60px 0;
 }
 
 /* Backgrounds
@@ -487,7 +487,7 @@ textarea {
 }
 
 .itemInfo > div[title] {
-    margin-right: 15px;
+    margin-right: 10px;
 }
 
 .itemInfo div[data-original-title="Problemos autorius"] {
@@ -1007,6 +1007,7 @@ input[readonly] {
 }
 .isotope-container {
 	overflow: hidden;
+    padding-bottom: 20px;
 }
 .isotope-item {
 	margin-bottom: 20px;

@@ -25,18 +25,7 @@ class AjaxController extends Controller
         return $response;//$data;
     }
 
-    public function historyAction(Request $request) {
-        if (!$request->isXmlHttpRequest()) {
-            return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
-        }
 
-        // here goes request for history data
-
-        $template = $this->renderView('MiestietisMainBundle:Main:history.html.twig'); // for hardcoding
-        $response = new Response($template, 200);
-        return $response;
-
-    }
     public function initiativeAction(Request $request){
         if (!$request->isXmlHttpRequest()) {
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
@@ -76,5 +65,22 @@ class AjaxController extends Controller
         $data = array('probId'=>$probId, 'votes'=>$votes);
         $response = new JsonResponse($data, 200);
         return $response;//$data;
+    }
+
+    public function historyAction(Request $request) {
+        if (!$request->isXmlHttpRequest()) {
+            return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
+        }
+        $user = $this->getUser();
+        $problems = $this->getDoctrine()
+            ->getRepository('MiestietisMainBundle:Problema')
+            ->findBy(array('user_id'=>$user));
+
+
+
+        $template = $this->renderView('MiestietisMainBundle:Main:profile.html.twig');
+        $response = new Response($template, 200);
+        return $response;
+
     }
 }

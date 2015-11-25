@@ -12,7 +12,7 @@
             <div class="itemInfo">
                 <h4>{{ problem.name() }}</h4>
                 <div data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data"><i class="fa fa-calendar-plus-o"></i> {{  problem.date() }}</div>
-                <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria"><i class="fa fa-check-circle"></i><span class="votes-{{ problem.id() }}">{{  problem.votes() }}</span></div>
+                <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria"><i class="fa fa-check-circle"></i><span class="votes-{{ problem.id() }}"> {{  problem.votes() }}</span></div>
                 <div class="clearfix"></div>
                 <div data-toggle="tooltip" data-placement="top" title="Problemos autorius">
                     {{ problem.getUserId().getFirstName }}

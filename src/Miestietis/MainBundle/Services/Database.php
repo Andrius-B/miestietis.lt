@@ -55,5 +55,4 @@ class Database
         $this->em->flush();
         return $votes;
     }
-
 }
