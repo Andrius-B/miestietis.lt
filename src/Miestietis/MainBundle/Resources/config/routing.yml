@@ -17,3 +17,6 @@ ajax_initiative:
 ajax_upvote:
     path: /ajaxUpvote
     defaults: {_controller: MiestietisMainBundle:Ajax:upvote}
+ajax_history:
+    path:     /ajaxHistory
+    defaults: { _controller: MiestietisMainBundle:Ajax:history }

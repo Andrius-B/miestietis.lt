@@ -60,4 +60,36 @@ $(document).ready( function() {
             alert('Norėdami paskelbti miesto problemą prisijunkite'); // custom modal or message line
         }
     });
+
+    $(".moreHistory").on('click', function(event){
+        event.preventDefault();
+        var url = $('.moreHistory').attr('href');
+        var container = $(".history-content");
+        if (container.data('loaded')) {
+            console.log('data already loaded');
+            $('#historyButtonMore').prop('value', 'Peržiūrėti istoriją');
+            container.slideUp('slow', function() {
+                $(this).empty();
+            }).data('loaded', false)
+        } else {
+            container.hide();
+            $.ajax({
+                type: "POST",
+                url: url,
+                cache: "false",
+                dataType: "html",
+                success: function(result)
+                {
+                    container.append(result).slideDown('slow');
+                    $('#historyButtonMore').blur().prop('value', 'Paslėpti istoriją');
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown)
+                {
+                    alert('Error : ' + errorThrown);
+                }
+            }).done(function () {
+                container.data('loaded', true);
+            });
+        }
+    });
 });
