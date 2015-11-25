@@ -1,11 +1,3 @@
-/* Theme Name:Worthy - Free Powerful Theme by HtmlCoder
-Author:HtmlCoder
-Author URI:http://www.htmlcoder.me
-Version:1.0.0
-Created:November 2014
-License:Creative Commons Attribution 3.0 License (https://creativecommons.org/licenses/by/3.0/)
-File Description:Main CSS file of the template */
-
 /* Typography
 ----------------------------------------------------------------------------- */
 body {
@@ -820,17 +812,20 @@ input[readonly] {
     margin:0;
 }
 
+#profile-more .filters {
+    margin: 10px 0 20px 0;
+}
+
 .table-like {
     max-width: 1200px;
-	min-height: 200px;
     list-style: none;
     margin: 0;
     padding: 0;
-	-webkit-transition: all linear 0.4s;
-	-moz-transition: all linear 0.4s;
-	-ms-transition: all linear 0.4s;
-	-o-transition: all linear 0.4s;
-	transition: all linear 0.4s;
+	-webkit-transition: height linear 0.4s;
+	-moz-transition: height linear 0.4s;
+	-ms-transition: height linear 0.4s;
+	-o-transition: height linear 0.4s;
+	transition: height linear 0.4s;
 }
 
 .table-like:after {
@@ -864,7 +859,8 @@ input[readonly] {
 .table-like__item div h4 {
     display: inline-block;
     vertical-align:middle;
-    padding-right: 4px;
+    padding: 3px 4px 3px 0;
+	margin: 7px 0;
     max-width: 87%;
     white-space: nowrap;
     overflow: hidden;

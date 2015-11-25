@@ -1,12 +1,3 @@
-/* Theme Name: Worthy - Free Powerful Theme by HtmlCoder
- * Author:HtmlCoder
- * Author URI:http://www.htmlcoder.me
- * Version:1.0.0
- * Created:November 2014
- * License: Creative Commons Attribution 3.0 License (https://creativecommons.org/licenses/by/3.0/)
- * File Description: Initializations of plugins 
- */
-
 (function($){
 	$(document).ready(function(){
 	
@@ -90,10 +81,10 @@
 					transitionDuration: '0.6s',
 					filter: "*"
 				});
-				// filter items on button click
-				$('.filters').on( 'click', 'ul.nav li a', function() {
+				 //filter items on button click
+				$('.filters-main').on( 'click', 'ul.nav-main li a', function() {
 					var filterValue = $(this).attr('data-filter');
-					$(".filters").find("li.active").removeClass("active");
+					$(".filters-main").find("li.active").removeClass("active");
 					$(this).parent().addClass("active");
 					$container.isotope({ filter: filterValue });
 					return false;
@@ -102,24 +93,23 @@
 		}
 
         if ($('.table-like').length>0) {
-            $(window).load(function() {
-                $('.table-like').fadeIn();
-                var $container = $('.table-like').isotope({
+            $('.table-like').fadeIn('slow');
+            $('#profile-more').on('shown.bs.modal', function() {
+                var $cont = $('.table-like').isotope({
                     itemSelector: '.table-like__item',
                     layoutMode: 'vertical',
                     transitionDuration: '0.6s',
                     filter: "*"
                 });
                 // filter items on button click
-                $('.filters').on( 'click', 'ul.nav li a', function() {
+                //
+                $('.filters-history').on( 'click', 'ul.nav-hist li a', function() {
                     var filterValue = $(this).attr('data-filter');
-                    $(".filters").find("li.active").removeClass("active");
+                    $(".filters-history").find("li.active").removeClass("active");
                     $(this).parent().addClass("active");
-                    $container.isotope({ filter: filterValue });
-
+                    $cont.isotope({ filter: filterValue });
                     return false;
                 });
-                $('.table-like').isotope('layout');
             });
         }
 
