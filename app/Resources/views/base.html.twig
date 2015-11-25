@@ -80,7 +80,7 @@
                                                 {% if  user  != null %}
                                                 <li id="profileLi" rel="Connected"><a data-toggle="modal" data-target="#profile"><img src="{{ user.getProfilePicture() }}" alt="{{ user.getId()  }}" class = "profile-picture"></a></li>
                                                 {% else %}
-                                                <li id="profileLi" rel="notConnected"><a data-toggle="modal" data-target="#login">Prisijungimas</a></li>
+                                                <li id="profileLi" rel="notConnected"><a href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook' }) }}" alt="Prisijungti su Facebook"><i class="fa fa-facebook"></i></a></li>
                                                 {% endif %}
 
                                             </ul>

@@ -595,20 +595,8 @@ input[readonly] {
 	height: 38px;
 }
 
-#add .modal-footer, #login .modal-footer {
+#add .modal-footer {
 	padding: 15px;
-}
-
-/* Login modal */
-
-#login h2, #login h4 {
-    padding-top: 30px;
-	color: #339BEB;
-}
-
-#login a i {
-    font-size: 3em;
-    margin: 35px 15px 50px 15px;
 }
 
 /* fixed issue with modal-open adding padding-right of 13px to the body */
@@ -660,12 +648,13 @@ input[readonly] {
 .main-navigation .navbar-default .navbar-nav > li.active > a:hover {
 	color: #55acee;
 }
+.main-navigation .navbar-default .navbar-nav > li > a > .fa {
+    font-size: 2em;
+    line-height: 0.6;
+}
 .profile-picture {
 	height: 3em;
 	border-radius: 50%;
-}
-.profile-picture:hover {
-
 }
 .main-navigation .navbar-default .navbar-nav > li > a[data-target="#profile"] {
     padding-top: 15px;
@@ -816,11 +805,24 @@ input[readonly] {
     margin: 10px 0 20px 0;
 }
 
+#profile-more .filters ul li {
+    -moz-transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+
+}
+
+#profile-more .filters ul li a {
+    -moz-transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+
+}
+
 .table-like {
     max-width: 1200px;
     list-style: none;
     margin: 0;
     padding: 0;
+    backface-visibility: hidden;
 	-webkit-transition: height linear 0.4s;
 	-moz-transition: height linear 0.4s;
 	-ms-transition: height linear 0.4s;

@@ -102,7 +102,7 @@
                     filter: "*"
                 });
                 // filter items on button click
-                //
+                // why text flickers in FF on div height change?
                 $('.filters-history').on( 'click', 'ul.nav-hist li a', function() {
                     var filterValue = $(this).attr('data-filter');
                     $(".filters-history").find("li.active").removeClass("active");
