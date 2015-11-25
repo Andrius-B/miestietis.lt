@@ -478,7 +478,8 @@ textarea {
 }
 
 .itemInfo h4 {
-    margin: 0 0 4px 0;
+    padding-bottom: 4px;
+    margin: 0;
     max-width: 400px;
     white-space: nowrap;
     overflow: hidden;
