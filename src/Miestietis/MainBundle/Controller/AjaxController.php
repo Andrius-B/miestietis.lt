@@ -71,10 +71,10 @@ class AjaxController extends Controller
         if (!$request->isXmlHttpRequest()) {
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
         }
-        $user = $this->getUser();
-        $problems = $this->getDoctrine()
-            ->getRepository('MiestietisMainBundle:Problema')
-            ->findBy(array('user_id'=>$user));
+//        $user = $this->getUser();
+//        $problems = $this->getDoctrine()
+//            ->getRepository('MiestietisMainBundle:Problema')
+//            ->findBy(array('user_id'=>$user));
 
 
 
