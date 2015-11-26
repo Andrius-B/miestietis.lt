@@ -53,18 +53,17 @@ $(document).ready( function() {
         }
     });
 
-    $(".moreHistory").on('click', function(event){
+    // -------------------------------------------------
+    // Ajax request to load profile modal with history
+
+    $(".profileHistory").on('click', function(event){
         event.preventDefault();
-        var url = $('.moreHistory').attr('href');
+        var url = $('.profileHistory').attr('href');
         var container = $(".history-content");
         if (container.data('loaded')) {
             console.log('data already loaded');
             $('#historyButtonMore').prop('value', 'Peržiūrėti istoriją');
-            container.slideUp('slow', function() {
-                $(this).empty();
-            }).data('loaded', false)
         } else {
-            container.hide();
             $.ajax({
                 type: "POST",
                 url: url,
@@ -73,15 +72,48 @@ $(document).ready( function() {
                 success: function(result)
                 {
                     container.append(result).slideDown('slow');
-                    $('#historyButtonMore').blur().prop('value', 'Paslėpti istoriją');
+                    console.log("Ajax success");
+
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown)
                 {
                     alert('Error : ' + errorThrown);
+                },
+                complete: function()
+                {
+                    console.log("Ajax complete: before filters");
+                    Filters();
+                    console.log("Ajax complete: after filters");
                 }
             }).done(function () {
                 container.data('loaded', true);
+                console.log("Ajax done");
             });
         }
     });
+
+    function Filters() {
+        console.log("Filters called");
+        if ($('.table-like').length>0) {
+            $('.table-like').fadeIn('slow');
+            $('#profile-more').on('shown.bs.modal', function() {
+                var $cont = $('.table-like').isotope({
+                    itemSelector: '.table-like__item',
+                    layoutMode: 'vertical',
+                    transitionDuration: '0.6s',
+                    filter: "*"
+                });
+                $('.filters-history').on( 'click', 'ul.nav-hist li a', function() {
+                    var filterValue = $(this).attr('data-filter');
+                    $(".filters-history").find("li.active").removeClass("active");
+                    $(this).parent().addClass("active");
+                    $cont.isotope({ filter: filterValue });
+                    return false;
+                });
+            });
+        }
+    }
+
+    // End of ajax load history
+    //------------------------------------------------------------
 });

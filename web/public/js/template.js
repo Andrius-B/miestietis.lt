@@ -92,26 +92,7 @@
 			});
 		}
 
-        if ($('.table-like').length>0) {
-            $('.table-like').fadeIn('slow');
-            $('#profile-more').on('shown.bs.modal', function() {
-                var $cont = $('.table-like').isotope({
-                    itemSelector: '.table-like__item',
-                    layoutMode: 'vertical',
-                    transitionDuration: '0.6s',
-                    filter: "*"
-                });
-                // filter items on button click
-                // why text flickers in FF on div height change?
-                $('.filters-history').on( 'click', 'ul.nav-hist li a', function() {
-                    var filterValue = $(this).attr('data-filter');
-                    $(".filters-history").find("li.active").removeClass("active");
-                    $(this).parent().addClass("active");
-                    $cont.isotope({ filter: filterValue });
-                    return false;
-                });
-            });
-        }
+
 
 		//Modal
 		//-----------------------------------------------

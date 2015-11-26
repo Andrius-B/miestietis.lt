@@ -5,6 +5,7 @@ namespace Miestietis\MainBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class AjaxController extends Controller
 {
@@ -76,9 +77,13 @@ class AjaxController extends Controller
 //            ->getRepository('MiestietisMainBundle:Problema')
 //            ->findBy(array('user_id'=>$user));
 
+        // check if item is problem or initiative
+        // return data based on item type
 
+        // $data = array('description' => $description, 'votes' => $votes, 'joined' => $joined, 'date' => $date);
+//        $template = $this->renderView('history.html.twig', array('data' => $data));
 
-        $template = $this->renderView('MiestietisMainBundle:Main:profile.html.twig');
+        $template = $this->renderView('history.html.twig');
         $response = new Response($template, 200);
         return $response;
 
