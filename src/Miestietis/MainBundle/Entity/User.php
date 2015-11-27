@@ -85,6 +85,11 @@ class User extends BaseUser
      */
     protected $participations;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Problema", mappedBy="user_id")
+     */
+    protected $upvoted_problems;
+
     //YOU CAN ADD MORE CODE HERE !
     public function __construct()
     {
@@ -92,7 +97,7 @@ class User extends BaseUser
         $this->problems = new ArrayCollection();
         $this->initiatives = new ArrayCollection();
         $this->participations = new ArrayCollection();
-
+        $this->upvoted_problems = new ArrayCollection();
     }
 
 
@@ -283,6 +288,31 @@ class User extends BaseUser
     }
 
     /**
+     * Add upvoted problem
+     *
+     * @param \Miestietis\MainBundle\Entity\Problema $problem
+     *
+     * @return User
+     */
+    public function upvoteProblem(\Miestietis\MainBundle\Entity\Problema $problem){
+        $this->upvoted_problems->add($problem);
+        $problem->upvoteBy($this);
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUpvotedProblems(){
+        return $this->upvoted_problems;
+    }
+
+    public function isUpvotedProblem($problema){
+        if($this->upvoted_problems->contains($problema))return true;
+        else return false;
+    }
+
+    /**
      * Add problem
      *
      * @param \Miestietis\MainBundle\Entity\Problema $problem
@@ -291,7 +321,7 @@ class User extends BaseUser
      */
     public function addProblem(\Miestietis\MainBundle\Entity\Problema $problem)
     {
-        $this->problems[] = $problem;
+        $this->problems->add($problem);
 
         return $this;
     }

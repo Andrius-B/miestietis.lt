@@ -1,6 +1,8 @@
 <?php
 // src/Miestietis/MainBundle/Entity/Product.php
 namespace Miestietis\MainBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -49,8 +51,30 @@ class Problema
      */
     private $initiative;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="upvoted_problems")
+     * @ORM\JoinTable(name="problema_upvotes",
+     *      joinColumns={@ORM\JoinColumn(name="problema_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     *      )
+     */
+    private $upvoted_by;
+
 
     // -------------------------------------------------
+
+    public function __construct(){
+        $this->upvoted_by = new ArrayCollection();
+    }
+    public function upvoteBy(User $user){
+        $this->upvoted_by->add($user);
+        return $this;
+    }
+    /** @return ArrayCollection */
+    public function getUpvotedBy(){
+        return $this->upvoted_by;
+    }
+
     public function  incrementVote(){
         $this->votes++;
         return $this->votes;

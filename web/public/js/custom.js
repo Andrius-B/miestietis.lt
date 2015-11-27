@@ -148,6 +148,10 @@ $(document).ready( function() {
                 success: function (data) {
                     var probId = data.probId;
                     var votes = data.votes;
+                    var status = data.status;
+                    if(status != ''){
+                        alert(status);
+                    }
                     $('.votes-'.concat(probId)).text(votes);
                 }
             });
