@@ -82,7 +82,7 @@ class AjaxController extends Controller
 
         // $data = array('description' => $description, 'votes' => $votes, 'joined' => $joined, 'date' => $date);
 //        $template = $this->renderView('history.html.twig', array('data' => $data));
-
+        // should use jsonresponse and return only data instead of rendering the view on server side
         $template = $this->renderView('history.html.twig');
         $response = new Response($template, 200);
         return $response;

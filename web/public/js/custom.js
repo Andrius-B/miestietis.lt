@@ -82,7 +82,7 @@ $(document).ready( function() {
                 complete: function()
                 {
                     console.log("Ajax complete: before filters");
-                    Filters();
+                    filters();
                     console.log("Ajax complete: after filters");
                 }
             }).done(function () {
@@ -92,7 +92,7 @@ $(document).ready( function() {
         }
     });
 
-    function Filters() {
+    function filters() {
         console.log("Filters called");
         if ($('.table-like').length>0) {
             $('.table-like').fadeIn('slow');
