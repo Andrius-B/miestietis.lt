@@ -71,9 +71,21 @@ $(document).ready( function() {
                 dataType: "html",
                 success: function(result)
                 {
-                    container.append(result).slideDown('slow');
-                    console.log("Ajax success");
-
+                    if (result == undefined) {
+                        $(".filters-history").find("li").removeClass("active").addClass("disabled");
+                        closeAndScroll('html, body', '#list');
+                        var here = '<a data-dismiss="modal">čia!</a>';
+                        var initiative = '<i data-toggle="tooltip" data-placement="top" title="Skelbti iniciatyvą" class="fa fa-bullhorn"></i>';
+                        container.append(
+                            '<p>Paskelbkite problemą ' + here + '<br>' +
+                            'Paskelbkite iniciatyvą problemos lange spusteldami ' + initiative + '<br>' +
+                            'Arba prisijunkite prie jau sukurtos iniciatyvos spusteldami čia!</p>'
+                        ).slideDown('slow');
+                        console.log("Ajax success");
+                    } else {
+                        container.append(result).slideDown('slow');
+                        console.log("Ajax success");
+                    }
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown)
                 {
@@ -112,6 +124,14 @@ $(document).ready( function() {
                 });
             });
         }
+    }
+
+    function closeAndScroll(modal, target) {
+        $(modal).on('hidden.bs.modal', function() {
+            $('html, body').animate({
+                scrollTop: $(target).offset().top-151
+            }, 1000);
+        })
     }
 
     // End of ajax load history

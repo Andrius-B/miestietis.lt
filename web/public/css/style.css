@@ -772,6 +772,14 @@ input[readonly] {
     font-size: 0.75em;
 }
 
+#profile-more .modal-body p {
+	font-style: italic;
+	text-indent: 0;
+	text-align: center;
+    line-height: 2;
+	padding-top: 0;
+}
+
 #profile-more .modal-header .counter-wrapper {
     position: absolute;
     top: 0;

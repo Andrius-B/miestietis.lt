@@ -72,18 +72,11 @@ class AjaxController extends Controller
         if (!$request->isXmlHttpRequest()) {
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
         }
-//        $user = $this->getUser();
-//        $problems = $this->getDoctrine()
-//            ->getRepository('MiestietisMainBundle:Problema')
-//            ->findBy(array('user_id'=>$user));
-
-        // check if item is problem or initiative
-        // return data based on item type
-
-        // $data = array('description' => $description, 'votes' => $votes, 'joined' => $joined, 'date' => $date);
-//        $template = $this->renderView('history.html.twig', array('data' => $data));
-        // should use jsonresponse and return only data instead of rendering the view on server side
-        $template = $this->renderView('history.html.twig');
+        $user = $this->getUser();
+        $items = $this->getDoctrine()
+            ->getRepository('MiestietisMainBundle:Problema')
+            ->findBy(array('user_id'=>$user));
+        $template = $this->renderView('history.html.twig', array('items' => $items));
         $response = new Response($template, 200);
         return $response;
 
