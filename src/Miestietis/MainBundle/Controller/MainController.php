@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Miestietis\MainBundle\Form\InitiativeType;
 use Miestietis\MainBundle\Entity\Initiative;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
+
 
 class MainController extends Controller
 {
@@ -36,10 +36,6 @@ class MainController extends Controller
         $initiative->setRegistrationDate(date("Y-m-d"));
         $form = $this->createForm(new InitiativeType(), $initiative);
         $form->handleRequest($request);
-        /*if($form->isValid()){
-            var_dump($initiative);
-            die(1);
-        }*/
 
         return $this->render('MiestietisMainBundle:Main:index.html.twig', array('problems' => $problems,
             'user' => $this->getUser(),

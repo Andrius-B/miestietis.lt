@@ -10,20 +10,15 @@ class InitiativeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $years = array();
-        $current = (int)date("Y");
-        for($i=0;$i<=20;$i+=1){ //20 upcomming years
-            $years[]=(string)($current+$i);
-        }
-        $builder->add('initiative_date', 'date', array(
+        $builder->add('initiative_date', 'datetime', array(
+            'date_format' => 'yyyy-MM-dd',
             'input'  => 'string',
             'widget' => 'choice',
-            'years' => $years,
-            'format' => 'yyyy-MM-dd',
-            'placeholder' => array('year' => 'Metai', 'month' => 'Mėnuo', 'day' => 'Diena'),
+            'years' => range((int)date("Y"),(int)date("Y")+20), //20 year range
+            'months' => range(1,12),
+            'with_seconds' => false,
+            'placeholder' => array('year' => 'Metai', 'month' => 'Mėnuo', 'day' => 'Diena', 'hour'=>'Valanda', 'minute'=>'Minutė'),
             'label' => 'Iniciatyvos data'
-            //'html5' => 'true',
-            //'placeholder' => array('year' => 'Year', 'month' => 'Month', 'day' => 'Day'),
             ))
             ->add('description', 'textarea')
             ->add('save','submit',array('label'=>'Pateikti'));
