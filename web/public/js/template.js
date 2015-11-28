@@ -103,14 +103,15 @@
 				$(".modal").prependTo( "body" );
 			});
 		}
-		$('[data-toggle="tooltip"]').tooltip();
+		$('[data-toggle="tooltip"]').tooltip({
+			container: 'body'
+		});
 
 		//$('#resize').click(function(){
 		//	$(".modal-dialog").animate({"width":"200px"},600,'linear');
 		//});
-
         // $("#itemFile").fileinput(); initialize file upload preview plugin
-	}); // End document ready
 
+	}); // End document ready
 })(this.jQuery);
 

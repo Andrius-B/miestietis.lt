@@ -519,6 +519,10 @@ textarea {
     border-radius: 0;
 }
 
+div[data-toggle="tooltip"] > i {
+    padding-right: 5px;
+}
+
 .modal-body p {
 	text-indent: 30px;
 	padding-top: 5px;
