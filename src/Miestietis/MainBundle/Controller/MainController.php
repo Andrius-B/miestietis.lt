@@ -15,10 +15,25 @@ class MainController extends Controller
         $problems = $this->getDoctrine()
             ->getRepository('MiestietisMainBundle:Problema')
             ->findAll();
+
         /*$i = new extra();
         $a = $i->findOneBy(array('username' => 895797333822283));
         echo $a;
         exit();*/
+
+        /* perkelti logika i servisus? */
+        $user = $this->getUser();
+        foreach($problems as $problem)
+        {
+            if($problem->getUpvotedBy()->contains($user))
+            {
+                $problem->status = 'disabled';
+                $problem->tooltip = 'Pritarti galite tik vieną kartą!';
+            } else {
+                $problem->status = '';
+                $problem->tooltip = 'Pritariu problemai';
+            }
+        }
 
         //initiative form'os set-up
         $initiative = new Initiative();
@@ -30,7 +45,7 @@ class MainController extends Controller
 
         return $this->render('MiestietisMainBundle:Main:index.html.twig', array('problems' => $problems,
             'user' => $this->getUser(),
-            'initiativeForm' => $form->createView()
+            'initiativeForm' => $form->createView(),
                 // ...
             ));
     }

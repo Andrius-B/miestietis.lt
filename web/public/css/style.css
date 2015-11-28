@@ -508,6 +508,9 @@ textarea {
 	color: #ccc;
 	cursor: text !important;
 }
+.disabled:hover {
+	color: #ccc;
+}
 
 /* Content of an item */
 

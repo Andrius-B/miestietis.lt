@@ -9,8 +9,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AjaxController extends Controller
 {
-    public function problemAction(Request $request){
-        if (!$request->isXmlHttpRequest()) {
+    public function problemAction(Request $request)
+    {
+        if (!$request->isXmlHttpRequest())
+        {
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
         }
 
@@ -27,8 +29,10 @@ class AjaxController extends Controller
     }
 
 
-    public function initiativeAction(Request $request){
-        if (!$request->isXmlHttpRequest()) {
+    public function initiativeAction(Request $request)
+    {
+        if (!$request->isXmlHttpRequest())
+        {
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
         }
         $status = null;
@@ -41,7 +45,8 @@ class AjaxController extends Controller
             ->getRepository('MiestietisMainBundle:Problema')
             ->find($probId);
 
-        if($this->getDoctrine()->getRepository('MiestietisMainBundle:Initiative')->findBy(array('problem_id'=>$problem)) != null){
+        if($this->getDoctrine()->getRepository('MiestietisMainBundle:Initiative')->findBy(array('problem_id'=>$problem)) != null)
+        {
             $status = 'Ši problema jau turi iniciatyvą!';
             $data = array('description' => $description, 'date'=>$date, 'probId'=>$problem, 'status'=>$status);
             $response = new JsonResponse($data, 200);
@@ -55,7 +60,8 @@ class AjaxController extends Controller
         $response = new JsonResponse($data, 200);
         return $response;//$data;
     }
-    public function upvoteAction(Request $request){
+    public function upvoteAction(Request $request)
+    {
         $probId = intval($request->request->get('probId'));
         $problem = $this->getDoctrine()
             ->getRepository('MiestietisMainBundle:Problema')
@@ -63,19 +69,19 @@ class AjaxController extends Controller
         $user = $this->getUser();
         $db_handler = $this->get('db_handler');
         $votes = $problem->getVotes();
-        $status = '';
-        if(! $problem->getUpvotedBy()->contains($user)){
+        if(!$problem->getUpvotedBy()->contains($user))
+        {
             $votes = $db_handler->upvoteProblem($problem, $user);
-        } else {
-            $status = 'Galite pritarti tik vieną kartą!';
         }
         $data = array('probId'=>$probId, 'votes'=>$votes, 'status'=>$status);
         $response = new JsonResponse($data, 200);
-        return $response;//$data;
+        return $response;
     }
 
-    public function historyAction(Request $request) {
-        if (!$request->isXmlHttpRequest()) {
+    public function historyAction(Request $request)
+    {
+        if (!$request->isXmlHttpRequest())
+        {
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
         }
         $user = $this->getUser();

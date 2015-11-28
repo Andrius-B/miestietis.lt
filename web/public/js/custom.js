@@ -195,6 +195,7 @@ $(document).ready( function() {
             var probId = $(this).attr('probId');
             var data = {probId: probId};
             var item = $(this).children('i');
+            var itemDisable = $(this);
             $.ajax({
                 type: "POST",
                 url: url,
@@ -202,8 +203,12 @@ $(document).ready( function() {
                 success: function (data) {
                     var probId = data.probId;
                     var votes = data.votes;
-                    var status = data.status;
                     $('.votes-'.concat(probId)).text(votes);
+
+                },
+                complete: function() {
+                    var status = 'Pritarti galite tik vieną kartą!';
+                    itemDisable.addClass('disabled');
                     item.attr('data-original-title', status)
                         .tooltip('fixTitle')
                         .tooltip('show');
