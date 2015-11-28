@@ -31,33 +31,42 @@ $(document).ready( function() {
     $('body').on('submit', $addProblem, function(e){
         e.preventDefault();
         if($('#profileLi').attr('rel') == 'Connected'){
+            // information gathering from the form fields
             var name =$('#itemName').val();
             var description = $('#itemDescription').val();
-            var file = $('#itemFile').val();
-            if(name != '' & description!= ''& file != ''){
-                var url = $('#beletristika').attr('url');
-                var data = {name: name, description: description, picture: file};
-                console.log(data);
-                console.log(url);
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: data,
-                    success: function(data)
-                    {
-                        alert(data.picture);
-                    },
+            var url = $('#controlerURL').attr('url');
+            // final check if everything is
+            $('#loading-img').show();
 
-                    error: function(XMLHttpRequest, textStatus, errorThrown)
-                    {
-                        alert('Error : ' + errorThrown);
-                    }
-                });
-            }else {
-                alert('Visi laukai turi būti užpildyti'); // custom modal or message line
-            }
+            // Making a form data object that will be passed through ajax
+            formData = new FormData();
+            formData.append('file', $('input[type=file]')[0].files[0]);
+            formData.append('name', name);
+            formData.append('description', description);
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: formData,
+                contentType: false,       // The content type used when sending data to the server.
+                cache: false,             // To unable request pages to be cached
+                processData:false,        // To send DOMDocument or non processed data file it is set to false
+                success: function(data)
+                {
+                    $('#loading-img').hide();
+                    console.log(data);
+                    $("#imgdisplay").html("<img src='../images/problems"+data.picture+"'style='width: 150px'>");
+
+
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown)
+                {
+                    alert('Error : ' + errorThrown);
+                }
+            });
         }else{
             alert('Norėdami paskelbti miesto problemą prisijunkite'); // custom modal or message line
         }
     });
+
 });

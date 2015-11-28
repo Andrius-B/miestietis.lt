@@ -2,9 +2,11 @@
 // src/Miestietis/MainBundle/Entity/Product.php
 namespace Miestietis\MainBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity
+ * @Vich\Uploadable
  * @ORM\Table(name="problema")
  */
 class Problema
@@ -36,6 +38,13 @@ class Problema
      * @ORM\Column(type="smallint")
      */
     protected $votes;
+    /**
+     *
+     * @Vich\UploadableField(mapping="problem_image", fileNameProperty="picture")
+     *
+     * @var File
+     */
+    private $imageFile;
     /**
      * @ORM\Column(type="string")
      */
@@ -180,7 +189,26 @@ class Problema
     {
         return $this->votes;
     }
+    /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     */
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
 
+        if ($image) {
+
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    /**
+     * @return File
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
     /**
      * Set picture
      *
