@@ -53,16 +53,16 @@ $(document).ready( function() {
         }
     });
 
-    $(".moreHistory").on('click', function(event){
+    // -------------------------------------------------
+    // Ajax request to load profile modal with history
+
+    $(".profileHistory").on('click', function(event){
         event.preventDefault();
-        var url = $('.moreHistory').attr('href');
+        var url = $('.profileHistory').attr('href');
         var container = $(".history-content");
         if (container.data('loaded')) {
             console.log('data already loaded');
             $('#historyButtonMore').prop('value', 'Peržiūrėti istoriją');
-            container.slideUp('slow', function() {
-                $(this).empty();
-            }).data('loaded', false)
         } else {
             container.hide();
             $.ajax({
@@ -72,18 +72,72 @@ $(document).ready( function() {
                 dataType: "html",
                 success: function(result)
                 {
-                    container.append(result).slideDown('slow');
-                    $('#historyButtonMore').blur().prop('value', 'Paslėpti istoriją');
+                    if (result == undefined) {
+                        $(".filters-history").find("li").removeClass("active").addClass("disabled");
+                        closeAndScroll('html, body', '#list');
+                        var here = '<a data-dismiss="modal">čia!</a>';
+                        var initiative = '<i data-toggle="tooltip" data-placement="top" title="Skelbti iniciatyvą" class="fa fa-bullhorn"></i>';
+                        container.append(
+                            '<p>Paskelbkite problemą ' + here + '<br>' +
+                            'Paskelbkite iniciatyvą problemos lange spusteldami ' + initiative + '<br>' +
+                            'Arba prisijunkite prie jau sukurtos iniciatyvos spusteldami čia!</p>'
+                        ).slideDown('slow');
+                        console.log("Ajax success");
+                    } else {
+                        container.append(result).slideDown('slow');
+                        console.log("Ajax success");
+                    }
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown)
                 {
                     alert('Error : ' + errorThrown);
+                },
+                complete: function()
+                {
+                    console.log("Ajax complete: before filters");
+                    filters();
+                    console.log("Ajax complete: after filters");
                 }
             }).done(function () {
                 container.data('loaded', true);
+                console.log("Ajax done");
             });
         }
     });
+
+    function filters() {
+        console.log("Filters called");
+        if ($('.table-like').length>0) {
+            $('.table-like').fadeIn('slow');
+            $('#profile-more').on('shown.bs.modal', function() {
+                var $cont = $('.table-like').isotope({
+                    itemSelector: '.table-like__item',
+                    layoutMode: 'vertical',
+                    transitionDuration: '0.6s',
+                    filter: "*"
+                });
+                $('.filters-history').on( 'click', 'ul.nav-hist li a', function() {
+                    var filterValue = $(this).attr('data-filter');
+                    $(".filters-history").find("li.active").removeClass("active");
+                    $(this).parent().addClass("active");
+                    $cont.isotope({ filter: filterValue });
+                    return false;
+                });
+            });
+        }
+    }
+
+    function closeAndScroll(modal, target) {
+        $(modal).on('hidden.bs.modal', function() {
+            $('html, body').animate({
+                scrollTop: $(target).offset().top-151
+            }, 1000);
+        })
+    }
+
+    // End of ajax load history
+    //------------------------------------------------------------
+
 
     //handle initiative form
     $('.openInitiativeModal').on('click', function(e){
@@ -132,7 +186,6 @@ $(document).ready( function() {
             alert('Norėdami paskelti miesto problemą prisijunkite');
         }
     });
-
     /*
      need to add a check if user has already voted for this problem
      */
@@ -157,5 +210,4 @@ $(document).ready( function() {
             });
         }else{alert("Norėdami balsuoti, turite prisijungti!");}
     });
-
 });
