@@ -32,5 +32,7 @@ class Database
 
         return $problem;
     }
-
+    public function forTest($a){
+        return ++$a;
+    }
 }

@@ -16,7 +16,7 @@ class MainController extends Controller
 
         $problems = [];
 
-        for($i = 2; $i<5; $i++) {
+        for($i = 1; $i<4; $i++) {
             $problems[] = $this->getDoctrine()
                 ->getRepository('MiestietisMainBundle:Problema')
                 ->find($i);
