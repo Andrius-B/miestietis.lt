@@ -32,6 +32,9 @@ class MainController extends Controller
             } else {
                 $problem->status = '';
                 $problem->tooltip = 'Pritariu problemai';
+                if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+                    $problem->tooltip = 'Norėdami pritarti turite prisijungti';
+                }
             }
         }
 

@@ -61,7 +61,6 @@ $(document).ready( function() {
         var url = $('.profileHistory').attr('href');
         var container = $(".history-content");
         if (container.data('loaded')) {
-            console.log('data already loaded');
             $('#historyButtonMore').prop('value', 'Peržiūrėti istoriją');
         } else {
             container.hide();
@@ -82,10 +81,8 @@ $(document).ready( function() {
                             'Paskelbkite iniciatyvą problemos lange spusteldami ' + initiative + '<br>' +
                             'Arba prisijunkite prie jau sukurtos iniciatyvos spusteldami čia!</p>'
                         ).slideDown('slow');
-                        console.log("Ajax success");
                     } else {
                         container.append(result).slideDown('slow');
-                        console.log("Ajax success");
                     }
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown)
@@ -94,9 +91,7 @@ $(document).ready( function() {
                 },
                 complete: function()
                 {
-                    console.log("Ajax complete: before filters");
                     filters();
-                    console.log("Ajax complete: after filters");
                 }
             }).done(function () {
                 container.data('loaded', true);
@@ -106,7 +101,6 @@ $(document).ready( function() {
     });
 
     function filters() {
-        console.log("Filters called");
         if ($('.table-like').length>0) {
             $('.table-like').fadeIn('slow');
             $('#profile-more').on('shown.bs.modal', function() {
@@ -190,12 +184,13 @@ $(document).ready( function() {
      need to add a check if user has already voted for this problem
      */
     $('.incVote').on('click',function(){ //increment vote
+        var item = $(this).children('i');
+        var itemDisable = $(this);
+        var status = 'Pritarti galite tik vieną kartą!';
         if ($('#profileLi').attr('rel') == 'Connected') {
             var url = $(this).attr('url');
             var probId = $(this).attr('probId');
             var data = {probId: probId};
-            var item = $(this).children('i');
-            var itemDisable = $(this);
             $.ajax({
                 type: "POST",
                 url: url,
@@ -207,14 +202,24 @@ $(document).ready( function() {
 
                 },
                 complete: function() {
-                    var status = 'Pritarti galite tik vieną kartą!';
                     itemDisable.addClass('disabled');
                     item.attr('data-original-title', status)
                         .tooltip('fixTitle')
                         .tooltip('show');
                 }
             });
-        }else{alert("Norėdami balsuoti, turite prisijungti!");}
+        } else {
+            // on click change tooltip
+            // on mouse leave change tooltip to default
+            // highlight nav F icon
+            // on
+
+            //$('.modal').modal('hide');
+            $('#profileLi > a').css('animation', 'bounceIn 2s');
+            setTimeout(function(){
+                $('#profileLi > a').css('animation', '');
+            }, 2000);
+        }
     });
 
 });

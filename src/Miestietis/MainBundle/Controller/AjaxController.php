@@ -73,7 +73,7 @@ class AjaxController extends Controller
         {
             $votes = $db_handler->upvoteProblem($problem, $user);
         }
-        $data = array('probId'=>$probId, 'votes'=>$votes, 'status'=>$status);
+        $data = array('probId'=>$probId, 'votes'=>$votes);
         $response = new JsonResponse($data, 200);
         return $response;
     }
