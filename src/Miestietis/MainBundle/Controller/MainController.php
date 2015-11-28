@@ -16,6 +16,18 @@ class MainController extends Controller
             ->getRepository('MiestietisMainBundle:Problema')
             ->findAll();
 
+
+        $problems = [];
+
+        for($i = 1; $i<4; $i++) {
+            $problems[] = $this->getDoctrine()
+                ->getRepository('MiestietisMainBundle:Problema')
+                ->find($i);
+        }
+        if($problems[0] == null){
+            $problems[0] = 0;
+        }
+
         /*$i = new extra();
         $a = $i->findOneBy(array('username' => 895797333822283));
         echo $a;

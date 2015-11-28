@@ -33,6 +33,7 @@ class Database
 
         return $problem;
     }
+
     public function insertInitiative($description, $date,Problema $probId, User $user){
         $initiative = new Initiative();
 
@@ -49,12 +50,17 @@ class Database
         return $initiative;
     }
 
-    public function upvoteProblem(Problema $problem,User $user){
+    public function upvoteProblem(Problema $problem,User $user)
+    {
         $votes = $problem->incrementVote();
         $user->upvoteProblem($problem);
         $this->em->persist($problem);
         $this->em->persist($user);
         $this->em->flush();
         return $votes;
+    }
+    public function forTest($a){
+        return ++$a;
+
     }
 }
