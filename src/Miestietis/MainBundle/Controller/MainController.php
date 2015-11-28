@@ -8,7 +8,6 @@ use Miestietis\MainBundle\Form\InitiativeType;
 use Miestietis\MainBundle\Entity\Initiative;
 use Symfony\Component\HttpFoundation\Request;
 
-
 class MainController extends Controller
 {
     public function indexAction(Request $request)
@@ -16,7 +15,7 @@ class MainController extends Controller
 
         $problems = [];
 
-        for($i = 1; $i<3; $i++) {
+        for($i = 2; $i<5; $i++) {
             $problems[] = $this->getDoctrine()
                 ->getRepository('MiestietisMainBundle:Problema')
                 ->find($i);

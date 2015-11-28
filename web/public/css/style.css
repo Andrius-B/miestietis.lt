@@ -673,6 +673,22 @@ input[readonly] {
 	border-radius: 50%;
 }
 
+.main-navigation .profile-picture:hover {
+    -webkit-box-shadow: 0;
+    -moz-box-shadow: 0;
+    box-shadow: 0;
+    -webkit-transition:  -webkit-box-shadow 0.3s ease-in-out;
+    -moz-transition: -moz-box-shadow 0.3s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out;
+
+}
+
+.main-navigation .profile-picture:hover {
+    -webkit-box-shadow: 0px 0px 3px 2px rgba(85,172,238,1);
+    -moz-box-shadow: 0px 0px 3px 2px rgba(85,172,238,1);
+    box-shadow: 0px 0px 3px 2px rgba(85,172,238,1);
+}
+
 .fixed-header-on .main-navigation .navbar-default .navbar-nav > li > a[href*="logout"] {
     padding-top: 20px;
     padding-bottom: 0;
@@ -754,6 +770,14 @@ input[readonly] {
 #profile-more .modal-header p {
     margin-bottom: 0;
     font-size: 0.75em;
+}
+
+#profile-more .modal-body p {
+	font-style: italic;
+	text-indent: 0;
+	text-align: center;
+    line-height: 2;
+	padding-top: 0;
 }
 
 #profile-more .modal-header .counter-wrapper {

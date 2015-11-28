@@ -1,13 +1,6 @@
 miestietis_main_homepage:
     path:     /
     defaults: { _controller: MiestietisMainBundle:Main:index }
-create:
-    path:     /create
-    defaults: { _controller: MiestietisMainBundle:User:create }
-
-delete:
-    path:     /delete
-    defaults: { _controller: MiestietisMainBundle:User:delete }
 ajax_problem:
     path:     /ajaxProblem
     defaults: { _controller: MiestietisMainBundle:Ajax:problem }

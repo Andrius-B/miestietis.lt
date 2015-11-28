@@ -79,7 +79,7 @@
                                                 <li><a data-toggle="modal" data-target="#add" id="addForm">Paskelbk problemą!</a></li>
                                                 {% if  user  != null %}
                                                     <li id="profileLi" rel="Connected">
-                                                        <a data-toggle="modal" data-target="#profile-more">
+                                                        <a href="{{ path('ajax_history') }}" class="profileHistory" data-toggle="modal" data-target="#profile-more" data-remote="false">
                                                             <img src="{{ user.getProfilePicture() }}" alt="{{ user.getId()  }}" class = "profile-picture">
                                                         </a>
                                                     </li>

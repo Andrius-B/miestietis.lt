@@ -18,7 +18,6 @@
                     {{ problem.getUserId().getFirstName }}
                     {{ problem.getUserId().getLastName() }}
                 </div>
-                {#<div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius"><i class="fa fa-users"></i> 0</div>#}
             </div>
             <div class="text-right">
                 <a data-toggle="modal" data-target="#project-{{ problem.id() }}" >
@@ -26,10 +25,7 @@
                 </a>
                 <a data-toggle="modal" class="incVote" probId="{{ problem.id() }}" url="{{ path('ajax_upvote') }}">
                     <i data-toggle="tooltip" data-placement="top" title="Pritariu problemai" class="fa fa-check-circle"></i>
-                </a>{#
-                <a data-toggle="modal">
-                    <i data-toggle="tooltip" data-placement="top" title="Prisijungti prie iniciatyvos" class="fa fa-arrow-circle-right disabled"></i>
-                </a>#}
+                </a>
             </div>
         </section>
     </div>
@@ -51,7 +47,7 @@
                         <div class="col-md-6">
                             <img src="{{ problem.getUSerId().getProfilePicture() }}" class="profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Problemos autorius">
                             <div class="itemInfo">
-                                <div data-toggle="tooltip" data-placement="top" title="Problemos autorius"> {# tooltip is going crazy again #}
+                                <div data-toggle="tooltip" data-placement="top" title="Problemos autorius">
                                     {{ problem.getUserId().getFirstName }} {{ problem.getUserId().getLastName() }}
                                 </div>
                                 <br> {# quick hax for tooltip, will not work is div display property is changed #}
@@ -78,10 +74,7 @@
                         <a data-toggle="modal" class="incVote" probId="{{ problem.id() }}" url="{{ path('ajax_upvote') }}"><i data-toggle="tooltip" data-placement="top"  title="Pritariu problemai" class="fa fa-check-circle"></i></a>
                         <a data-toggle="modal"><i data-toggle="tooltip" data-placement="top" title="Komentarai" class="fa fa-comments"></i></a>
                         <a data-toggle="modal" class="openInitiativeModal" data-target="#addInitiative" probId="{{ problem.id() }}"><i data-toggle="tooltip" data-placement="top" title="Skelbti iniciatyvą" class="fa fa-bullhorn"></i></a>
-                        {#<a data-toggle="modal"><i data-toggle="tooltip" data-placement="top" title="Prisijungti prie iniciatyvos" class="fa fa-arrow-circle-right"></i></a>#}
                     </div>
-
-
                 </div>
             </div>
         </div>

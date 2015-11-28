@@ -5,6 +5,7 @@ namespace Miestietis\MainBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class AjaxController extends Controller
 {
@@ -77,14 +78,11 @@ class AjaxController extends Controller
         if (!$request->isXmlHttpRequest()) {
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
         }
-//        $user = $this->getUser();
-//        $problems = $this->getDoctrine()
-//            ->getRepository('MiestietisMainBundle:Problema')
-//            ->findBy(array('user_id'=>$user));
-
-
-
-        $template = $this->renderView('MiestietisMainBundle:Main:profile.html.twig');
+        $user = $this->getUser();
+        $items = $this->getDoctrine()
+            ->getRepository('MiestietisMainBundle:Problema')
+            ->findBy(array('user_id'=>$user));
+        $template = $this->renderView('history.html.twig', array('items' => $items));
         $response = new Response($template, 200);
         return $response;
 

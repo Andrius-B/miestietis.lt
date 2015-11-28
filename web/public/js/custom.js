@@ -210,4 +210,5 @@ $(document).ready( function() {
             });
         }else{alert("Norėdami balsuoti, turite prisijungti!");}
     });
+
 });
