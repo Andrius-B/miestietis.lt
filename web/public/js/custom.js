@@ -209,16 +209,18 @@ $(document).ready( function() {
                 }
             });
         } else {
-            // on click change tooltip
-            // on mouse leave change tooltip to default
-            // highlight nav F icon
-            // on
+            $('.modal').modal('hide');
+            $('#profileLi > a').css('animation', 'bounceIn 1s')
+                               .css('animation-iteration-count', 'infinite');
 
-            //$('.modal').modal('hide');
-            $('#profileLi > a').css('animation', 'bounceIn 2s');
-            setTimeout(function(){
-                $('#profileLi > a').css('animation', '');
-            }, 2000);
+            $(document).on('scroll shown.bs.modal', function() {
+                    $('#profileLi > a').css('animation-iteration-count', '1');
+                }
+            );
+            $('.isotope-item').mouseleave(function() {
+                $('#profileLi > a').css('animation-iteration-count', '1');
+            });
+
         }
     });
 
