@@ -62,8 +62,14 @@ class AjaxController extends Controller
             ->find($probId);
         $user = $this->getUser();
         $db_handler = $this->get('db_handler');
-        $votes = $db_handler->upvoteProblem($problem, $user  );
-        $data = array('probId'=>$probId, 'votes'=>$votes);
+        $votes = $problem->getVotes();
+        $status = '';
+        if(! $problem->getUpvotedBy()->contains($user)){
+            $votes = $db_handler->upvoteProblem($problem, $user);
+        } else {
+            $status = 'Galite pritarti tik vieną kartą!';
+        }
+        $data = array('probId'=>$probId, 'votes'=>$votes, 'status'=>$status);
         $response = new JsonResponse($data, 200);
         return $response;//$data;
     }
