@@ -12,17 +12,9 @@ class MainController extends Controller
 {
     public function indexAction(Request $request)
     {
-
-        $problems = [];
-
-        for($i = 2; $i<5; $i++) {
-            $problems[] = $this->getDoctrine()
-                ->getRepository('MiestietisMainBundle:Problema')
-                ->find($i);
-        }
-        if($problems[0] == null){
-            $problems[0] = 0;
-        }
+        $problems = $this->getDoctrine()
+            ->getRepository('MiestietisMainBundle:Problema')
+            ->findAll();
         /*$i = new extra();
         $a = $i->findOneBy(array('username' => 895797333822283));
         echo $a;
