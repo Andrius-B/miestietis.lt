@@ -1,7 +1,6 @@
 <?php
 namespace Miestietis\MainBundle\Services;
 
-use Symfony\Component\HttpFoundation\Response;
 use Miestietis\MainBundle\Entity\Problema;
 use Miestietis\MainBundle\Entity\Initiative;
 use Miestietis\MainBundle\Entity\User;
