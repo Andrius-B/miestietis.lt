@@ -16,3 +16,5 @@ services:
     ob_formation:
         class: Miestietis\MainBundle\Services\Formation
         arguments: [ "@doctrine.orm.entity_manager" ]
+    item_type:
+        class: Miestietis\MainBundle\Services\Type
