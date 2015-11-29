@@ -2,7 +2,7 @@
 
 namespace Miestietis\MainBundle\Controller;
 
-use Miestietis\MainBundle\Entity\Problema;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Miestietis\MainBundle\Form\InitiativeType;
 use Miestietis\MainBundle\Entity\Initiative;
@@ -12,9 +12,8 @@ class MainController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $problems = $this->getDoctrine()
-            ->getRepository('MiestietisMainBundle:Problema')
-            ->findAll();
+        $ob_former = $this->get('ob_formation');
+        $problems = $ob_former->getAllProblems();
 
         /* Process problem status and tooltip values */
         $this->itemType($problems);

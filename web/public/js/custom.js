@@ -6,6 +6,7 @@ $(document).on('change', '.btn-file :file', function() {
 });
 
 $(document).ready( function() {
+
     $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
 
         var input = $(this).parents('.input-group').find(':text'),
@@ -18,7 +19,8 @@ $(document).ready( function() {
         }
 
     });
-
+    //----------------------------------------
+    // Posts a problem ajax request
     var addProblem = $('#newProblemAjaxForm');
     $('#newProblem').on('click', addProblem, function(e){
         e.preventDefault();
@@ -141,14 +143,15 @@ $(document).ready( function() {
     // End of ajax load history
     //------------------------------------------------------------
 
-
+    //---------------------------------------------------
     //handle initiative form
     $('.openInitiativeModal').on('click', function(e){
         //hide opened problem modal
         $('.modal').modal('hide');
         //open initiative form for that problem via ID
         $('#ajimedakaqfn').attr('probId', $(this).attr('probId'));
-    });
+    })
+    //---------------------------------------------------
     //handle initiative form data
     var addInitiative = $('#Miestietis_MainBundle_Initiative');
     $('#submitButton').on('click', addInitiative, function(e){
@@ -189,6 +192,7 @@ $(document).ready( function() {
             alert('Norėdami paskelti miesto problemą prisijunkite');
         }
     });
+
     /*
      need to add a check if user has already voted for this problem
      */
