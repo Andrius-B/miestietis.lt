@@ -142,11 +142,22 @@ $(document).ready( function() {
     //------------------------------------------------------------
 
 
+    //A function to clear the initiatvie form
+    function clearForm(){
+        $('#newDescription').val('');
+        $('#newDate select:nth-child(1)').val('');
+        $('#newDate select:nth-child(2)').val('');
+        $('#newDate select:nth-child(3)').val('');
+        $('#newDate div:nth-child(2) select:nth-child(1)').val('');
+        $('#newDate div:nth-child(2) select:nth-child(2)').val('');
+    }
+
     //handle initiative form
     $('.openInitiativeModal').on('click', function(e){
         //hide opened problem modal
         $('.modal').modal('hide');
         //open initiative form for that problem via ID
+        clearForm();
         $('#ajimedakaqfn').attr('probId', $(this).attr('probId'));
     });
     //handle initiative form data

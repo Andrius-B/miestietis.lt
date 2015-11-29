@@ -300,6 +300,10 @@ class Problema
         return $this;
     }
 
+    public function removeInitiative(){
+        $this->initiative = null;
+    }
+
     /**
      * Get initiative
      *

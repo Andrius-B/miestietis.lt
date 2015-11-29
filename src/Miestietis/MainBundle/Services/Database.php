@@ -43,10 +43,15 @@ class Database
         $initiative->setUserId($user);
         $initiative->setInitiativeDate($date);
         $initiative->setDescription($description);
+        $probId->setInitiative($initiative); //inserts initiative ref to problem
         $this->em->persist($initiative);
         $this->em->flush();
 
         return $initiative;
+    }
+    public function deleteInitiative(Initiative $initiative, User $user){
+        $this->em->remove($initiative)
+        //still need to remove the initiative from problema and maybe check for privelages
     }
 
     public function upvoteProblem(Problema $problem,User $user)
