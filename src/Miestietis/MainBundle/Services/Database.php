@@ -50,7 +50,7 @@ class Database
         return $initiative;
     }
     public function deleteInitiative(Initiative $initiative, User $user){
-        $this->em->remove($initiative)
+        $this->em->remove($initiative);
         //still need to remove the initiative from problema and maybe check for privelages
     }
 
