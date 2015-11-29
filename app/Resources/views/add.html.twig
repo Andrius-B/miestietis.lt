@@ -13,7 +13,7 @@
 
                     <div class="col-sm-12">
                         <div class="footer-content">
-                            <form role="form" id="footer-form" enctype="multipart/form-data" method="post" id="newProblemAjaxForm">
+                            <form role="form" action="{{ path('ajax_problem') }}" id="footer-form" enctype="multipart/form-data" method="post" id="newProblemAjaxForm">
                                 <div class="form-group has-feedback">
                                     <label class="sr-only" for="itemName">Problemos pavadinimas</label>
                                     <input type="text" class="form-control" id="itemName" placeholder="Problemos pavadinimas" name="itemName" required>
@@ -32,12 +32,15 @@
                                 <div class="input-group has-feedback">
                                     <span class="input-group-btn">
                                         <span class="btn btn-default btn-file">
-                                            Įkelti nuotrauką <input type="file" id="itemFile" > <!-- sutvarkyti css / class="file" -->
+                                            Įkelti nuotrauką <input type="file" id="itemFile" name="picture" > <!-- sutvarkyti css / class="file" -->
                                         </span>
+                                        <img src="{{ asset('/public/images/loading.gif') }}" id="loading-img" style="display: none;height: 25px;"/>
+                                        <div id="img-display"></div>
+                                        <div id="output"></div>
                                     </span>
                                     <input type="text" class="form-control" readonly="readonly" disabled>
                                 </div>
-                                <div class="modal-footer" id="beletristika" url="{{ path('ajax_problem') }}">
+                                <div class="modal-footer" id="controlerURL" url="{{ path('ajax_problem') }}">
                                     <input type="submit" value="Įkelti" class="btn btn-default" id="newProblem">
                                 </div>
                             </form>
