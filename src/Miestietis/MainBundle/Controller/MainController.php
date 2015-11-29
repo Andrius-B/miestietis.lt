@@ -16,27 +16,8 @@ class MainController extends Controller
             ->getRepository('MiestietisMainBundle:Problema')
             ->findAll();
 
-        /*$i = new extra();
-        $a = $i->findOneBy(array('username' => 895797333822283));
-        echo $a;
-        exit();*/
-
-        /* perkelti logika i servisus? */
-        $user = $this->getUser();
-        foreach($problems as $problem)
-        {
-            if($problem->getUpvotedBy()->contains($user))
-            {
-                $problem->status = 'disabled';
-                $problem->tooltip = 'Pritarti galite tik vieną kartą!';
-            } else {
-                $problem->status = '';
-                $problem->tooltip = 'Pritariu problemai';
-                if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-                    $problem->tooltip = 'Norėdami pritarti turite prisijungti';
-                }
-            }
-        }
+        /* Process problem status and tooltip values */
+        $this->itemType($problems);
 
         //initiative form'os set-up
         $initiative = new Initiative();
@@ -53,5 +34,22 @@ class MainController extends Controller
             ));
     }
 
-
+    public function itemType($p)
+    {
+        $user = $this->getUser();
+        foreach($p as $problem)
+        {
+            if($problem->getUpvotedBy()->contains($user))
+            {
+                $problem->status = 'disabled';
+                $problem->tooltip = 'Pritarti galite tik vieną kartą!';
+            } else {
+                $problem->status = '';
+                $problem->tooltip = 'Pritariu problemai';
+                if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+                    $problem->tooltip = 'Norėdami pritarti turite prisijungti';
+                }
+            }
+        }
+    }
 }
