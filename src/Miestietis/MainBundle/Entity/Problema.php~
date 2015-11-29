@@ -1,10 +1,14 @@
 <?php
 // src/Miestietis/MainBundle/Entity/Product.php
 namespace Miestietis\MainBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity
+ * @Vich\Uploadable
  * @ORM\Table(name="problema")
  */
 class Problema
@@ -20,6 +24,10 @@ class Problema
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user_id;
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="problem_id")
+     */
+    protected $comments;
     /**
      * @ORM\Column(type="string", length=100)
      */
@@ -37,6 +45,13 @@ class Problema
      */
     protected $votes;
     /**
+     *
+     * @Vich\UploadableField(mapping="problem_image", fileNameProperty="picture")
+     *
+     * @var File
+     */
+    private $imageFile;
+    /**
      * @ORM\Column(type="string")
      */
     protected $picture;
@@ -49,8 +64,35 @@ class Problema
      */
     private $initiative;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="upvoted_problems")
+     * @ORM\JoinTable(name="problema_upvotes",
+     *      joinColumns={@ORM\JoinColumn(name="problema_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     *      )
+     */
+    private $upvoted_by;
+
 
     // -------------------------------------------------
+
+    public function __construct(){
+        $this->upvoted_by = new ArrayCollection();
+    }
+    public function upvoteBy(User $user){
+        $this->upvoted_by->add($user);
+        return $this;
+    }
+    /** @return ArrayCollection */
+    public function getUpvotedBy(){
+        return $this->upvoted_by;
+    }
+
+    public function  incrementVote(){
+        $this->votes++;
+        return $this->votes;
+    }
+
     /**
      * Get id
      *
@@ -64,7 +106,7 @@ class Problema
     /**
      * Set userId
      *
-     * @param integer $userId
+     * @param User $userId
      *
      * @return Problema
      */
@@ -78,7 +120,7 @@ class Problema
     /**
      * Get userId
      *
-     * @return integer
+     * @return User
      */
     public function getUserId()
     {
@@ -180,7 +222,26 @@ class Problema
     {
         return $this->votes;
     }
+    /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     */
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
 
+        if ($image) {
+
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    /**
+     * @return File
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
     /**
      * Set picture
      *
@@ -227,5 +288,29 @@ class Problema
     public function getIsActive()
     {
         return $this->is_active;
+    }
+
+    /**
+     * Set initiative
+     *
+     * @param \Miestietis\MainBundle\Entity\Initiative $initiative
+     *
+     * @return Problema
+     */
+    public function setInitiative(\Miestietis\MainBundle\Entity\Initiative $initiative = null)
+    {
+        $this->initiative = $initiative;
+
+        return $this;
+    }
+
+    /**
+     * Get initiative
+     *
+     * @return \Miestietis\MainBundle\Entity\Initiative
+     */
+    public function getInitiative()
+    {
+        return $this->initiative;
     }
 }
