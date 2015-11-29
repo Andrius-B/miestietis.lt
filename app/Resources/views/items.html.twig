@@ -1,4 +1,4 @@
-<div class="col-sm-6 col-md-6 isotope-item problems top10"> <!-- Reikia laukelio papildomo skirstymui pvz problem.type() + parametro, kuris filtruotu pagal problem.votes() -->
+<div class="col-sm-6 col-md-6 isotope-item problems top10" xmlns="http://www.w3.org/1999/html"> <!-- Reikia laukelio papildomo skirstymui pvz problem.type() + parametro, kuris filtruotu pagal problem.votes() -->
     <div class="image-box">
         <div class="overlay-container">
             <img src="{{ asset('public/images/problems/' ~ problem.picture()) }}" alt="">
@@ -8,7 +8,13 @@
             </a>
         </div>
         <section class="itemContent">
-            <img src="{{ problem.getUSerId().getProfilePicture() }}" class = "profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Problemos autorius">
+            {% if  user  != null and user == problem.getUSerId() %}
+                <a href="{{ path('ajax_history') }}" class="profileHistory" data-toggle="modal" data-target="#profile-more" data-remote="false" data-dismiss="modal">
+                    <img src="{{ problem.getUSerId().getProfilePicture() }}" class="profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Problemos autorius">
+                </a>
+            {% else %}
+                <img src="{{ problem.getUSerId().getProfilePicture() }}" class="profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Problemos autorius">
+            {% endif %}
             <div class="itemInfo">
                 <h4>{{ problem.name() }}</h4>
                 <div data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data"><i class="fa fa-calendar-plus-o"></i>{{  problem.date() }}</div>
@@ -45,7 +51,13 @@
                             <img src="{{ asset('/public/images/problems/'~ problem.picture()) }}" alt="">
                         </div>
                         <div class="col-md-6">
-                            <img src="{{ problem.getUSerId().getProfilePicture() }}" class="profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Problemos autorius">
+                            {% if  user  != null and user == problem.getUSerId() %}
+                                <a href="{{ path('ajax_history') }}" class="profileHistory" data-toggle="modal" data-target="#profile-more" data-remote="false" data-dismiss="modal">
+                                    <img src="{{ problem.getUSerId().getProfilePicture() }}" class="profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Problemos autorius">
+                                </a>
+                            {% else %}
+                                <img src="{{ problem.getUSerId().getProfilePicture() }}" class="profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Problemos autorius">
+                            {% endif %}
                             <div class="itemInfo">
                                 <div data-toggle="tooltip" data-placement="top" title="Problemos autorius">
                                     {{ problem.getUserId().getFirstName }} {{ problem.getUserId().getLastName() }}
