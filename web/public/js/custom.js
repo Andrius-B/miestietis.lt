@@ -237,5 +237,30 @@ $(document).ready( function() {
         }
     });
 
+    // Load comments to a specific item
+    $('.fa-comments').on('click', function(e){
+        e.preventDefault();
+        var url = $(this).attr('url');
+        var item =$(this).attr('item');
+        var item_id =$(this).attr('item_id');
+        var data = {id: item_id, url: url, item: item};
+        alert(data);
+        console.log(data);/*
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: data,
+            contentType: false,       // The content type used when sending data to the server.
+            cache: false,             // To unable request pages to be cached
+            processData: false,        // To send DOMDocument or non processed data file it is set to false
+            success: function (data) {
+
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Error : ' + errorThrown);
+            }
+        });*/
+    });
 
 });

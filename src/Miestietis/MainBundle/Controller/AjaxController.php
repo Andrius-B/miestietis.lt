@@ -105,4 +105,7 @@ class AjaxController extends Controller
         return $response;
 
     }
+    public function commentAction(){
+
+    }
 }
