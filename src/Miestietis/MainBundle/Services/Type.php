@@ -6,7 +6,7 @@ use Miestietis\MainBundle\Entity\Problema;
 
 class Type{
 
-    public function itemType($p, $user)
+    public function itemType($p, $user, $checker)
     {
         foreach($p as $problem)
         {
@@ -17,7 +17,8 @@ class Type{
             } else {
                 $problem->status = '';
                 $problem->tooltip = 'Pritariu problemai';
-                if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+
+                if (!$checker->isGranted('IS_AUTHENTICATED_FULLY')) {
                     $problem->tooltip = 'Norėdami pritarti turite prisijungti';
                 }
             }
