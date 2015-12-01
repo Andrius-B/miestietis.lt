@@ -247,6 +247,8 @@ $(document).ready( function() {
         console.log(data);
         var $comment_list = $('#comment_list_'+item_id);
 
+        $comment_list.parent().append('' +
+            '<h4>Komentarai:</h4>');
         $.ajax({
             url: url,
             type: "POST",
@@ -254,7 +256,7 @@ $(document).ready( function() {
             success: function (data) {
                 //alert(data);
                data.forEach(function(i){
-                   $comment_list.append('<li>'+i['text']+'</li>');
+                   $comment_list.append('<li>'+i['comment']+'</li>');
                });
 
 
@@ -267,18 +269,36 @@ $(document).ready( function() {
         $comment_list.parent().append(
             '<row>' +
             '   <input type="text" class="comment_text">' +
-            '   <input type="submit" value="Komentuoti" class="btn btn-default comment_input_button" url='+url+'Add'+' >' +
+            '   <input type="submit" value="Komentuoti" class="btn btn-default comment_input_button" ' +
+            'url="'+url+'Add"'+' item="'+item+'" item_id="'+item_id+'">' +
             '</row>');
-    });
+        //------------------------------------------------------------------------------------------------
+        // Adding a comment
+        $('.comment_input_button').on('click', function() {
+            var comment = $(this).closest('row').find('.comment_text').val();
 
-    // Adding a comment
-    $('.comment_input_button').on('click', function() {
-        var url = $(this).attr('url');
-        var item = $(this).attr('item');
-        var item_id = $(this).attr('item_id');
-        var data = {id: item_id, item: item, url: url};
-        console.log(data);
-        var $comment_list = $('#comment_list_' + item_id);
+            if(comment != '' && comment != null) {
 
+                var url = $(this).attr('url');
+                var item = $(this).attr('item');
+                var item_id = $(this).attr('item_id');
+                var data = {comment: comment, item: item, item_id: item_id};
+                var $comment_list = $('#comment_list_' + item_id);
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: data,
+                    success: function (data) {
+                        $comment_list.append('<li>'+data["text"]+'</li>');
+
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert('Error : ' + errorThrown);
+                    }
+                });
+                $(this).closest('row').find('.comment_text').val('');
+            }else{alert('Nieko neįrašėt');}
+
+        });
     });
 });

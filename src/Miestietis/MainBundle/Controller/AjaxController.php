@@ -6,22 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
 class AjaxController extends Controller
 {
-//    private $db_handler;
-//    private $user;
-//    public function __construct(){
-//        if($this->db_handler == null ) {
-//            $this->db_handler = $this->get('db_handler');
-//        }
-//        if($this->user == null){
-//            $this->user = $this->getUser();
-//        }
-//
-//    }
+
     public function problemAction(Request $request)
     {
         if (!$request->isXmlHttpRequest())
@@ -128,8 +117,15 @@ class AjaxController extends Controller
         $item = $request->request->get('item');
         $item_id = $request->request->get('id');
         $comments = $db_handler->getCommentsById($item_id, $item);
+        $response = [];
+        foreach($comments as $comment){
+            $response[] = array('user_picture'=> $comment->getUserId()->getProfilePicture(),
+                'user_name'=> $comment->getUserId()->getFirstName().' '. $comment->getUserId()->getLastName() ,
+                'date'=> $comment->getDate(),
+                'comment'=> $comment->getText());
+        }
         if($comments != 0) {
-            $return = new JsonResponse($comments, 200);
+            $return = new JsonResponse($response, 200);
         }else{
             return 0;
         }
@@ -142,15 +138,15 @@ class AjaxController extends Controller
         }
         $db_handler = $this->get('db_handler');
         $user = $this->getUser();
-        $comment = $request->request->get('text');
-        $return = null;
-//        $item_id = $request->request->get('id');
-//        $comments = $db_handler->getCommentsById($item_id, $item);
-//        if($comments != 0) {
-//            $return = new JsonResponse($comments, 200);
-//        }else{
-//            return 0;
-//        }
+        $comment = $request->request->get('comment');
+        $item_id = $request->request->get('item_id');
+        $item = $request->request->get('item');
+        //$c = array('comment' => $comment, 'item id' => $item_id, 'item' => $item);
+        $db_handler->insertComment($item, $item_id, $comment, $user);
+        $c = array('text' => $comment, 'user_name' => $user->getFirstName().' '.$user->getLastName(),
+            'date' => date('Y m d'), 'picture' => $user->getProfilePicture());
+
+        $return = new JsonResponse($c, 200);
         return $return;
     }
 }
