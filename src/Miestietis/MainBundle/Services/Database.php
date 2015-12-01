@@ -62,4 +62,28 @@ class Database
         return ++$a;
 
     }
+    public function getCommentsById($id, $item){
+        if($item == 'problem'){
+            $query = $this->em->createQuery(
+                "SELECT c
+                FROM MiestietisMainBundle:Comment c
+                WHERE c.problem_id = :problem
+                ORDER BY c.date DESC"
+            )->setParameter('problem', $id);
+            $comments = $query->getResult();
+            return $comments;
+
+        }elseif($item == 'initiative'){
+            $query = $this->em->createQuery(
+                "SELECT c
+                FROM MiestietisMainBundle:Comment c
+                WHERE c.initiative_id = :initiative
+                ORDER BY c.date DESC"
+            )->setParameter('initiative', $id);
+            $comments = $query->getResult();
+            return $comments;
+        }else{
+            return 0;
+        }
+    }
 }

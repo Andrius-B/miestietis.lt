@@ -70,6 +70,7 @@
                             <div class="clearfix"></div>
                             <hr>
                             <p>{{ problem.description() }}</p>
+                            <div class="problem_comment_box"><ul id="comment_list_{{ problem.id() }}"></ul></div>
                         </div>
 
                     </div>
@@ -84,10 +85,10 @@
                     </div>
                     <div class="wrap-buttons-right">
                         <a data-toggle="modal" class="incVote {{ problem.status }}" probId="{{ problem.id() }}" url="{{ path('ajax_upvote') }}"><i data-toggle="tooltip" data-placement="top"  title="{{ problem.tooltip }}" class="fa fa-check-circle"></i></a>
-                        <a data-toggle="modal"><i data-toggle="tooltip" data-placement="top" title="Komentarai" class="fa fa-comments" url="{{ path('ajax_comment')}}" item="problem" item_id="{{ problem.id() }}"></i></a>
+                        <a data-toggle="modal"><i data-toggle="tooltip" data-placement="top" title="Komentarai" class="fa fa-comments" url="{{ path('ajax_commentLoad')}}" item="problem" item_id="{{ problem.id() }}"></i></a>
                         <a data-toggle="modal" class="openInitiativeModal" data-target="#addInitiative" probId="{{ problem.id() }}"><i data-toggle="tooltip" data-placement="top" title="Skelbti iniciatyvą" class="fa fa-bullhorn"></i></a>
                     </div>
-                    <div class="problem_comment_box"></div>
+
                 </div>
             </div>
         </div>
