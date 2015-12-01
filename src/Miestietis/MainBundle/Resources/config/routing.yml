@@ -13,3 +13,6 @@ ajax_upvote:
 ajax_history:
     path:     /ajaxHistory
     defaults: { _controller: MiestietisMainBundle:Ajax:history }
+ajax_edit:
+    path:     /ajaxEdit
+    defaults: { _controller: MiestietisMainBundle:Ajax:edit }

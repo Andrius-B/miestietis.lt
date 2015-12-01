@@ -76,6 +76,57 @@ $(document).ready( function() {
 
 
     // -------------------------------------------------
+    // Ajax request to edit item
+
+
+    // i know i can use event delegation on multiple selectors, but how do i make it multi functional?
+    $(document).on("click", "#editDescription, #editTitle, #editAddress", function (event) {
+        var target = event.currentTarget.id;
+        var $this = $(this);
+        var widthTitle = $this.width();
+        var heightDescription = $this.height()-5;
+        var widthAddress = $this.width()+25;
+
+        var title = $('<input />', {
+            'type': 'text',
+            'class': 'form-control',
+            'style': 'width:' + widthTitle + 'px',
+            'value': $(this).text()
+        });
+        var description = $('<textarea class="form-control edit-description">'+$(this).text()+'</textarea>');
+        var address = $('<input />', {
+            'type': 'text',
+            'class': 'form-control edit-address',
+            'style': 'width:' + widthAddress + 'px',
+            'value': $(this).text()
+        });
+
+        if (target === 'editTitle') {
+            $this.replaceWith(title);
+            title.focus()
+        } else if (target === 'editDescription') {
+            $this.replaceWith(description);
+            description.height(heightDescription);
+            description.focus();
+        } else if (target === 'editAddress') {
+            $this.replaceWith(address);
+            address.focus()
+        }
+
+        //$(document).on("blur change", "input", function () {
+        //    setTimeout(function () {
+        //        var value = input.val();
+        //        $this.text(value);
+        //        input.replaceWith($this);
+        //    }, 100);
+        //});
+    });
+
+    // End of edit item
+    //------------------------------------------------------------
+
+
+    // -------------------------------------------------
     // Ajax request to load profile modal with history
 
     $(".profileHistory").on('click', function(event){
@@ -117,7 +168,6 @@ $(document).ready( function() {
                 }
             }).done(function () {
                 container.data('loaded', true);
-                console.log("Ajax done");
             });
         }
     });

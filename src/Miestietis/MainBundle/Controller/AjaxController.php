@@ -105,4 +105,12 @@ class AjaxController extends Controller
         return $response;
 
     }
+
+//    public function editAction(Request $request)
+//    {
+//        if (!$request->isXmlHttpRequest())
+//        {
+//            return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
+//        }
+//    }
 }
