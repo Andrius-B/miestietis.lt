@@ -128,7 +128,7 @@ $(document).ready( function() {
     // Add initiative
 
     //A function to clear the initiatvie form
-    function clearForm(){
+    function clearInitiativeFormContent(){
         $('#newDescription').val('');
         $('#newDate select:nth-child(1)').val('');
         $('#newDate select:nth-child(2)').val('');
@@ -137,19 +137,34 @@ $(document).ready( function() {
         $('#newDate div:nth-child(2) select:nth-child(2)').val('');
     }
 
+    function clearInitiativeForm(){
+        //clearInitiativeFormContent();
+        $("#initiativeDescriptionDiv").attr('class','form-group has-feedback');
+        $("#initiativeDateDiv").attr('class','form-group has-feedback');
+        $("#submitButton").attr('class', 'btn btn-default');
+        $("#initiativeError").text('');
+        $("#initiativeError").hide();
+    }
+
     //handle initiative form modal
 
     $('.openInitiativeModal').on('click', function(e){
         //hide opened problem modal
         $('.modal').modal('hide');
         //open initiative form for that problem via ID
-        clearForm();
+        clearInitiativeFormContent();
         $('#ajimedakaqfn').attr('probId', $(this).attr('probId'));
+    });
+
+    $("#addInitiative").on('hidden.bs.modal', function(e){
+        clearInitiativeForm();
+        clearInitiativeFormContent();
     });
     //---------------------------------------------------
     //handle initiative form data
     var addInitiative = $('#Miestietis_MainBundle_Initiative');
     $('#submitButton').on('click', addInitiative, function(e){
+        clearInitiativeForm();
         e.preventDefault();
         if ($('#profileLi').attr('rel') == 'Connected') {
             var description = $('#newDescription').val();
@@ -158,9 +173,54 @@ $(document).ready( function() {
             var day = $('#newDate select:nth-child(3)').val();
             var hour = $('#newDate div:nth-child(2) select:nth-child(1)').val();
             var minute = $('#newDate div:nth-child(2) select:nth-child(2)').val();
-            var date = year.concat(" ", month, " ", day, " ", hour, " ", minute);
-            if (description != '' & year != '' & month != '' & day != '' & hour != '' & minute != '') {
+            var valid = true;
+            //validation:
+            if(description.length<6){
+                $("#initiativeDescriptionDiv").attr('class','form-group has-error');
+                $("#initiativeError").text("Nepakankamas aprašymas");
+                $("#initiativeError").attr('class','label label-danger');
+                $("#initiativeError").show();
+                 return valid = false;
+            }
+            if(year==""){
+                $("#initiativeError").text("Pasirinkite metus");
+                $("#initiativeError").attr('class','label label-danger');
+                $("#initiativeError").show();
+                 return valid = false;
+            }
+
+            if(month==""){
+                $("#initiativeError").text("Pasirinkite mėnesį");
+                $("#initiativeError").attr('class','label label-danger');
+                $("#initiativeError").show();
+                 return valid = false;
+            }
+
+            if(day==""){
+                $("#initiativeError").text("Pasirinkite dieną");
+                $("#initiativeError").attr('class','label label-danger');
+                $("#initiativeError").show();
+                return valid = false;
+            }
+
+            if(hour==""){
+                $("#initiativeError").text("Pasirinkite valnandą");
+                $("#initiativeError").attr('class','label label-danger');
+                $("#initiativeError").show();
+                return valid = false;
+            }
+
+            if(minute==""){
+                $("#initiativeError").text("Pasirinkite minutę");
+                $("#initiativeError").attr('class','label label-danger');
+                $("#initiativeError").show();
+                return valid = false;
+            }
+
+            if (valid) {//description != '' & year != '' & month != '' & day != '' & hour != '' & minute != ''
+                var date = year.concat(" ", month, " ", day, " ", hour, " ", minute);
                 var url = $('#ajimedakaqfn').attr('url');
+                //var url='NANI?';
                 var probId = $('#ajimedakaqfn').attr('probId');
                 var data = {description: description, date: date, probId:probId};
                 console.log(data);
@@ -174,14 +234,16 @@ $(document).ready( function() {
                             alert(data.status);
                         }else{
                             $('#submitButton').attr('class', 'btn btn-success');
+                            $("#initiativeError").html("Iniciatyva pateikta!");
+                            $("#initiativeError").attr('class','label label-success');
+                            $("#initiativeError").show();
+                            //$(".modal").modal("hide");
                         }
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         alert('Error : ' + errorThrown);
                     }
                 });
-            } else {
-                alert('Visi laukai turi būti užpildyti');
             }
         } else {
             requireLogin(false);

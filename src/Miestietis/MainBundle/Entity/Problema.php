@@ -4,6 +4,7 @@ namespace Miestietis\MainBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -219,9 +220,9 @@ class Problema
         return $this->votes;
     }
     /**
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     * @param UploadedFile $image
      */
-    public function setImageFile(File $image = null)
+    public function setImageFile(UploadedFile $image = null) //added a use file statement for hotfix :/
     {
         $this->imageFile = $image;
 
