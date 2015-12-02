@@ -175,44 +175,44 @@ $(document).ready( function() {
             var minute = $('#newDate div:nth-child(2) select:nth-child(2)').val();
             var valid = true;
             //validation:
+            $("#initiativeDescriptionDiv").attr('class','form-group has-error text-right');
             if(description.length<6){
-                $("#initiativeDescriptionDiv").attr('class','form-group has-error');
                 $("#initiativeError").text("Nepakankamas aprašymas");
-                $("#initiativeError").attr('class','label label-danger');
+                $("#initiativeError").attr('class','text text-danger text-right');
                 $("#initiativeError").show();
                  return valid = false;
             }
             if(year==""){
                 $("#initiativeError").text("Pasirinkite metus");
-                $("#initiativeError").attr('class','label label-danger');
+                $("#initiativeError").attr('class','text text-danger');
                 $("#initiativeError").show();
                  return valid = false;
             }
 
             if(month==""){
                 $("#initiativeError").text("Pasirinkite mėnesį");
-                $("#initiativeError").attr('class','label label-danger');
+                $("#initiativeError").attr('class','text text-danger');
                 $("#initiativeError").show();
                  return valid = false;
             }
 
             if(day==""){
                 $("#initiativeError").text("Pasirinkite dieną");
-                $("#initiativeError").attr('class','label label-danger');
+                $("#initiativeError").attr('class','text text-danger');
                 $("#initiativeError").show();
                 return valid = false;
             }
 
             if(hour==""){
                 $("#initiativeError").text("Pasirinkite valnandą");
-                $("#initiativeError").attr('class','label label-danger');
+                $("#initiativeError").attr('class','text text-danger');
                 $("#initiativeError").show();
                 return valid = false;
             }
 
             if(minute==""){
                 $("#initiativeError").text("Pasirinkite minutę");
-                $("#initiativeError").attr('class','label label-danger');
+                $("#initiativeError").attr('class','text text-danger');
                 $("#initiativeError").show();
                 return valid = false;
             }
@@ -235,7 +235,7 @@ $(document).ready( function() {
                         }else{
                             $('#submitButton').attr('class', 'btn btn-success');
                             $("#initiativeError").html("Iniciatyva pateikta!");
-                            $("#initiativeError").attr('class','label label-success');
+                            $("#initiativeError").attr('class','text text-success');
                             $("#initiativeError").show();
                             //$(".modal").modal("hide");
                         }

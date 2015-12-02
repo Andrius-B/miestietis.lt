@@ -583,6 +583,12 @@ hr {
     transform: translate(0, -50%);
 }
 
+/* Initiative form modal */
+
+.form-group .text {
+	padding-left: 10px;
+}
+
 /* Add item modal form */
 
 .btn-file {
