@@ -433,6 +433,20 @@ textarea {
 	display:inline-block;
 	color: #ffffff;
 }
+
+.modal-header .edit-title {
+    font-size: 18px;
+    font-weight: 700;
+    font-style: italic;
+    color:#eee;
+    height: 25.7167px;
+    background-color: #55ACEE;
+    padding: 0px 12px;
+    outline:0;
+    border: none;
+    box-shadow:none;
+}
+
 .modal-header .close {
 	font-weight: 300;
     line-height: 1.4;
@@ -538,9 +552,15 @@ div[data-toggle="tooltip"] > i, address .fa-map-marker {
 }
 
 .modal-body .edit-description {
+    font-size: 15px;
+    font-style: italic;
+    color:#555;
     text-indent: 30px;
     line-height:1.5;
     margin-top: 5px;
+	outline:0;
+    border: none;
+    box-shadow:none;
 }
 
 .modal-body .profile-picture {
@@ -593,10 +613,16 @@ hr {
 }
 
 .modal-footer .wrap-item-info-left .edit-address {
+    font-size: 15px;
+    font-style: italic;
+    color:#555;
     display:inline-block;
     height: 35px;
     margin-top:-17px;
     margin-left: 5px;
+    outline:0;
+    border: none;
+    box-shadow:none;
 }
 
 .modal-footer .wrap-buttons-right {

@@ -79,24 +79,30 @@ $(document).ready( function() {
     // Ajax request to edit item
 
     $(document).on('click', '#editItem', function() {
-        var targetTitle = $('#editTitle');
-        var targetDescription = $('#editDescription');
-        var targetAddress = $('#editAddress');
-        targetAddress.click();
-        targetDescription.click();
-        targetTitle.click();
+        var $this = $(this).parents('.modal-content');
+        var targetTitle = $this.find('#editTitle');
+        var targetDescription = $this.find('#editDescription');
+        var targetAddress = $this.find('#editAddress');
+
+        targetAddress.trigger('editItemsEvent');
+        targetDescription.trigger('editItemsEvent');
+        targetTitle.trigger('editItemsEvent');
+
+        var text = $(this).text('Redaguokite pasvirą tekstą.');
+        text.css('font-size', '0.75em');
+        text.tooltip('hide');
     });
 
-    $('.modal').on("click", "#editTitle, #editDescription, #editAddress", function (event) {
+    $('.modal').on("editItemsEvent", "#editTitle, #editDescription, #editAddress", function (event) {
         var target = event.currentTarget.id;
         var $this = $(this);
-        var widthTitle = $this.width();
-        var heightDescription = $this.height()-5;
+        var widthTitle = $this.width()+15;
+        var heightDescription = $this.height();
         var widthAddress = $this.width()+25;
 
         var title = $('<input />', {
             'type': 'text',
-            'class': 'form-control',
+            'class': 'form-control edit-title',
             'style': 'width:' + widthTitle + 'px',
             'value': $(this).text()
         });
@@ -110,23 +116,12 @@ $(document).ready( function() {
 
         if (target === 'editTitle') {
             $this.replaceWith(title);
-            //title.focus()
         } else if (target === 'editDescription') {
             $this.replaceWith(description);
             description.height(heightDescription);
-            //description.focus();
         } else if (target === 'editAddress') {
             $this.replaceWith(address);
-            //address.focus()
         }
-
-        //$(document).on("blur change", "input", function () {
-        //    setTimeout(function () {
-        //        var value = input.val();
-        //        $this.text(value);
-        //        input.replaceWith($this);
-        //    }, 100);
-        //});
     });
 
     // End of edit item
