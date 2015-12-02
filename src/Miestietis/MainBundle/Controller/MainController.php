@@ -18,8 +18,9 @@ class MainController extends Controller
         $initiatives = $ob_former->getInitiatives(10, 0);
 
         /* Process problem status and tooltip values   ---> okay, but why????*/
-        $checker = $this->get('security.authorization_checker');
-        $this->get('item_type')->itemType($problems, $user, $checker);
+
+        $this->get('item_type')->itemType($problems, $user, $this->get('security.authorization_checker'));
+
 
         //initiative form set-up
         $initiative = $ob_former->formInitiative();

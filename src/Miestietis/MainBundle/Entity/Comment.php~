@@ -1,0 +1,42 @@
+<?php
+namespace Miestietis\MainBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="comments")
+ */
+class Comment
+{
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="comments")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user_id;
+    /**
+     * @ORM\ManyToOne(targetEntity="Problema", inversedBy="comments")
+     * @ORM\JoinColumn(name="problem_id", referencedColumnName="id")
+     */
+    protected $problem_id;
+    /**
+     * @ORM\ManyToOne(targetEntity="Initiative", inversedBy="comments")
+     * @ORM\JoinColumn(name="initiative_id", referencedColumnName="id")
+     */
+    protected $initiative_id;
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $date;
+    /**
+     * @ORM\Column(type="text")
+     */
+    protected $text;
+
+}

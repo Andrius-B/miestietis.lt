@@ -77,6 +77,10 @@ class User extends BaseUser
      */
     protected $problems;
     /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="user_id")
+     */
+    protected $comments;
+    /**
      * @ORM\OneToMany(targetEntity="Initiative", mappedBy="user_id")
      */
     protected $initiatives;
