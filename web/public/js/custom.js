@@ -247,7 +247,7 @@ $(document).ready( function() {
         console.log(data);
         var $comment_list = $('#comment_list_'+item_id);
 
-        $comment_list.parent().append('' +
+        $comment_list.parent().prepend('' +
             '<h4>Komentarai:</h4>');
         $.ajax({
             url: url,
@@ -278,25 +278,26 @@ $(document).ready( function() {
             var comment = $(this).closest('row').find('.comment_text').val();
 
             if(comment != '' && comment != null) {
+                if($('#profileLi').attr('rel') == 'Connected') {
+                    var url = $(this).attr('url');
+                    var item = $(this).attr('item');
+                    var item_id = $(this).attr('item_id');
+                    var data = {comment: comment, item: item, item_id: item_id};
+                    var $comment_list = $('#comment_list_' + item_id);
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        data: data,
+                        success: function (data) {
+                            $comment_list.append('<li>' + data["text"] + '</li>');
 
-                var url = $(this).attr('url');
-                var item = $(this).attr('item');
-                var item_id = $(this).attr('item_id');
-                var data = {comment: comment, item: item, item_id: item_id};
-                var $comment_list = $('#comment_list_' + item_id);
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    data: data,
-                    success: function (data) {
-                        $comment_list.append('<li>'+data["text"]+'</li>');
-
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alert('Error : ' + errorThrown);
-                    }
-                });
-                $(this).closest('row').find('.comment_text').val('');
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert('Error : ' + errorThrown);
+                        }
+                    });
+                    $(this).closest('row').find('.comment_text').val('');
+                }else{alert('Prisijunkite');}
             }else{alert('Nieko neįrašėt');}
 
         });
