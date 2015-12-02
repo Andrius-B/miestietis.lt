@@ -19,3 +19,7 @@ ajax_commentLoad:
 ajax_commentAdd:
     path:     /ajaxCommentAdd
     defaults: { _controller: MiestietisMainBundle:Ajax:commentAdd }
+    defaults: { _controller: MiestietisMainBundle:Ajax:history }
+ajax_edit:
+    path:     /ajaxEdit
+    defaults: { _controller: MiestietisMainBundle:Ajax:edit }
