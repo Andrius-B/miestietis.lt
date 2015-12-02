@@ -79,23 +79,43 @@ $(document).ready( function() {
     // Ajax request to edit item
 
     $(document).on('click', '#editItem', function() {
+        // galima tiesiog padaryti input'us ir disable'inti pagal reikala, input'ai gali buti stilizuojami kaip nori
+        // jeigu bus laiko padarysiu sitaip
+        // sitas approach'as blogas sukuria papildomu nematomu elementu DOM'e
         var $this = $(this).parents('.modal-content');
         var targetTitle = $this.find('#editTitle');
         var targetDescription = $this.find('#editDescription');
         var targetAddress = $this.find('#editAddress');
 
+        var initialTitle = targetTitle.clone();
+        var initialDescription = targetDescription.clone();
+        var initialAddress = targetAddress.clone();
+
+        $(this).tooltip('hide');
+
+
         targetAddress.trigger('editItemsEvent');
         targetDescription.trigger('editItemsEvent');
         targetTitle.trigger('editItemsEvent');
 
-        var text = $(this).text('Redaguokite pasvirą tekstą.');
-        text.css('font-size', '0.75em');
-        text.tooltip('hide');
+        $('.modal').on('hidden.bs.modal', function() {
+            $('.edit-title').replaceWith(initialTitle);
+            $('.edit-description').replaceWith(initialDescription);
+            $('.edit-address').replaceWith(initialAddress);
+            $('#editItem').text('Redaguoti');
+        });
+
+        var text = 'Redaguokite pasvirą tekstą.';
+        $(this)[0].childNodes[1].nodeValue = text;
+
+        $('.wrap-buttons-right').fadeOut().empty()
+
     });
 
     $('.modal').on("editItemsEvent", "#editTitle, #editDescription, #editAddress", function (event) {
         var target = event.currentTarget.id;
         var $this = $(this);
+
         var widthTitle = $this.width()+15;
         var heightDescription = $this.height();
         var widthAddress = $this.width()+25;
@@ -116,12 +136,18 @@ $(document).ready( function() {
 
         if (target === 'editTitle') {
             $this.replaceWith(title);
+            //title.focus();
         } else if (target === 'editDescription') {
             $this.replaceWith(description);
+            var val = description.val();
+            description.val('');
+            description.focus();
+            description.val(val);
             description.height(heightDescription);
         } else if (target === 'editAddress') {
             $this.replaceWith(address);
         }
+
     });
 
     // End of edit item
