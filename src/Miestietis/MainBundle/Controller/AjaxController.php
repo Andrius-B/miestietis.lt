@@ -40,6 +40,25 @@ class AjaxController extends Controller
         return $response;//$data;
     }
 
+    public function initiativeEditAction(Request $request){
+        $description = $request->request->get('description');
+        $date = $request->request->get('date');
+        $probId = intval($request->request->get('probId'));
+        $initId = intval($request->request->get('initId'));
+        $problem = $this->getDoctrine()
+            ->getRepository('MiestietisMainBundle:Problema')
+            ->find($probId);
+        $initiative = $this->getDoctrine()
+            ->getRepository('MiestietisMainBundle:Initiative')
+            ->find($initId);
+        $data = array('description' => $description, 'date'=>$date, 'probId'=>$problem);
+
+        //using the database service insert to DB
+        $db_handler = $this->get('db_handler');
+        $db_handler->editInitiative($description, $date, $initiative);
+        $response = new JsonResponse($data, 200);
+        return $response;//$data;
+    }
 
     public function initiativeAction(Request $request)
     {

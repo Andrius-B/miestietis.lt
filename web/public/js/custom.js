@@ -61,6 +61,7 @@ $(document).ready( function() {
                     alert('Error : ' + errorThrown);
                 },
                 complete: function() {
+                    createProblem();
                     $('.modal').modal('hide');
                     allInputs.val('');
                     location.reload(); // VERY VERY BAD PRACTICE reloads whole page, need some sort of handler maybe in backend, if mysql db is updated update the view
@@ -73,7 +74,6 @@ $(document).ready( function() {
     });
     // End of add problem
     //------------------------------------------------------------
-
 
     // -------------------------------------------------
     // Ajax request to load profile modal with history
@@ -175,8 +175,8 @@ $(document).ready( function() {
             var minute = $('#newDate div:nth-child(2) select:nth-child(2)').val();
             var valid = true;
             //validation:
-            $("#initiativeDescriptionDiv").attr('class','form-group has-error text-right');
             if(description.length<6){
+                $("#initiativeDescriptionDiv").attr('class','form-group has-error text-right');
                 $("#initiativeError").text("Nepakankamas aprašymas");
                 $("#initiativeError").attr('class','text text-danger text-right');
                 $("#initiativeError").show();

@@ -33,6 +33,17 @@ class Database
         return $problem;
     }
 
+    public function editInitiative($description, $date, $initiative){
+        $initiative->setIsActive(true);
+        //$initiative->setRegistrationDate(date("Y m d"));
+        $initiative->setInitiativeDate($date);
+        $initiative->setDescription($description);
+        $this->em->persist($initiative);
+        $this->em->flush();
+
+        return $initiative;
+    }
+
     public function insertInitiative($description, $date,Problema $probId, User $user){
         $initiative = new Initiative();
 
@@ -44,7 +55,9 @@ class Database
         $initiative->setInitiativeDate($date);
         $initiative->setDescription($description);
         $probId->setInitiative($initiative); //inserts initiative ref to problem
+        $probId->setIsActive(false);
         $this->em->persist($initiative);
+        $this->em->persist($probId);
         $this->em->flush();
 
         return $initiative;
