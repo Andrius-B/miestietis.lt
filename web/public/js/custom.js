@@ -78,9 +78,16 @@ $(document).ready( function() {
     // -------------------------------------------------
     // Ajax request to edit item
 
+    $(document).on('click', '#editItem', function() {
+        var targetTitle = $('#editTitle');
+        var targetDescription = $('#editDescription');
+        var targetAddress = $('#editAddress');
+        targetAddress.click();
+        targetDescription.click();
+        targetTitle.click();
+    });
 
-    // i know i can use event delegation on multiple selectors, but how do i make it multi functional?
-    $(document).on("click", "#editDescription, #editTitle, #editAddress", function (event) {
+    $('.modal').on("click", "#editTitle, #editDescription, #editAddress", function (event) {
         var target = event.currentTarget.id;
         var $this = $(this);
         var widthTitle = $this.width();
@@ -103,14 +110,14 @@ $(document).ready( function() {
 
         if (target === 'editTitle') {
             $this.replaceWith(title);
-            title.focus()
+            //title.focus()
         } else if (target === 'editDescription') {
             $this.replaceWith(description);
             description.height(heightDescription);
-            description.focus();
+            //description.focus();
         } else if (target === 'editAddress') {
             $this.replaceWith(address);
-            address.focus()
+            //address.focus()
         }
 
         //$(document).on("blur change", "input", function () {

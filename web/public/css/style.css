@@ -551,8 +551,12 @@ div[data-toggle="tooltip"] > i, address .fa-map-marker {
     vertical-align: middle;
 }
 
-.modal-body .itemInfo div[data-original-title="Problemos autorius"] {
+.modal-body .itemInfo div[data-original-title*="aut"] {
 	display: inline-block;
+}
+
+.modal-body .itemInfo div[data-original-title*="Redag"] {
+    cursor:pointer;
 }
 
 hr {
