@@ -82,44 +82,59 @@ $(document).ready( function() {
         // galima tiesiog padaryti input'us ir disable'inti pagal reikala, input'ai gali buti stilizuojami kaip nori
         // jeigu bus laiko padarysiu sitaip
         // sitas approach'as blogas sukuria papildomu nematomu elementu DOM'e
+        // bandytas approach'as su input fieldais iskarto - neina su jquery priskirti auksciu Pries uzkraunant modal'o css, o jeigu po - split second matosi vaizdo iskraipymas
         var $this = $(this).parents('.modal-content');
+
         var targetTitle = $this.find('#editTitle');
         var targetDescription = $this.find('#editDescription');
         var targetAddress = $this.find('#editAddress');
+        var targetButtons = $this.find('.wrap-buttons-right');
 
         var initialTitle = targetTitle.clone();
         var initialDescription = targetDescription.clone();
         var initialAddress = targetAddress.clone();
+        var initialButtons = targetButtons.clone();
 
         $(this).tooltip('hide');
-
 
         targetAddress.trigger('editItemsEvent');
         targetDescription.trigger('editItemsEvent');
         targetTitle.trigger('editItemsEvent');
 
+        var editButton = $(this)[0].childNodes[1];
+        editButton.nodeValue = 'Redaguokite pasvirą tekstą.';
+
         $('.modal').on('hidden.bs.modal', function() {
-            $('.edit-title').replaceWith(initialTitle);
-            $('.edit-description').replaceWith(initialDescription);
-            $('.edit-address').replaceWith(initialAddress);
-            $('#editItem').text('Redaguoti');
+            $this.find('.edit-title').replaceWith(initialTitle);
+            $this.find('.edit-description').replaceWith(initialDescription);
+            $this.find('.edit-address').replaceWith(initialAddress);
+            $this.find('.wrap-buttons-right').remove();
+            $this.find('.modal-footer').append(initialButtons);
+            editButton.nodeValue = 'Redaguoti';
         });
 
-        var text = 'Redaguokite pasvirą tekstą.';
-        $(this)[0].childNodes[1].nodeValue = text;
-
-        $('.wrap-buttons-right').fadeOut().empty()
+        targetButtons.empty();
+        targetButtons.append('<a ' +
+            'data-toggle="modal" ' +
+            'class="save-button" ' +
+            'probId="{{ problem.id() }}" ' +
+            'url="{{ path(\'here_goes_ajax_save\') }}">' +
+                '<i ' +
+                    'data-toggle="tooltip" ' +
+                    'data-placement="top"  ' +
+                    'title="Išsaugoti pakeitimus" ' +
+                    'class="fa fa-floppy-o">' +
+                '</i>' +
+            '</a>');
 
     });
 
     $('.modal').on("editItemsEvent", "#editTitle, #editDescription, #editAddress", function (event) {
         var target = event.currentTarget.id;
         var $this = $(this);
-
         var widthTitle = $this.width()+15;
         var heightDescription = $this.height();
         var widthAddress = $this.width()+25;
-
         var title = $('<input />', {
             'type': 'text',
             'class': 'form-control edit-title',
@@ -147,7 +162,6 @@ $(document).ready( function() {
         } else if (target === 'editAddress') {
             $this.replaceWith(address);
         }
-
     });
 
     // End of edit item
