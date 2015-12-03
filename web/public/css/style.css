@@ -642,25 +642,82 @@ hr {
 
 .modal-comments hr {
     width: 75%;
-}
-
-.modal-comments--post img,
-.modal-comments--post textarea {
-    display:inline-block;
-    vertical-align: middle;
+    margin-top: 0;
 }
 
 .modal-comments--post {
     padding-top: 16px;
 }
 
+.modal-comments--comment {
+    padding-bottom: 5px;
+}
+
+.modal-comments--comment img,
+.modal-comments--comment .comment-info,
+.modal-comments--comment .comment-info .comment-author,
+.modal-comments--comment .comment-info .comment-date,
+.modal-comments--post img,
+.modal-comments--post textarea {
+    display:inline-block;
+}
+
+.modal-comments--comment img,
+.modal-comments--comment .comment-info,
+.modal-comments--post img,
+.modal-comments--post textarea {
+    vertical-align: middle;
+}
+
+.modal-comments--comment .comment-info,
+.modal-comments--post textarea {
+    width: 62.5%;
+}
+
+.modal-comments--comment img,
 .modal-comments--post img {
     vertical-align: top;
     margin-right: 10px;
 }
 
+.modal-comments--comment img {
+    margin-top: 4px;
+}
+
+.modal-comments--comment .comment-info,
+.modal-comments--comment p {
+    text-align: left;
+}
+
+.modal-comments--comment .comment-details {
+	position:relative;
+}
+
+.modal-comments--comment .comment-info .comment-author,
+.modal-comments--comment .comment-info .comment-date {
+    vertical-align: top;
+}
+
+.modal-comments--comment .comment-info .comment-author {
+	text-align: left;
+}
+
+.modal-comments--comment .comment-info .comment-date {
+    text-align:right;
+    position: absolute;
+    right:0;
+}
+
+.modal-comments--comment .comment-info .comment-date .fa {
+    margin-right: 5px;
+}
+
+.modal-comments--comment p {
+    font-size: 0.75em;
+}
+
+
 .modal-comments--post textarea {
-    width: 62.5%;
     height: 3.75em;
 }
 
