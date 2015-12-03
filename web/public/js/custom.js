@@ -76,7 +76,26 @@ $(document).ready( function() {
 
     // -------------------------------------------------
     // Ajax request to edit item
+    function ajaxProblemEdit(){
+        var url = $('#editItem').attr('url');
+        var probId = $('#editItem').attr('probId');
 
+        var title = $('.edit-title').val();
+        var description = $('.edit-description').val();
+        var address = $('.edit-address').val();
+        var data = {title:title, description:description, address:address, probId:probId};
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function (data) {
+                alert('gg');
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Error : ' + errorThrown);
+            }
+        });
+    };
     $(document).on('click', '#editItem', function() {
         // galima tiesiog padaryti input'us ir disable'inti pagal reikala, input'ai gali buti stilizuojami kaip nori
         // jeigu bus laiko padarysiu sitaip
@@ -113,11 +132,11 @@ $(document).ready( function() {
         });
 
         targetButtons.empty();
-        targetButtons.append('<a ' +
+        targetButtons.append('<a ' + //man atrodo galima naudot backtick'us multiline stringui (`)
             'data-toggle="modal" ' +
-            'class="save-button" ' +
-            'probId="{{ problem.id() }}" ' +
-            'url="{{ path(\'here_goes_ajax_save\') }}">' +
+            'class="save-button">' +
+            //'probId="{{ problem.id() }}" ' +
+            //'url="{{ path(ajax_problemEdit) }}">' + //twig'as veikia tik back-end'e
                 '<i ' +
                     'data-toggle="tooltip" ' +
                     'data-placement="top"  ' +
@@ -125,6 +144,9 @@ $(document).ready( function() {
                     'class="fa fa-floppy-o">' +
                 '</i>' +
             '</a>');
+        $('.save-button').on('click',function(){
+            ajaxProblemEdit();
+        });
 
     });
 
@@ -162,6 +184,7 @@ $(document).ready( function() {
             $this.replaceWith(address);
         }
     });
+
 
     // End of edit item
     //------------------------------------------------------------

@@ -66,7 +66,7 @@
                                 <div data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data"><i class="fa fa-calendar-plus-o"></i>{{ problem.date() }}</div>
                                 {% if  user  != null and user == problem.getUSerId() %}
 
-                                    <div id="editItem" data-toggle="tooltip" data-placement="top" title="Redaguoti problemą"><i class="fa fa-pencil"></i>Redaguoti</div>
+                                    <div id="editItem" data-toggle="tooltip" data-placement="top" title="Redaguoti problemą" url="{{ path('ajax_problemEdit') }}" probId="{{ problem.id() }}"><i class="fa fa-pencil"></i>Redaguoti</div>
 
                                 {% endif %}
                             </div>

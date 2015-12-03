@@ -34,6 +34,24 @@ class Database
         return $problem;
     }
 
+    public function editProblem($name, $description, $address, $problem){
+        if($name!=''){ //should this validation be front-end?
+            $problem->setName($name);
+        }
+        if($description!=''){
+            $problem->setDescription($description);
+        }
+
+        if($this->em == null){
+            return 0;
+        }
+        $this->em->persist($problem);
+        $this->em->flush();
+
+        return $problem;
+    }
+
+
     public function editInitiative($description, $date, $initiative){
         $initiative->setIsActive(true);
         //$initiative->setRegistrationDate(date("Y m d"));

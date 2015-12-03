@@ -43,6 +43,31 @@ class AjaxController extends Controller
         return $response;//$data;
     }
 
+    public function problemEditAction(Request $request)
+    {
+        if (!$request->isXmlHttpRequest())
+        {
+            return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
+        }
+        // Getting everything from the request
+        $db_handler = $this->get('db_handler');
+        $probId = $request->request->get('probId');
+        $name = $request->request->get('name');
+        $description = $request->request->get('description');
+        $address = $request->request->get('address');
+
+        $problem = $this->getDoctrine()->getRepository('MiestietisMainBundle:Problema')->find($probId);
+
+        //Forming a response
+        $data = array('name' => $name, 'description' => $description);
+        //Persisting problem to a database
+
+        $db_handler->editProblem($name, $description, $address, $problem);
+
+        $response = new JsonResponse($data, 200);
+        return $response;//$data;
+    }
+
     public function initiativeEditAction(Request $request){
         $description = $request->request->get('description');
         $date = $request->request->get('date');
