@@ -962,16 +962,8 @@ input[readonly] {
     transition: color 0.2s ease-in-out;
 }
 
-.table-like__item div span {
-    font-family: "Open Sans";
-    font-weight: 400;
-
-}
-
-.table-like__item div h4+i,
-.table-like__item div span {
-    font-size: 0.75em;
-    vertical-align: middle;
+.table-like__item span {
+    padding-left: 5px;
 }
 
 #profile-more .modal-footer a {
