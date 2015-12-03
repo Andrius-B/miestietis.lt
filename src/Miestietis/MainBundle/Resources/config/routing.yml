@@ -7,6 +7,9 @@ ajax_problem:
 ajax_problemEdit:
     path:     /ajaxProblemEdit
     defaults: { _controller: MiestietisMainBundle:Ajax:problemEdit }
+ajax_userStats:
+    path:     /ajaxUserStats
+    defaults: { _controller: MiestietisMainBundle:Ajax:getUserStats }
 ajax_initiative:
     path: /ajaxInitiative
     defaults: { _controller: MiestietisMainBundle:Ajax:initiative }

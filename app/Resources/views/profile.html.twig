@@ -14,14 +14,14 @@
                         </h4>
                         <p class="last-login">Paskutinis prisijungimas: {{ user.getLastLogin|date('Y-m-d H:i:s') }}</p>
                     </div>
-                    <div class="counter-wrapper">
+                    <div class="counter-wrapper" id="userStats"  url="{{ path('ajax_userStats') }}">
                         <div class="item-counter">
-                            <span>28</span><br>
+                            <span class="problemsCreated">0</span><br>
                             Sukurta <br>
                             problemų
                         </div>
                         <div class="item-counter">
-                            <span>13</span><br>
+                            <span class="problemsUpvoted">0</span><br>
                             Pritarta <br>
                             problemų
                         </div>

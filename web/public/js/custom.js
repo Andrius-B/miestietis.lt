@@ -193,8 +193,23 @@ $(document).ready( function() {
     // -------------------------------------------------
     // Ajax request to load profile modal with history
 
+    function setUserStats(){
+        var url = $('#userStats').attr('url');
+        $.ajax({
+            url:url,
+            success: function(data){
+                var created = data.created
+                for(var i =0;i<=created;i++) { //would be nice if i was smart enough to be able to animate this
+                    $('.problemsCreated').text(i);
+                }
+                $('.problemsUpvoted').text(data.upvoted);
+            }
+        })
+    }
+
     $(".profileHistory").on('click', function(event){
         event.preventDefault();
+        setUserStats();
         var url = $('.profileHistory').attr('href');
         var container = $(".history-content");
         if (container.data('loaded')) {

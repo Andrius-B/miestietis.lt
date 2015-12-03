@@ -43,6 +43,14 @@ class AjaxController extends Controller
         return $response;//$data;
     }
 
+    public function getUserStatsAction(Request $request){
+        $user = $this->getUser();
+        $db_handler = $this->get('db_handler');
+        $data = $db_handler->getUserStats($user);
+        $response = new JsonResponse($data, 200);
+        return $response;//$data;
+    }
+
     public function problemEditAction(Request $request)
     {
         if (!$request->isXmlHttpRequest())
