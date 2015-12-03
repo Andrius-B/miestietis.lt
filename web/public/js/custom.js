@@ -61,7 +61,6 @@ $(document).ready( function() {
                     alert('Error : ' + errorThrown);
                 },
                 complete: function() {
-                    createProblem();
                     $('.modal').modal('hide');
                     allInputs.val('');
                     location.reload(); // VERY VERY BAD PRACTICE reloads whole page, need some sort of handler maybe in backend, if mysql db is updated update the view

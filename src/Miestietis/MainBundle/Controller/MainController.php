@@ -26,7 +26,8 @@ class MainController extends Controller
         $form = $this->createForm(new InitiativeType(), $initiative);
         $form->handleRequest($request);
 
-        return $this->render('MiestietisMainBundle:Main:index.html.twig', array('problems' => $problems,
+        return $this->render('MiestietisMainBundle:Main:index.html.twig', array(
+            'problems' => $problems,
             'initiatives' => $initiatives,
             'user' => $user,
             'initiativeForm' => $form->createView()
