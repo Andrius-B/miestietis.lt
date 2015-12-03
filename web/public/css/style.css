@@ -632,6 +632,45 @@ hr {
     transform: translate(0, -50%);
 }
 
+/* Item's comment section */
+
+.modal-comments {
+    position: relative;
+    padding: 15px;
+    border-top: 1px solid #E5E5E5;
+}
+
+.modal-comments hr {
+    width: 75%;
+}
+
+.modal-comments--post img,
+.modal-comments--post textarea {
+    display:inline-block;
+    vertical-align: middle;
+}
+
+.modal-comments--post {
+    padding-top: 16px;
+}
+
+.modal-comments--post img {
+    vertical-align: top;
+    margin-right: 10px;
+}
+
+.modal-comments--post textarea {
+    width: 62.5%;
+    height: 3.75em;
+}
+
+.modal-comments--post textarea::-webkit-input-placeholder,
+.modal-comments--post textarea:-moz-placeholder,
+.modal-comments--post textarea::-moz-placeholder,
+.modal-comments--post textarea:-ms-input-placeholder {
+    text-align: left;
+}
+
 /* Initiative form modal */
 
 .form-group .text {

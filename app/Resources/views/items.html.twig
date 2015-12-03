@@ -92,6 +92,18 @@
                         <a data-toggle="modal" class="openInitiativeModal" data-target="#addInitiative" probId="{{ problem.id() }}"><i data-toggle="tooltip" data-placement="top" title="Skelbti iniciatyvą" class="fa fa-bullhorn"></i></a>
                     </div>
                 </div>
+                <div class="modal-comments text-center">
+                    <div class="modal-comments--comment">
+                        {#pakeisti i comment user profile picture#}
+                        <img src="{{ problem.getUSerId().getProfilePicture() }}" class="profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Problemos autorius">
+                    </div>
+                    <hr>
+                    <div class="modal-comments--post">
+                        {# nerodyti jeigu useris neprisijunges#}
+                        <img src="{{ problem.getUSerId().getProfilePicture() }}" class="profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Problemos autorius">
+                        <textarea class="form-control" placeholder="Jūsų komentaras" name="" required></textarea>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
