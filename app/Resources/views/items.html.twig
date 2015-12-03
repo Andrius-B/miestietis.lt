@@ -43,7 +43,7 @@
                     <button type="button" class="close" data-dismiss="modal">
                         <span aria-hidden="true">&times;</span><span class="sr-only">Uždaryti</span>
                     </button>
-                    <h4 class="modal-title" id="project-1-label">{{ problem.name() }}</h4>
+                    <h4 id="editTitle" class="modal-title" id="project-1-label">{{ problem.name() }}</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -63,13 +63,17 @@
                                     {{ problem.getUserId().getFirstName }} {{ problem.getUserId().getLastName() }}
                                 </div>
                                 <br> {# quick hax for tooltip, will not work is div display property is changed #}
-                                <div data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data"><i class="fa fa-calendar-plus-o"></i>{{  problem.date() }}</div>
-                                <div data-toggle="tooltip" data-placement="top" title="Redaguoti problemą"><i class="fa fa-pencil"></i>Redaguoti</div>
+                                <div data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data"><i class="fa fa-calendar-plus-o"></i>{{ problem.date() }}</div>
+                                {% if  user  != null and user == problem.getUSerId() %}
 
+                                    <div id="editItem" data-toggle="tooltip" data-placement="top" title="Redaguoti problemą"><i class="fa fa-pencil"></i>Redaguoti</div>
+
+                                {% endif %}
                             </div>
                             <div class="clearfix"></div>
                             <hr>
-                            <p>{{ problem.description() }}</p>
+                            <p id="editDescription">{{ problem.description() }}</p>
+                            <div class="problem_comment_box"><ul id="comment_list_{{ problem.id() }}"></ul></div>
                         </div>
 
                     </div>
@@ -79,12 +83,12 @@
                         <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria"><i class="fa fa-check-circle"></i><span class="votes-{{ problem.id() }}">{{  problem.votes() }}</span></div>
                         <div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius"><i class="fa fa-users"></i>38</div>
                         <address data-toggle="tooltip" data-placement="top" title="Problemos adresas">
-                            <i class="fa fa-map-marker"></i>Karaliaus Mindaugo pr. 38<br>
+                            <i class="fa fa-map-marker"></i><p id="editAddress">Karaliaus Mindaugo pr. 38</p><br>
                         </address>
                     </div>
                     <div class="wrap-buttons-right">
                         <a data-toggle="modal" class="incVote {{ problem.status }}" probId="{{ problem.id() }}" url="{{ path('ajax_upvote') }}"><i data-toggle="tooltip" data-placement="top"  title="{{ problem.tooltip }}" class="fa fa-check-circle"></i></a>
-                        <a data-toggle="modal"><i data-toggle="tooltip" data-placement="top" title="Komentarai" class="fa fa-comments"></i></a>
+                        <a data-toggle="modal"><i data-toggle="tooltip" data-placement="top" title="Komentarai" class="fa fa-comments" url="{{ path('ajax_commentLoad')}}" item="problem" item_id="{{ problem.id() }}"></i></a>
                         <a data-toggle="modal" class="openInitiativeModal" data-target="#addInitiative" probId="{{ problem.id() }}"><i data-toggle="tooltip" data-placement="top" title="Skelbti iniciatyvą" class="fa fa-bullhorn"></i></a>
                     </div>
                 </div>

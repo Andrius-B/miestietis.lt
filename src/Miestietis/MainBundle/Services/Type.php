@@ -18,6 +18,7 @@ class Type{
                 $problem->status = '';
                 $problem->tooltip = 'Pritariu problemai';
 
+
                 if (!$checker->isGranted('IS_AUTHENTICATED_FULLY')) {
                     $problem->tooltip = 'Norėdami pritarti turite prisijungti';
                 }

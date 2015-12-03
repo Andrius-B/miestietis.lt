@@ -26,6 +26,10 @@ class Problema
      */
     protected $user_id;
     /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="problem_id")
+     */
+    protected $comments;
+    /**
      * @ORM\Column(type="string", length=100)
      */
     protected $name;
@@ -41,13 +45,13 @@ class Problema
      * @ORM\Column(type="smallint")
      */
     protected $votes;
-    /**
-     *
-     * @Vich\UploadableField(mapping="problem_image", fileNameProperty="picture")
-     *
-     * @var File
-     */
-    private $imageFile;
+//    /**
+//     *
+//     * @Vich\UploadableField(mapping="problem_image", fileNameProperty="picture")
+//     *
+//     * @var File
+//     */
+//    private $imageFile;
     /**
      * @ORM\Column(type="string")
      */
@@ -219,26 +223,27 @@ class Problema
     {
         return $this->votes;
     }
-    /**
-     * @param UploadedFile $image
-     */
-    public function setImageFile(UploadedFile $image = null) //added a use file statement for hotfix :/
-    {
-        $this->imageFile = $image;
 
-        if ($image) {
-
-            $this->updatedAt = new \DateTime('now');
-        }
-    }
-
-    /**
-     * @return File
-     */
-    public function getImageFile()
-    {
-        return $this->imageFile;
-    }
+//    /**
+//     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+//     */
+//    public function setImageFile(File $image = null)
+//    {
+//        $this->imageFile = $image;
+//
+//        if ($image) {
+//
+//            $this->updatedAt = new \DateTime('now');
+//        }
+//    }
+//
+//    /**
+//     * @return File
+//     */
+//    public function getImageFile()
+//    {
+//        return $this->imageFile;
+//    }
     /**
      * Set picture
      *
@@ -313,5 +318,63 @@ class Problema
     public function getInitiative()
     {
         return $this->initiative;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \Miestietis\MainBundle\Entity\Comment $comment
+     *
+     * @return Problema
+     */
+    public function addComment(\Miestietis\MainBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \Miestietis\MainBundle\Entity\Comment $comment
+     */
+    public function removeComment(\Miestietis\MainBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Add upvotedBy
+     *
+     * @param \Miestietis\MainBundle\Entity\User $upvotedBy
+     *
+     * @return Problema
+     */
+    public function addUpvotedBy(\Miestietis\MainBundle\Entity\User $upvotedBy)
+    {
+        $this->upvoted_by[] = $upvotedBy;
+
+        return $this;
+    }
+
+    /**
+     * Remove upvotedBy
+     *
+     * @param \Miestietis\MainBundle\Entity\User $upvotedBy
+     */
+    public function removeUpvotedBy(\Miestietis\MainBundle\Entity\User $upvotedBy)
+    {
+        $this->upvoted_by->removeElement($upvotedBy);
     }
 }

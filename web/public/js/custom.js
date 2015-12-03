@@ -75,6 +75,99 @@ $(document).ready( function() {
     //------------------------------------------------------------
 
     // -------------------------------------------------
+    // Ajax request to edit item
+
+    $(document).on('click', '#editItem', function() {
+        // galima tiesiog padaryti input'us ir disable'inti pagal reikala, input'ai gali buti stilizuojami kaip nori
+        // jeigu bus laiko padarysiu sitaip
+        // sitas approach'as blogas sukuria papildomu nematomu elementu DOM'e
+        // bandytas approach'as su input fieldais iskarto - neina su jquery priskirti auksciu Pries uzkraunant modal'o css, o jeigu po - split second matosi vaizdo iskraipymas
+        var $this = $(this).parents('.modal-content');
+
+        var targetTitle = $this.find('#editTitle');
+        var targetDescription = $this.find('#editDescription');
+        var targetAddress = $this.find('#editAddress');
+        var targetButtons = $this.find('.wrap-buttons-right');
+
+        var initialTitle = targetTitle.clone();
+        var initialDescription = targetDescription.clone();
+        var initialAddress = targetAddress.clone();
+        var initialButtons = targetButtons.clone();
+
+        $(this).tooltip('hide');
+
+        targetAddress.trigger('editItemsEvent');
+        targetDescription.trigger('editItemsEvent');
+        targetTitle.trigger('editItemsEvent');
+
+        var editButton = $(this)[0].childNodes[1];
+        editButton.nodeValue = 'Redaguokite pasvirą tekstą.';
+
+        $('.modal').on('hidden.bs.modal', function() {
+            $this.find('.edit-title').replaceWith(initialTitle);
+            $this.find('.edit-description').replaceWith(initialDescription);
+            $this.find('.edit-address').replaceWith(initialAddress);
+            $this.find('.wrap-buttons-right').remove();
+            $this.find('.modal-footer').append(initialButtons);
+            editButton.nodeValue = 'Redaguoti';
+        });
+
+        targetButtons.empty();
+        targetButtons.append('<a ' +
+            'data-toggle="modal" ' +
+            'class="save-button" ' +
+            'probId="{{ problem.id() }}" ' +
+            'url="{{ path(\'here_goes_ajax_save\') }}">' +
+                '<i ' +
+                    'data-toggle="tooltip" ' +
+                    'data-placement="top"  ' +
+                    'title="Išsaugoti pakeitimus" ' +
+                    'class="fa fa-floppy-o">' +
+                '</i>' +
+            '</a>');
+
+    });
+
+    $('.modal').on("editItemsEvent", "#editTitle, #editDescription, #editAddress", function (event) {
+        var target = event.currentTarget.id;
+        var $this = $(this);
+        var widthTitle = $this.width()+15;
+        var heightDescription = $this.height();
+        var widthAddress = $this.width()+25;
+        var title = $('<input />', {
+            'type': 'text',
+            'class': 'form-control edit-title',
+            'style': 'width:' + widthTitle + 'px',
+            'value': $(this).text()
+        });
+        var description = $('<textarea class="form-control edit-description">'+$(this).text()+'</textarea>');
+        var address = $('<input />', {
+            'type': 'text',
+            'class': 'form-control edit-address',
+            'style': 'width:' + widthAddress + 'px',
+            'value': $(this).text()
+        });
+
+        if (target === 'editTitle') {
+            $this.replaceWith(title);
+            //title.focus();
+        } else if (target === 'editDescription') {
+            $this.replaceWith(description);
+            var val = description.val();
+            description.val('');
+            description.focus();
+            description.val(val);
+            description.height(heightDescription);
+        } else if (target === 'editAddress') {
+            $this.replaceWith(address);
+        }
+    });
+
+    // End of edit item
+    //------------------------------------------------------------
+
+
+    // -------------------------------------------------
     // Ajax request to load profile modal with history
 
     $(".profileHistory").on('click', function(event){
@@ -116,7 +209,6 @@ $(document).ready( function() {
                 }
             }).done(function () {
                 container.data('loaded', true);
-                console.log("Ajax done");
             });
         }
     });
@@ -317,6 +409,7 @@ $(document).ready( function() {
         $('#profileLi > a').css('animation', 'bounceIn 1s')
             .css('animation-iteration-count', 'infinite');
 
+
         $(document).on('scroll shown.bs.modal', function() {
                 $('#profileLi > a').css('animation-iteration-count', '1');
             }
@@ -333,4 +426,70 @@ $(document).ready( function() {
             }, 1000);
         })
     }
+
+    // Load comments to a specific item
+    $('.fa-comments').on('click', function(e){
+        e.preventDefault();
+        var url = $(this).attr('url');
+        var item =$(this).attr('item');
+        var item_id =$(this).attr('item_id');
+        var data = {id: item_id, item: item, url: url};
+        console.log(data);
+        var $comment_list = $('#comment_list_'+item_id);
+
+        $comment_list.parent().prepend('' +
+            '<h4>Komentarai:</h4>');
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: data,
+            success: function (data) {
+                //alert(data);
+               data.forEach(function(i){
+                   $comment_list.append('<li>'+i['comment']+'</li>');
+               });
+
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Error : ' + errorThrown);
+            }
+        });
+
+        $comment_list.parent().append(
+            '<row>' +
+            '   <input type="text" class="comment_text">' +
+            '   <input type="submit" value="Komentuoti" class="btn btn-default comment_input_button" ' +
+            'url="'+url+'Add"'+' item="'+item+'" item_id="'+item_id+'">' +
+            '</row>');
+        //------------------------------------------------------------------------------------------------
+        // Adding a comment
+        $('.comment_input_button').on('click', function() {
+            var comment = $(this).closest('row').find('.comment_text').val();
+
+            if(comment != '' && comment != null) {
+                if($('#profileLi').attr('rel') == 'Connected') {
+                    var url = $(this).attr('url');
+                    var item = $(this).attr('item');
+                    var item_id = $(this).attr('item_id');
+                    var data = {comment: comment, item: item, item_id: item_id};
+                    var $comment_list = $('#comment_list_' + item_id);
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        data: data,
+                        success: function (data) {
+                            $comment_list.append('<li>' + data["text"] + '</li>');
+
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert('Error : ' + errorThrown);
+                        }
+                    });
+                    $(this).closest('row').find('.comment_text').val('');
+                }else{alert('Prisijunkite');}
+            }else{alert('Nieko neįrašėt');}
+
+        });
+    });
 });

@@ -6,11 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
 class AjaxController extends Controller
 {
+
     public function problemAction(Request $request)
     {
         if (!$request->isXmlHttpRequest())
@@ -18,11 +18,14 @@ class AjaxController extends Controller
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
         }
         // Getting everything from the request
+        $db_handler = $this->get('db_handler');
+        $user = $this->getUser();
+
         $name = $request->request->get('name');
         $description = $request->request->get('description');
         $file = $request->files->get('file');
         //Getting the loged in user object
-        $user = $this->getUser();
+
 
         //Setting a unique file name
         $fileName = md5(uniqid()).'.'.$file->guessExtension();
@@ -33,7 +36,7 @@ class AjaxController extends Controller
         //Forming a response
         $data = array('name' => $name, 'description' => $description, 'picture' => $fileName);
         //Persisting problem to a database
-        $db_handler = $this->get('db_handler');
+
         $db_handler->insertProblem($name, $description, $fileName, $user);
 
         $response = new JsonResponse($data, 200);
@@ -67,9 +70,9 @@ class AjaxController extends Controller
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
         }
         $status = null;
+        $user = $this->getUser();
         $description = $request->request->get('description');
         $date = $request->request->get('date');
-        $user = $this->getUser();
         $probId = intval($request->request->get('probId'));
 
         $problem = $this->getDoctrine()
@@ -93,11 +96,11 @@ class AjaxController extends Controller
     }
     public function upvoteAction(Request $request)
     {
+        $user = $this->getUser();
         $probId = intval($request->request->get('probId'));
         $problem = $this->getDoctrine()
             ->getRepository('MiestietisMainBundle:Problema')
             ->find($probId);
-        $user = $this->getUser();
         $db_handler = $this->get('db_handler');
         $votes = $problem->getVotes();
         if(!$problem->getUpvotedBy()->contains($user))
@@ -124,4 +127,53 @@ class AjaxController extends Controller
         return $response;
 
     }
+    public function commentLoadAction(Request $request){
+        if (!$request->isXmlHttpRequest())
+        {
+            return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
+        }
+        $db_handler = $this->get('db_handler');
+        $item = $request->request->get('item');
+        $item_id = $request->request->get('id');
+        $comments = $db_handler->getCommentsById($item_id, $item);
+        $response = [];
+        foreach($comments as $comment){
+            $response[] = array('user_picture'=> $comment->getUserId()->getProfilePicture(),
+                'user_name'=> $comment->getUserId()->getFirstName().' '. $comment->getUserId()->getLastName() ,
+                'date'=> $comment->getDate(),
+                'comment'=> $comment->getText());
+        }
+        if($comments != 0) {
+            $return = new JsonResponse($response, 200);
+        }else{
+            return 0;
+        }
+        return $return;
+    }
+    public function commentAddAction(Request $request){
+        if (!$request->isXmlHttpRequest())
+        {
+            return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
+        }
+        $db_handler = $this->get('db_handler');
+        $user = $this->getUser();
+        $comment = $request->request->get('comment');
+        $item_id = $request->request->get('item_id');
+        $item = $request->request->get('item');
+        //$c = array('comment' => $comment, 'item id' => $item_id, 'item' => $item);
+        $db_handler->insertComment($item, $item_id, $comment, $user);
+        $c = array('text' => $comment, 'user_name' => $user->getFirstName().' '.$user->getLastName(),
+            'date' => date('Y m d'), 'picture' => $user->getProfilePicture());
+
+        $return = new JsonResponse($c, 200);
+        return $return;
+    }
+
+//    public function editAction(Request $request)
+//    {
+//        if (!$request->isXmlHttpRequest())
+//        {
+//            return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
+//        }
+//    }
 }

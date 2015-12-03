@@ -1,6 +1,7 @@
 <?php
 // src/Miestietis/MainBundle/Entity/Product.php
 namespace Miestietis\MainBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
@@ -30,6 +31,10 @@ class Initiative
      */
     protected $problem_id;
     /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="initiative_id")
+     */
+    protected $comments;
+    /**
      * @ORM\Column(type="string")
      */
     protected $registration_date;
@@ -51,7 +56,8 @@ class Initiative
     protected $is_active;
 
     public function __construct() {
-        //$this->participants = new ArrayCollection();
+        $this->participants = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     //------------------------------------------------------------------
@@ -265,5 +271,39 @@ class Initiative
     public function getProblemId()
     {
         return $this->problem_id;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \Miestietis\MainBundle\Entity\Comment $comment
+     *
+     * @return Initiative
+     */
+    public function addComment(\Miestietis\MainBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \Miestietis\MainBundle\Entity\Comment $comment
+     */
+    public function removeComment(\Miestietis\MainBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }
