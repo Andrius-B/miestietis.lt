@@ -522,12 +522,15 @@ $(document).ready( function() {
                             }
                         });
                     $(this).attr('placeholder', 'Jūsų komentaras');
+                    $(this).removeClass('comment-input__danger');
+
                 } else {
                     e.preventDefault();
                     $(this).attr('placeholder', 'Įrašykite komentarą');
+                    $(this).addClass('comment-input__danger');
                 }
-                $(this).val('');
             }
+            $(this).val('');
         });
     });
 });

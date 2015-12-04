@@ -722,11 +722,17 @@ hr {
     height: 3.75em;
 }
 
-.modal-comments--post textarea::-webkit-input-placeholder,
-.modal-comments--post textarea:-moz-placeholder,
-.modal-comments--post textarea::-moz-placeholder,
-.modal-comments--post textarea:-ms-input-placeholder {
-    text-align: left;
+.comment-input__danger::-webkit-input-placeholder{
+    color: #FF4343;
+}
+.comment-input__danger:-moz-placeholder{
+    color: #FF4343;
+}
+.comment-input__danger::-moz-placeholder{
+    color: #FF4343;
+}
+.comment-input__danger:-ms-input-placeholder {
+    color: #FF4343;
 }
 
 /* Initiative form modal */
