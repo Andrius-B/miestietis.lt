@@ -52,6 +52,9 @@ $(document).ready( function() {
                 processData:false,        // To send DOMDocument or non processed data file it is set to false
                 success: function(data)
                 {
+                    if(data == false){
+                        alert('somethings wrong');
+                    }
                     $('#loading-img').hide();
                     console.log(data);
                     $("#imgdisplay").html("<img src='../images/problems"+data.picture+"'style='width: 150px'>");
@@ -60,11 +63,12 @@ $(document).ready( function() {
                 {
                     alert('Error : ' + errorThrown);
                 },
-                complete: function() {
+                 /*complete: function() {
+                    createProblem();
                     $('.modal').modal('hide');
                     allInputs.val('');
                     location.reload(); // VERY VERY BAD PRACTICE reloads whole page, need some sort of handler maybe in backend, if mysql db is updated update the view
-                }
+                }*/
             });
         }else{
             requireLogin(false);

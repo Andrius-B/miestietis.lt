@@ -11,6 +11,7 @@ class MainController extends Controller
 {
     public function indexAction(Request $request)
     {
+        
         $ob_former = $this->get('ob_formation');
 
         $user = $this->getUser();

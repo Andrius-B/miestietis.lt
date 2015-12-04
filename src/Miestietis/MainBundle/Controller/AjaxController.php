@@ -19,26 +19,28 @@ class AjaxController extends Controller
         }
         // Getting everything from the request
         $db_handler = $this->get('db_handler');
+        $image_handler = $this->get('image_handler');
         $user = $this->getUser();
 
         $name = $request->request->get('name');
         $description = $request->request->get('description');
         $file = $request->files->get('file');
-        //Getting the loged in user object
 
-
+        //Get file extension
+        $ext = $file->guessExtension();
         //Setting a unique file name
-        $fileName = md5(uniqid()).'.'.$file->guessExtension();
-        //Moving the file
+        $fileName = md5(uniqid()).'.'.$ext;
+        //Setting the file directory
         $fileDir = $this->container->getParameter('kernel.root_dir').'/../web/public/images/problems/';
-        $file->move($fileDir, $fileName);
+
+        //Crop, resize and save a file
+        $image_handler->handleImage($file, $ext, 750, 500, $fileDir, $fileName);
+
+        //Persisting problem to a database
+        $db_handler->insertProblem($name, $description, $fileName, $user);
 
         //Forming a response
         $data = array('name' => $name, 'description' => $description, 'picture' => $fileName);
-        //Persisting problem to a database
-
-        $db_handler->insertProblem($name, $description, $fileName, $user);
-
         $response = new JsonResponse($data, 200);
         return $response;//$data;
     }
