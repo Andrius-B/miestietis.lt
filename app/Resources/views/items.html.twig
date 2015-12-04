@@ -73,7 +73,6 @@
                             <div class="clearfix"></div>
                             <hr>
                             <p id="editDescription">{{ problem.description() }}</p>
-                            <div class="problem_comment_box"><ul id="comment_list_{{ problem.id() }}"></ul></div>
                         </div>
 
                     </div>
@@ -92,29 +91,16 @@
                         <a data-toggle="modal" class="openInitiativeModal" data-target="#addInitiative" probId="{{ problem.id() }}"><i data-toggle="tooltip" data-placement="top" title="Skelbti iniciatyvą" class="fa fa-bullhorn"></i></a>
                     </div>
                 </div>
-                <div class="modal-comments text-center">
-                    <div class="modal-comments--comment">
-                        {#pakeisti i comment user profile picture#}
-                        <img src="{{ problem.getUSerId().getProfilePicture() }}" class="profile-picture" alt="">
-                        <div class="comment-info">
-                            <div class="comment-details">
-                                <div class="comment-author">
-                                    {{ problem.getUserId().getFirstName }} {{ problem.getUserId().getLastName() }}
-                                </div>
-                                <div class="comment-date"><i class="fa fa-calendar-plus-o"></i>{{ problem.date() }}</div>
-                            </div>
-
-                            <p>
-                                Mauris vel lacinia nunc. Praesent porttitor condimentum libero et accumsan. Vivamus et. Vivamus congue nibh eu elit semper, ac dignissim tortor congue. Vivamus et sagittis urna.
-                            </p>
+                <div class="modal-comments text-center" id="comment_list_{{ problem.id() }}">
+                    {# here goes comment list #}
+                    {% if  user  != null %}
+                        <div class="modal-comments--post">
+                            {# nerodyti jeigu useris neprisijunges #}
+                            <img src="{{ problem.getUSerId().getProfilePicture() }}" class="profile-picture" alt="">
+                            <textarea class="form-control comment_input" placeholder="Jūsų komentaras" name="" required></textarea>
                         </div>
-                    </div>
-                    <hr>
-                    <div class="modal-comments--post">
-                        {# nerodyti jeigu useris neprisijunges #}
-                        <img src="{{ problem.getUSerId().getProfilePicture() }}" class="profile-picture" alt="">
-                        <textarea class="form-control" placeholder="Jūsų komentaras" name="" required></textarea>
-                    </div>
+                    {% endif %}
+
                 </div>
             </div>
         </div>

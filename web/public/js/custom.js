@@ -428,69 +428,113 @@ $(document).ready( function() {
         })
     }
 
-    // Load comments to a specific item
+
+    //------------------------------------------------------------------------------------------------
+    // Adding and loading comments
+
+    $('.modal-comments').hide();
     $('.fa-comments').on('click', function(e){
         e.preventDefault();
+        var clicks = $(this).data('clicks');
         var url = $(this).attr('url');
         var item =$(this).attr('item');
         var item_id =$(this).attr('item_id');
-        var data = {id: item_id, item: item, url: url};
-        console.log(data);
         var $comment_list = $('#comment_list_'+item_id);
+        var comments = $(this).parents('.modal-content').find('.modal-comments');
+        var rm = $(this).parents('.modal-content');
+        var hr;
+        var data = {id: item_id, item: item, url: url};
 
-        $comment_list.parent().prepend('' +
-            '<h4>Komentarai:</h4>');
-        $.ajax({
-            url: url,
-            type: "POST",
-            data: data,
-            success: function (data) {
-                //alert(data);
-               data.forEach(function(i){
-                   $comment_list.append('<li>'+i['comment']+'</li>');
-               });
+        $comment_list.find('textarea').attr('url', url+'Add');
+        $comment_list.find('textarea').attr('item', item);
+        $comment_list.find('textarea').attr('item_id', item_id);
+
+        if (!clicks) {
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: data,
+                success: function (data) {
+                    data.forEach(function(i){
+                        $comment_list.prepend('<div class="modal-comments--comment">'+
+                            '<img src="' + i['user_picture'] + '" class="profile-picture" alt="">'+
+                            '<div class="comment-info">'+
+                            '<div class="comment-details">'+
+                            '<div class="comment-author">'+i['user_name']+'</div>'+
+                            '<div class="comment-date"><i class="fa fa-calendar-plus-o"></i>'+i['date']+'</div>'+
+                            '</div>'+
+                            '<p>'+i['comment']+'</p>'+
+                            '</div>'+
+                            '</div>'+'<hr>');
+
+                    });
+                },
+                complete: function() {
+                    comments.slideDown('slow');
+                    $('.modal').on('hide.bs.modal', function() {
+                        rm = rm.find('.modal-comments--comment, .modal-comments--comment+hr');
+                        rm.remove();
+                        comments.hide();
+                    });
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert('Error : ' + errorThrown);
+                }
+            });
+        } else {
+            comments.slideUp('slow', function() {
+                rm = rm.find('.modal-comments--comment, .modal-comments--comment+hr');
+                rm.remove();
+            });
+        }
+        $(this).data('clicks', !clicks);
 
 
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert('Error : ' + errorThrown);
+        $('.comment_input').on('keydown', function(e) {
+            if (e.which == 13 && !e.shiftKey) {
+                var comment = $(this).val();
+
+                if(comment != '' && comment != null) {
+                    if($('#profileLi').attr('rel') == 'Connected') {
+                        var url = $(this).attr('url');
+                        var item = $(this).attr('item');
+                        var item_id = $(this).attr('item_id');
+                        var data = {comment: comment, item: item, item_id: item_id};
+                        var $comment_list = $('#comment_list_' + item_id);
+                            e.preventDefault();
+                            $.ajax({
+                                url: url,
+                                type: "POST",
+                                data: data,
+                                success: function (data) {
+                                    $comment_list.prepend('<div class="modal-comments--comment">'+
+                                        '<img src="' + data['picture'] + '" class="profile-picture" alt="">'+
+                                        '<div class="comment-info">'+
+                                        '<div class="comment-details">'+
+                                        '<div class="comment-author">'+data['user_name']+'</div>'+
+                                        '<div class="comment-date"><i class="fa fa-calendar-plus-o"></i>'+data['date']+'</div>'+
+                                        '</div>'+
+                                        '<p>'+data["text"]+'</p>'+
+                                        '</div>'+
+                                        '</div>'+'<hr>');
+
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    alert('Error : ' + errorThrown);
+                                }
+                            });
+
+                    } else {
+                        alert('Prisijunkite');
+                    }
+                } else {
+                    alert('Nieko neįrašėt');
+                }
+                $(this).val('');
             }
         });
 
-        $comment_list.parent().append(
-            '<row>' +
-            '   <input type="text" class="comment_text">' +
-            '   <input type="submit" value="Komentuoti" class="btn btn-default comment_input_button" ' +
-            'url="'+url+'Add"'+' item="'+item+'" item_id="'+item_id+'">' +
-            '</row>');
-        //------------------------------------------------------------------------------------------------
-        // Adding a comment
-        $('.comment_input_button').on('click', function() {
-            var comment = $(this).closest('row').find('.comment_text').val();
 
-            if(comment != '' && comment != null) {
-                if($('#profileLi').attr('rel') == 'Connected') {
-                    var url = $(this).attr('url');
-                    var item = $(this).attr('item');
-                    var item_id = $(this).attr('item_id');
-                    var data = {comment: comment, item: item, item_id: item_id};
-                    var $comment_list = $('#comment_list_' + item_id);
-                    $.ajax({
-                        url: url,
-                        type: "POST",
-                        data: data,
-                        success: function (data) {
-                            $comment_list.append('<li>' + data["text"] + '</li>');
-
-                        },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            alert('Error : ' + errorThrown);
-                        }
-                    });
-                    $(this).closest('row').find('.comment_text').val('');
-                }else{alert('Prisijunkite');}
-            }else{alert('Nieko neįrašėt');}
-
-        });
+        // execute ajax rq only once
     });
 });
