@@ -581,8 +581,8 @@ $(document).ready( function() {
                     $(this).attr('placeholder', 'Įrašykite komentarą');
                     $(this).addClass('comment-input__danger');
                 }
+                $(this).val('');
             }
-            $(this).val('');
         });
     });
 });
