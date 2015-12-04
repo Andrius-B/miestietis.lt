@@ -493,48 +493,41 @@ $(document).ready( function() {
         $('.comment_input').on('keydown', function(e) {
             if (e.which == 13 && !e.shiftKey) {
                 var comment = $(this).val();
+                if (comment != '' && comment != null && comment.trim() != 0) {
+                    var url = $(this).attr('url');
+                    var item = $(this).attr('item');
+                    var item_id = $(this).attr('item_id');
+                    var data = {comment: comment, item: item, item_id: item_id};
+                    var $comment_list = $('#comment_list_' + item_id);
+                        e.preventDefault();
+                        $.ajax({
+                            url: url,
+                            type: "POST",
+                            data: data,
+                            success: function (data) {
+                                $comment_list.prepend('<div class="modal-comments--comment">'+
+                                    '<img src="' + data['picture'] + '" class="profile-picture" alt="">'+
+                                    '<div class="comment-info">'+
+                                    '<div class="comment-details">'+
+                                    '<div class="comment-author">'+data['user_name']+'</div>'+
+                                    '<div class="comment-date"><i class="fa fa-calendar-plus-o"></i>'+data['date']+'</div>'+
+                                    '</div>'+
+                                    '<p>'+data["text"]+'</p>'+
+                                    '</div>'+
+                                    '</div>'+'<hr>');
 
-                if(comment != '' && comment != null) {
-                    if($('#profileLi').attr('rel') == 'Connected') {
-                        var url = $(this).attr('url');
-                        var item = $(this).attr('item');
-                        var item_id = $(this).attr('item_id');
-                        var data = {comment: comment, item: item, item_id: item_id};
-                        var $comment_list = $('#comment_list_' + item_id);
-                            e.preventDefault();
-                            $.ajax({
-                                url: url,
-                                type: "POST",
-                                data: data,
-                                success: function (data) {
-                                    $comment_list.prepend('<div class="modal-comments--comment">'+
-                                        '<img src="' + data['picture'] + '" class="profile-picture" alt="">'+
-                                        '<div class="comment-info">'+
-                                        '<div class="comment-details">'+
-                                        '<div class="comment-author">'+data['user_name']+'</div>'+
-                                        '<div class="comment-date"><i class="fa fa-calendar-plus-o"></i>'+data['date']+'</div>'+
-                                        '</div>'+
-                                        '<p>'+data["text"]+'</p>'+
-                                        '</div>'+
-                                        '</div>'+'<hr>');
-
-                                },
-                                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                    alert('Error : ' + errorThrown);
-                                }
-                            });
-
-                    } else {
-                        alert('Prisijunkite');
-                    }
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                alert('Error : ' + errorThrown);
+                            }
+                        });
+                    $(this).attr('placeholder', 'Jūsų komentaras');
                 } else {
-                    alert('Nieko neįrašėt');
+                    e.preventDefault();
+                    $(this).attr('placeholder', 'Įrašykite komentarą');
                 }
                 $(this).val('');
             }
         });
-
-
-        // execute ajax rq only once
     });
 });
