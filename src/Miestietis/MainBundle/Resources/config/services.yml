@@ -18,3 +18,5 @@ services:
         arguments: [ "@doctrine.orm.entity_manager" ]
     item_type:
         class: Miestietis\MainBundle\Services\Type
+    image_handler:
+            class: Miestietis\MainBundle\Services\Image

@@ -19,25 +19,60 @@ class AjaxController extends Controller
         }
         // Getting everything from the request
         $db_handler = $this->get('db_handler');
+        $image_handler = $this->get('image_handler');
         $user = $this->getUser();
 
         $name = $request->request->get('name');
         $description = $request->request->get('description');
         $file = $request->files->get('file');
-        //Getting the loged in user object
 
-
+        //Get file extension
+        $ext = $file->guessExtension();
         //Setting a unique file name
-        $fileName = md5(uniqid()).'.'.$file->guessExtension();
-        //Moving the file
+        $fileName = md5(uniqid()).'.'.$ext;
+        //Setting the file directory
         $fileDir = $this->container->getParameter('kernel.root_dir').'/../web/public/images/problems/';
-        $file->move($fileDir, $fileName);
+
+        //Crop, resize and save a file
+        $image_handler->handleImage($file, $ext, 750, 500, $fileDir, $fileName);
+
+        //Persisting problem to a database
+        $db_handler->insertProblem($name, $description, $fileName, $user);
 
         //Forming a response
         $data = array('name' => $name, 'description' => $description, 'picture' => $fileName);
+        $response = new JsonResponse($data, 200);
+        return $response;//$data;
+    }
+
+    public function getUserStatsAction(Request $request){
+        $user = $this->getUser();
+        $db_handler = $this->get('db_handler');
+        $data = $db_handler->getUserStats($user);
+        $response = new JsonResponse($data, 200);
+        return $response;//$data;
+    }
+
+    public function problemEditAction(Request $request)
+    {
+        if (!$request->isXmlHttpRequest())
+        {
+            return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
+        }
+        // Getting everything from the request
+        $db_handler = $this->get('db_handler');
+        $probId = $request->request->get('probId');
+        $name = $request->request->get('name');
+        $description = $request->request->get('description');
+        $address = $request->request->get('address');
+
+        $problem = $this->getDoctrine()->getRepository('MiestietisMainBundle:Problema')->find($probId);
+
+        //Forming a response
+        $data = array('name' => $name, 'description' => $description);
         //Persisting problem to a database
 
-        $db_handler->insertProblem($name, $description, $fileName, $user);
+        $db_handler->editProblem($name, $description, $address, $problem);
 
         $response = new JsonResponse($data, 200);
         return $response;//$data;

@@ -13,6 +13,25 @@ class Database
     public function __construct(EntityManager $entityManager){
         $this->em = $entityManager;
     }
+
+    public function getUserStats($user){
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('count(problem.user_id)');
+        $qb->where('problem.user_id = :user');
+        $qb->from('MiestietisMainBundle:Problema','problem');
+        $qb->setParameter('user', $user);
+        $problemCount = $qb->getQuery()->getSingleScalarResult();
+
+        $qb = $this->em->createQuery("
+        SELECT COUNT(problems) FROM MiestietisMainBundle:Problema problems
+        JOIN problems.upvoted_by voter
+        WHERE voter.id = :user
+        ")->setParameter('user', $user);
+        $upvoteCount = $qb->getSingleScalarResult();
+
+        return array('created'=>$problemCount, 'upvoted'=>$upvoteCount);
+    }
+
     public function insertProblem($name, $description, $picture, User $user){
         $problem = new Problema();
         $time = getdate();
@@ -24,6 +43,23 @@ class Database
         $problem->setVotes(0);
         $problem->setIsActive(true);
         $problem->setDate($time['year'].' '.$time['mon'].' '.$time['mday']);
+
+        if($this->em == null){
+            return 0;
+        }
+        $this->em->persist($problem);
+        $this->em->flush();
+
+        return $problem;
+    }
+
+    public function editProblem($name, $description, $address, $problem){
+        if($name!=''){ //should this validation be front-end?
+            $problem->setName($name);
+        }
+        if($description!=''){
+            $problem->setDescription($description);
+        }
 
         if($this->em == null){
             return 0;

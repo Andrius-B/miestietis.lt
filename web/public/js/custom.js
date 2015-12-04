@@ -52,6 +52,9 @@ $(document).ready( function() {
                 processData:false,        // To send DOMDocument or non processed data file it is set to false
                 success: function(data)
                 {
+                    if(data == false){
+                        alert('somethings wrong');
+                    }
                     $('#loading-img').hide();
                     console.log(data);
                     $("#imgdisplay").html("<img src='../images/problems"+data.picture+"'style='width: 150px'>");
@@ -60,12 +63,12 @@ $(document).ready( function() {
                 {
                     alert('Error : ' + errorThrown);
                 },
-                complete: function() {
+                 /*complete: function() {
                     createProblem();
                     $('.modal').modal('hide');
                     allInputs.val('');
                     location.reload(); // VERY VERY BAD PRACTICE reloads whole page, need some sort of handler maybe in backend, if mysql db is updated update the view
-                }
+                }*/
             });
         }else{
             requireLogin(false);
@@ -77,7 +80,26 @@ $(document).ready( function() {
 
     // -------------------------------------------------
     // Ajax request to edit item
+    function ajaxProblemEdit(){
+        var url = $('#editItem').attr('url');
+        var probId = $('#editItem').attr('probId');
 
+        var title = $('.edit-title').val();
+        var description = $('.edit-description').val();
+        var address = $('.edit-address').val();
+        var data = {title:title, description:description, address:address, probId:probId};
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function (data) {
+                alert('gg');
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Error : ' + errorThrown);
+            }
+        });
+    };
     $(document).on('click', '#editItem', function() {
         // galima tiesiog padaryti input'us ir disable'inti pagal reikala, input'ai gali buti stilizuojami kaip nori
         // jeigu bus laiko padarysiu sitaip
@@ -114,11 +136,11 @@ $(document).ready( function() {
         });
 
         targetButtons.empty();
-        targetButtons.append('<a ' +
+        targetButtons.append('<a ' + //man atrodo galima naudot backtick'us multiline stringui (`)
             'data-toggle="modal" ' +
-            'class="save-button" ' +
-            'probId="{{ problem.id() }}" ' +
-            'url="{{ path(\'here_goes_ajax_save\') }}">' +
+            'class="save-button">' +
+            //'probId="{{ problem.id() }}" ' +
+            //'url="{{ path(ajax_problemEdit) }}">' + //twig'as veikia tik back-end'e
                 '<i ' +
                     'data-toggle="tooltip" ' +
                     'data-placement="top"  ' +
@@ -126,6 +148,9 @@ $(document).ready( function() {
                     'class="fa fa-floppy-o">' +
                 '</i>' +
             '</a>');
+        $('.save-button').on('click',function(){
+            ajaxProblemEdit();
+        });
 
     });
 
@@ -164,6 +189,7 @@ $(document).ready( function() {
         }
     });
 
+
     // End of edit item
     //------------------------------------------------------------
 
@@ -171,8 +197,34 @@ $(document).ready( function() {
     // -------------------------------------------------
     // Ajax request to load profile modal with history
 
+    function recursiveAdd(number, desired ,timeout, selector){
+        $(selector).text(number);
+        if(number<desired){
+            number = number + Math.round((desired-number)/2);
+            setTimeout(function(){recursiveAdd(number,desired,timeout,selector);},timeout);
+        }
+    }
+
+    function setUserStats(){
+
+        var url = $('#userStats').attr('url');
+        $.ajax({
+            url:url,
+            success: function(data){
+                var timeout = 80 //80ms to increment the stats
+                $(".problemsCreated").text(0);
+                $(".problemsUpvoted").text(0);
+                var created = data.created;
+                var upvoted = data.upvoted;
+                setTimeout(function(){recursiveAdd(0,created,timeout,".problemsCreated");},400); //initial delay while the modal opens
+                setTimeout(function(){recursiveAdd(0,upvoted,timeout,".problemsUpvoted");},400);
+            }
+        })
+    }
+
     $(".profileHistory").on('click', function(event){
         event.preventDefault();
+        setUserStats();
         var url = $('.profileHistory').attr('href');
         var container = $(".history-content");
         if (container.data('loaded')) {
