@@ -151,7 +151,6 @@ $(document).ready( function() {
         $('.save-button').on('click',function(){
             ajaxProblemEdit();
         });
-
     });
 
     $('.modal').on("editItemsEvent", "#editTitle, #editDescription, #editAddress", function (event) {
@@ -259,6 +258,9 @@ $(document).ready( function() {
                 complete: function()
                 {
                     filters();
+                    var i = $('#profile-more').find('i');
+                    console.log(i);
+                    i.tooltip();
                 }
             }).done(function () {
                 container.data('loaded', true);
