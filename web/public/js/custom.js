@@ -81,8 +81,8 @@ $(document).ready( function() {
     // -------------------------------------------------
     // Ajax request to edit item
     function ajaxProblemEdit(){
-        var url = $('#editItem').attr('url');
-        var probId = $('#editItem').attr('probId');
+        var url = $('#editProblem').attr('url');
+        var probId = $('#editProblem').attr('probId');
 
         var title = $('.edit-title').val();
         var description = $('.edit-description').val();
@@ -93,14 +93,15 @@ $(document).ready( function() {
             url: url,
             data: data,
             success: function (data) {
-                alert('gg');
+                $('.modal').modal('hide');
+                location.reload();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert('Error : ' + errorThrown);
             }
         });
     };
-    $(document).on('click', '#editItem', function() {
+    $(document).on('click', '#editProblem', function() {
         // galima tiesiog padaryti input'us ir disable'inti pagal reikala, input'ai gali buti stilizuojami kaip nori
         // jeigu bus laiko padarysiu sitaip
         // sitas approach'as blogas sukuria papildomu nematomu elementu DOM'e
