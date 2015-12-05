@@ -58,12 +58,13 @@ h4 span {
 .text-colored {
 	color: #55acee;
 }
-a {
-	color: #55acee;
-}
 
+a {
+    color: #E6BC4C;
+
+}
 a:hover {
-	color: #339BEB;
+    color: #FFBF00;
 }
 a:focus,
 a:active {
@@ -71,6 +72,14 @@ a:active {
 }
 .large {
 	font-size: 18px;
+}
+.initiatives a,
+.init {
+    color: #55acee;
+}
+.initiatives a:hover,
+.init:hover {
+    color: #339BEB;
 }
 img {
 	display: block;
@@ -582,6 +591,7 @@ div[data-toggle="tooltip"] > i, address .fa-map-marker {
 hr {
     margin-top: 10px;
     margin-bottom: 0;
+    border-color: rgba(85, 172, 238, 0.5);
 }
 
 .modal-footer {
@@ -589,6 +599,7 @@ hr {
     padding: 5px 5px 5px 15px;
     text-align:left;
     position: relative;
+    border-color: rgba(85, 172, 238, 0.5);
 }
 .modal-footer a {
     padding-right: 0.3em;
@@ -1259,6 +1270,9 @@ input[readonly] {
 	-ms-transition: all linear 0.2s;
 	-o-transition: all linear 0.2s;
 	transition: all linear 0.2s;
+}
+.problems .overlay {
+    background-color: rgba(230, 188, 76, 0.9);
 }
 .overlay:hover {
 	text-decoration: none;

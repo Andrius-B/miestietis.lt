@@ -1,37 +1,42 @@
 <div class="col-sm-6 col-md-6 isotope-item {% if initiative.getIsActive() == 1 %}initiatives{% endif %} top10" xmlns="http://www.w3.org/1999/html"> <!-- Reikia laukelio papildomo skirstymui pvz problem.type() + parametro, kuris filtruotu pagal problem.votes() -->
     <div class="image-box">
         <div class="overlay-container">
-            <img src="" alt="">
+            <img src="{{ asset('public/images/problems/' ~ initiative.getProblemId().getPicture()) }}" alt="">
             <a class="overlay" data-toggle="modal" data-target="#project-initiative-{{ initiative.id() }}">
                 <i class="fa fa-search-plus"></i>
                 <span>Plačiau</span>
             </a>
         </div>
         <section class="itemContent">
-            {#{% if  user  != null and user == problem.getUSerId() %}#}
-                {#<a href="{{ path('ajax_history') }}" class="profileHistory" data-toggle="modal" data-target="#profile-more" data-remote="false" data-dismiss="modal">#}
-                    {#<img src="{{ problem.getUSerId().getProfilePicture() }}" class="profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Problemos autorius">#}
-                {#</a>#}
-            {#{% else %}#}
-                <img src="{{ initiative.getUserId().getProfilePicture() }}" class="profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Problemos autorius">
-            {#{% endif %}#}
+            {% if  user  != null and user == initiative.getUSerId() %}
+                <a href="{{ path('ajax_history') }}" class="profileHistory" data-toggle="modal" data-target="#profile-more" data-remote="false" data-dismiss="modal">
+                    <img src="{{ initiative.getUSerId().getProfilePicture() }}" class="profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Iniciatyvos autorius">
+                </a>
+            {% else %}
+                <img src="{{ initiative.getUserId().getProfilePicture() }}" class="profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Iniciatyvos autorius">
+            {% endif %}
             <div class="itemInfo">
-                <h4></h4>
-                <div data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data"><i class="fa fa-calendar-plus-o"></i>{{ initiative.getInitiativeDate() }}</div>
-                <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria"><i class="fa fa-check-circle"></i><span class="votes-"></span></div>
+                <h4>{{ initiative.getProblemId().name() }}</h4>
+                <div data-toggle="tooltip" data-placement="top" title="Iniciatyvos data"><i class="fa fa-calendar-check-o"></i>{{ initiative.getInitiativeDate() }}</div>
+                <div data-toggle="tooltip" data-placement="top" title="Iniciatyvai pritaria"><i class="fa fa-check-circle"></i><span class="votes-{{ initiative.id() }}"></span>{{ initiative.votes() }}</div>
                 <div data-toggle="tooltip" data-placement="top" title="Komentarų skaičius"><i class="fa fa-comments"></i>13</div>
+                <div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius"><i class="fa fa-users"></i>13</div>
                 <div class="clearfix"></div>
-                <div data-toggle="tooltip" data-placement="top" title="Problemos autorius">
-
-
+                <div data-toggle="tooltip" data-placement="top" title="Iniciatyvos autorius">
+                    {{ initiative.getUserId().getFirstName }}
+                    {{ initiative.getUserId().getLastName() }}
                 </div>
             </div>
             <div class="text-right">
                 <a data-toggle="modal" data-target="#project-initiative-{{ initiative.id() }}" >
                     <i data-toggle="tooltip" data-placement="top" title="Skaityti plačiau" class="fa fa-info-circle"></i>
                 </a>
-                <a data-toggle="modal" class="incVote " probId="" url="{{ path('ajax_upvote') }}">
+                {#refacotr itemTYPE for status and tooltip#}
+                <a class="incVote " probId="{{ initiative.id() }}" url="{{ path('ajax_upvote') }}">
                     <i data-toggle="tooltip" data-placement="top" title="" class="fa fa-check-circle"></i>
+                </a>
+                <a>
+                    <i data-toggle="tooltip" data-placement="top" title="Dalyvauti iniciatyvoje" class="fa fa-users"></i>
                 </a>
             </div>
         </section>
@@ -44,35 +49,36 @@
                     <button type="button" class="close" data-dismiss="modal">
                         <span aria-hidden="true">&times;</span><span class="sr-only">Uždaryti</span>
                     </button>
-                    <h4 id="editTitle" class="modal-title" id="project-1-label"></h4>
+                    <h4 id="editTitle" class="modal-title" id="project-1-label">{{ initiative.getProblemId().name() }}</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <img src="" alt="">
+                            <img src="{{ asset('public/images/problems/' ~ initiative.getProblemId().getPicture()) }}" alt="">
                         </div>
                         <div class="col-md-6">
-                            {#{% if  user  != null and user == problem.getUSerId() %}#}
-                                {#<a href="{{ path('ajax_history') }}" class="profileHistory" data-toggle="modal" data-target="#profile-more" data-remote="false" data-dismiss="modal">#}
-                                    {#<img src="{{ problem.getUSerId().getProfilePicture() }}" class="profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Problemos autorius">#}
-                                {#</a>#}
-                            {#{% else %}#}
-                                <img src="" class="profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Problemos autorius">
-                            {#{% endif %}#}
+                            {% if  user  != null and user == initiative.getUSerId() %}
+                                <a href="{{ path('ajax_history') }}" class="profileHistory" data-toggle="modal" data-target="#profile-more" data-remote="false" data-dismiss="modal">
+                                    <img src="{{ initiative.getUserId().getProfilePicture() }}" class="profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Iniciatyvos autorius">
+                                </a>
+                            {% else %}
+                                <img src="{{ initiative.getUserId().getProfilePicture() }}" class="profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Iniciatyvos autorius">
+                            {% endif %}
                             <div class="itemInfo">
-                                <div data-toggle="tooltip" data-placement="top" title="Problemos autorius">
-
+                                <div data-toggle="tooltip" data-placement="top" title="Iniciatyvos autorius">
+                                    {{ initiative.getUserId().getFirstName }} {{ initiative.getUserId().getLastName() }}
                                 </div>
                                 <br> {# quick hax for tooltip, will not work is div display property is changed #}
-                                <div data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data"><i class="fa fa-calendar-plus-o"></i></div>
-                                {#{% if  user  != null and user == problem.getUSerId() %}#}
+                                <div data-toggle="tooltip" data-placement="top" title="Iniciatyvos data"><i class="fa fa-calendar-check-o"></i>{{ initiative.getInitiativeDate() }}</div>
+                                {% if  user  != null and user == initiative.getUSerId() %}
+                                    {#PATH TO INITIATIVE EDIT#}
+                                    <div id="editItem" data-toggle="tooltip" data-placement="top" title="Redaguoti problemą" url="{{ path('ajax_problemEdit') }}" probId="{{ initiative.id() }}"><i class="fa fa-pencil"></i>Redaguoti</div>
 
-                                    {#<div id="editItem" data-toggle="tooltip" data-placement="top" title="Redaguoti problemą" url="{{ path('ajax_problemEdit') }}" probId="{{ problem.id() }}"><i class="fa fa-pencil"></i>Redaguoti</div>#}
-
-                                {#{% endif %}#}
+                                {% endif %}
                             </div>
                             <div class="clearfix"></div>
                             <hr>
+                            {#add description of original problem#}
                             <p id="editDescription">{{ initiative.description() }}</p>
                         </div>
 
@@ -80,29 +86,31 @@
                 </div>
                 <div class="modal-footer">
                     <div class="wrap-item-info-left">
-                        <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria"><i class="fa fa-check-circle"></i><span class="votes-"></span></div>
-                        <div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius"><i class="fa fa-users"></i>38</div>
+                        <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria"><i class="fa fa-check-circle"></i><span class="votes-{{ initiative.id() }}"></span>{{ initiative.votes() }}</div>
                         <div data-toggle="tooltip" data-placement="top" title="Komentarų skaičius"><i class="fa fa-comments"></i>13</div>
-
+                        <div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius"><i class="fa fa-users"></i>13</div>
                         <address data-toggle="tooltip" data-placement="top" title="Problemos adresas">
                             <i class="fa fa-map-marker"></i><p id="editAddress">Karaliaus Mindaugo pr. 38</p><br>
                         </address>
                     </div>
                     <div class="wrap-buttons-right">
-                        <a data-toggle="modal" class="incVote " probId="" url="{{ path('ajax_upvote') }}"><i data-toggle="tooltip" data-placement="top"  title="" class="fa fa-check-circle"></i></a>
-                        <a data-toggle="modal"><i data-toggle="tooltip" data-placement="top" title="Komentarai" class="fa fa-comments" url="{{ path('ajax_commentLoad')}}" item="problem" item_id=""></i></a>
-                        <a data-toggle="modal" class="openInitiativeModal" data-target="#addInitiative" probId=""><i data-toggle="tooltip" data-placement="top" title="Skelbti iniciatyvą" class="fa fa-bullhorn"></i></a>
+                        {#ajax upvote initiative; refacotr itemTYPE for status and tooltip; ajax comment load for initiative#}
+                        <a data-toggle="modal" class="incVote init" probId="{{ initiative.id() }}" url="{{ path('ajax_upvote') }}"><i data-toggle="tooltip" data-placement="top"  title="" class="fa fa-check-circle"></i></a>
+                        <a class="init"><i data-toggle="tooltip" data-placement="top" title="Komentarai" class="fa fa-comments" url="{{ path('ajax_commentLoad')}}" item="initiative" item_id="{{ initiative.id() }}"></i></a>
+                        <a class="init"><i data-toggle="tooltip" data-placement="top" title="Dalyvauti iniciatyvoje" class="fa fa-users"></i></a>
                     </div>
                 </div>
+                {#ajax to comment list#}
                 <div class="modal-comments text-center" id="comment_list_">
-                    {# here goes comment list #}
-                    {#{% if  user  != null %}#}
-                        {#<div class="modal-comments--post">#}
-                            {#&#123;&#35; nerodyti jeigu useris neprisijunges &#35;&#125;#}
-                            {#<img src="{{ problem.getUSerId().getProfilePicture() }}" class="profile-picture" alt="">#}
-                            {#<textarea class="form-control comment_input" placeholder="Jūsų komentaras" title="Įrašykite savo komentarą" required></textarea>#}
-                        {#</div>#}
-                    {#{% endif %}#}
+                     {#here goes comment list#}
+                    {#sutvarkyti - jeigu nera komentaru ir neprisijunges, kad rasytu kad prisijungtu ir paliktu komentara#}
+                    {% if  user  != null %}
+                        <div class="modal-comments--post">
+                            {# nerodyti jeigu useris neprisijunges #}
+                            <img src="{{ initiative.getUSerId().getProfilePicture() }}" class="profile-picture" alt="">
+                            <textarea class="form-control comment_input" placeholder="Jūsų komentaras" title="Įrašykite savo komentarą" required></textarea>
+                        </div>
+                    {% endif %}
 
                 </div>
             </div>
