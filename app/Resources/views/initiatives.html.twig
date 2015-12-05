@@ -45,7 +45,7 @@
     <div class="modal fade" id="project-initiative-{{ initiative.id() }}" tabindex="-1" role="dialog" aria-labelledby="project-1-label" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header modal-header__init">
                     <button type="button" class="close" data-dismiss="modal">
                         <span aria-hidden="true">&times;</span><span class="sr-only">Uždaryti</span>
                     </button>
@@ -95,9 +95,9 @@
                     </div>
                     <div class="wrap-buttons-right">
                         {#ajax upvote initiative; refacotr itemTYPE for status and tooltip; ajax comment load for initiative#}
-                        <a data-toggle="modal" class="incVote init" probId="{{ initiative.id() }}" url="{{ path('ajax_upvote') }}"><i data-toggle="tooltip" data-placement="top"  title="" class="fa fa-check-circle"></i></a>
-                        <a class="init"><i data-toggle="tooltip" data-placement="top" title="Komentarai" class="fa fa-comments" url="{{ path('ajax_commentLoad')}}" item="initiative" item_id="{{ initiative.id() }}"></i></a>
-                        <a class="init"><i data-toggle="tooltip" data-placement="top" title="Dalyvauti iniciatyvoje" class="fa fa-users"></i></a>
+                        <a data-toggle="modal" class="incVote btn__init" probId="{{ initiative.id() }}" url="{{ path('ajax_upvote') }}"><i data-toggle="tooltip" data-placement="top"  title="" class="fa fa-check-circle"></i></a>
+                        <a class="btn__init"><i data-toggle="tooltip" data-placement="top" title="Komentarai" class="fa fa-comments" url="{{ path('ajax_commentLoad')}}" item="initiative" item_id="{{ initiative.id() }}"></i></a>
+                        <a class="btn__init"><i data-toggle="tooltip" data-placement="top" title="Dalyvauti iniciatyvoje" class="fa fa-users"></i></a>
                     </div>
                 </div>
                 {#ajax to comment list#}

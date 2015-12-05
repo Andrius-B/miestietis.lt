@@ -74,11 +74,11 @@ a:active {
 	font-size: 18px;
 }
 .initiatives a,
-.init {
+.btn__init {
     color: #55acee;
 }
 .initiatives a:hover,
-.init:hover {
+.btn__init:hover {
     color: #339BEB;
 }
 img {
@@ -435,8 +435,11 @@ textarea {
 	border-radius: 0px;
 }
 .modal-header {
-	background-color: #55acee;
+	background-color: #E6BC4C;
 	color: #ffffff;
+}
+.modal-header__init {
+    background-color: #55acee;
 }
 .modal-header h4 {
 	display:inline-block;
@@ -591,15 +594,12 @@ div[data-toggle="tooltip"] > i, address .fa-map-marker {
 hr {
     margin-top: 10px;
     margin-bottom: 0;
-    border-color: rgba(85, 172, 238, 0.5);
 }
-
 .modal-footer {
     height:4.5em;
     padding: 5px 5px 5px 15px;
     text-align:left;
     position: relative;
-    border-color: rgba(85, 172, 238, 0.5);
 }
 .modal-footer a {
     padding-right: 0.3em;
