@@ -30,18 +30,21 @@
                             <li class="active"><a href="#" data-filter="*">Visi</a></li>
                             <li><a href="#" data-filter=".problems">Problemos</a></li>
                             <li><a href="#" data-filter=".initiatives">Iniciatyvos</a></li>
-                            <li><a href="#" data-filter=".top10">Top 10</a></li>
+                            <li><a href="#" data-filter=".topProblems" >Top 10</a></li>
                         </ul>
                     </div>
                     <!-- isotope filters end -->
 
                     <!-- list items start -->
-                    <div class="isotope-container row grid-space-20">
+                    <div class="isotope-container row grid-space-20" >
                         {% for problem in problems %}
                             {{ include('items.html.twig') }}
                         {% endfor %}
                         {% for initiative in initiatives %}
                             {{ include('initiatives.html.twig') }}
+                        {% endfor %}
+                        {% for problem in topProblems %}
+                            {{ include('topProblems.html.twig') }}
                         {% endfor %}
                     </div>
                     <!-- list items end -->
