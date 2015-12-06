@@ -16,6 +16,7 @@ class MainController extends Controller
 
         $user = $this->getUser();
         $problems = $ob_former->getProblems(10, 0);
+        $topProblems = $ob_former->getTopProblems(10);
         $initiatives = $ob_former->getInitiatives(10, 0);
 
         /* Process problem status and tooltip values   ---> okay, but why????*/
@@ -30,6 +31,7 @@ class MainController extends Controller
 
         return $this->render('MiestietisMainBundle:Main:index.html.twig', array(
             'problems' => $problems,
+            'topProblems' => $topProblems,
             'initiatives' => $initiatives,
             'user' => $user,
             'initiativeForm' => $form->createView()

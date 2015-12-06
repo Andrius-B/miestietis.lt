@@ -58,6 +58,9 @@ $(document).ready( function() {
                     $('#loading-img').hide();
                     console.log(data);
                     $("#imgdisplay").html("<img src='../images/problems"+data.picture+"'style='width: 150px'>");
+                    $('#itemName').val();
+                    $('#itemDescription').val();
+                    $('#controlerURL').attr('url');
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown)
                 {
