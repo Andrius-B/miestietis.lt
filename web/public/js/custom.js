@@ -82,18 +82,18 @@ $(document).ready( function() {
     //------------------------------------------------------------
 
     // -------------------------------------------------
-    // Ajax request to edit item
-    function ajaxProblemEdit(){
-        var url = $('#editProblem').attr('url');
-        var probId = $('#editProblem').attr('probId');
+    // Ajax request to edit problem
+    function ajaxProblemEdit(url, probid, eTitle, eDescription, eAdress) {
+        var editedUrl = url;
+        var editedProbId = probid;
 
-        var title = $('.edit-title').val();
-        var description = $('.edit-description').val();
-        var address = $('.edit-address').val();
-        var data = {title:title, description:description, address:address, probId:probId};
+        var editedTitle = eTitle.val();
+        var editedDescription = eDescription.val();
+        var editedAddress = eAdress.val();
+        var data = {title:editedTitle, description:editedDescription, address:editedAddress, probId:editedProbId};
         $.ajax({
             type: "POST",
-            url: url,
+            url: editedUrl,
             data: data,
             success: function (data) {
                 $('.modal').modal('hide');
@@ -152,8 +152,18 @@ $(document).ready( function() {
                     'class="fa fa-floppy-o">' +
                 '</i>' +
             '</a>');
-        $('.save-button').on('click',function(){
-            ajaxProblemEdit();
+
+        var url = $(this).attr('url');
+        var probId = $(this).attr('probId');
+
+        var editedTitle = $this.find('.edit-title');
+        var editedDescription = $this.find('.edit-description');
+        var editedAddress = $this.find('.edit-address');
+
+        var save = $this.find('.save-button');
+
+        save.on('click', function() {
+            ajaxProblemEdit(url, probId, editedTitle, editedDescription, editedAddress)
         });
     });
 
@@ -191,15 +201,117 @@ $(document).ready( function() {
             $this.replaceWith(address);
         }
     });
+    // End of edit problem
+    //------------------------------------------------------------
 
 
-    // End of edit item
+
+    // -------------------------------------------------
+    // Ajax request to edit initiative
+
+    function ajaxInitiativeEdit(url, initid, eDate, eDescription) {
+        var editedUrl = url;
+        var editedInitid = initid;
+
+        var editedDate = eDate;
+        var editedDescription = eDescription;
+
+        var saveDate = editedDate.val();
+        var saveDescription = editedDescription.val();
+        var data = {description:saveDescription, date:saveDate, initid:editedInitid};
+
+        $.ajax({
+            type: "POST",
+            url: editedUrl,
+            data: data,
+            success: function (data) {
+                $('.modal').modal('hide');
+                //location.reload();
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Error : ' + errorThrown);
+            }
+        });
+    }
+    $('.modal').on('click', '#editInitiative', function() {
+        var $this = $(this).parents('.modal-content');
+        var targetDescription = $this.find('#editDescription');
+        var targetDate = $this.find('#editDate');
+        var targetButtons = $this.find('.wrap-buttons-right');
+
+        var initialDescription = targetDescription.clone();
+        var initialDate = targetDate.clone();
+        var initialButtons = targetButtons.clone();
+
+        $(this).tooltip('hide');
+
+        targetDescription.trigger('editItemsEvent');
+        targetDate.trigger('editItemsEvent');
+
+        var editButton = $(this)[0].childNodes[1];
+        editButton.nodeValue = 'Redaguokite pasvirą tekstą.';
+
+        $('.modal').on('hidden.bs.modal', function() {
+            $this.find('.edit-date').replaceWith(initialDate);
+            $this.find('.edit-description').replaceWith(initialDescription);
+            $this.find('.wrap-buttons-right').remove();
+            $this.find('.modal-footer').append(initialButtons);
+            editButton.nodeValue = 'Redaguoti';
+        });
+
+        targetButtons.empty();
+        targetButtons.append('<a ' +
+            'data-toggle="modal" ' +
+            'class="save-button">' +
+                '<i ' +
+                'data-toggle="tooltip" ' +
+                'data-placement="top"  ' +
+                'title="Išsaugoti pakeitimus" ' +
+                'class="fa fa-floppy-o">' +
+                '</i>' +
+            '</a>');
+
+        var url = $(this).attr('url');
+        var initid = $(this).attr('initid');
+        var editedDate = $this.find('.edit-date');
+        var editedDescription = $this.find('.edit-description');
+
+        var save = $this.find('.save-button');
+
+        save.on('click', function(){
+            ajaxInitiativeEdit(url, initid, editedDate, editedDescription);
+        });
+    });
+
+    $('.modal').on("editItemsEvent", "#editDescription, #editDate", function (event) {
+        var target = event.currentTarget.id;
+        var $this = $(this);
+        var heightDescription = $this.height();
+        var widthDate = $this.width()+25;
+        var description = $('<textarea class="form-control edit-description">'+$(this).text()+'</textarea>');
+        var date = $('<input />', {
+            'type': 'text',
+            'class': 'form-control edit-date',
+            'style': 'width:' + widthDate + 'px',
+            'value': $(this).text()
+        });
+        if (target === 'editDescription') {
+            $this.replaceWith(description);
+            var val = description.val();
+            description.val('');
+            description.focus();
+            description.val(val);
+            description.height(heightDescription);
+        } else if (target === 'editDate') {
+            $this.replaceWith(date);
+        }
+    });
+    // End of edit initiative
     //------------------------------------------------------------
 
 
     // -------------------------------------------------
     // Ajax request to load profile modal with history
-
     $(".profileHistory").on('click', function(event){
         event.preventDefault();
         var url = $('.profileHistory').attr('href');

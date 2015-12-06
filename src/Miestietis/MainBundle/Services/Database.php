@@ -71,7 +71,7 @@ class Database
     }
 
     public function editInitiative($description, $date, $initiative){
-        $initiative->setIsActive(true);
+//        $initiative->setIsActive(true);
         //$initiative->setRegistrationDate(date("Y m d"));
         $initiative->setInitiativeDate($date);
         $initiative->setDescription($description);

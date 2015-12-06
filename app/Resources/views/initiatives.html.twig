@@ -68,17 +68,17 @@
                                     {{ initiative.getUserId().getFirstName }} {{ initiative.getUserId().getLastName() }}
                                 </div>
                                 <br> {# quick hax for tooltip, will not work is div display property is changed #}
-                                <div data-toggle="tooltip" data-placement="top" title="Iniciatyvos data"><i class="fa fa-calendar-check-o"></i>{{ initiative.getInitiativeDate() }}</div>
+                                <div id="editDate" data-toggle="tooltip" data-placement="top" title="Iniciatyvos data"><i class="fa fa-calendar-check-o"></i>{{ initiative.getInitiativeDate() }}</div>
                                 {% if  user  != null and user == initiative.getUSerId() %}
                                     {#PATH TO INITIATIVE EDIT#}
-                                    <div id="editInitiative" data-toggle="tooltip" data-placement="top" title="Redaguoti problemą" url="{{ path('ajax_initiativeEdit') }}" probId="{{ initiative.id() }}"><i class="fa fa-pencil"></i>Redaguoti</div>
+                                    <div id="editInitiative" data-toggle="tooltip" data-placement="top" title="Redaguoti problemą" url="{{ path('ajax_initiativeEdit') }}" initid="{{ initiative.getId() }}"><i class="fa fa-pencil"></i>Redaguoti</div>
 
                                 {% endif %}
                             </div>
                             <div class="clearfix"></div>
                             <hr>
                             {#add description of original problem#}
-                            <p id="editDescription">{{ initiative.getProblemId().description() }}</p>
+                            <p>{{ initiative.getProblemId().description() }}</p>
                             <p id="editDescription">{{ initiative.description() }}</p>
                         </div>
 
