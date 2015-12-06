@@ -19,4 +19,6 @@ services:
     item_type:
         class: Miestietis\MainBundle\Services\Type
     image_handler:
-            class: Miestietis\MainBundle\Services\Image
+        class: Miestietis\MainBundle\Services\Image
+    counter:
+        class: Miestietis\MainBundle\Services\Count

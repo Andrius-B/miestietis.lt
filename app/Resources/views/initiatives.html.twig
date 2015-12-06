@@ -18,8 +18,8 @@
             <div class="itemInfo">
                 <h4>{{ initiative.getProblemId().name() }}</h4>
                 <div data-toggle="tooltip" data-placement="top" title="Iniciatyvos data"><i class="fa fa-calendar-check-o"></i>{{ initiative.getInitiativeDate() }}</div>
-                <div data-toggle="tooltip" data-placement="top" title="Komentarų skaičius"><i class="fa fa-comments"></i>13</div>
-                <div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius"><i class="fa fa-users"></i>13</div>
+                <div data-toggle="tooltip" data-placement="top" title="Komentarų skaičius"><i class="fa fa-comments"></i>{{ initiativeCommentCount[initiative.id()] }}</div>
+                <div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius"><i class="fa fa-users"></i>{{ participantCount[initiative.id()] }}</div>
                 <div class="clearfix"></div>
                 <div data-toggle="tooltip" data-placement="top" title="Iniciatyvos autorius">
                     {{ initiative.getUserId().getFirstName }}
@@ -86,8 +86,8 @@
                 </div>
                 <div class="modal-footer">
                     <div class="wrap-item-info-left">
-                        <div data-toggle="tooltip" data-placement="top" title="Komentarų skaičius"><i class="fa fa-comments"></i>13</div>
-                        <div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius"><i class="fa fa-users"></i>13</div>
+                        <div data-toggle="tooltip" data-placement="top" title="Komentarų skaičius"><i class="fa fa-comments"></i>{{ initiativeCommentCount[initiative.id()] }}</div>
+                        <div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius"><i class="fa fa-users"></i>{{ participantCount[initiative.id()] }}</div>
                         <address data-toggle="tooltip" data-placement="top" title="Problemos adresas">
                             <i class="fa fa-map-marker"></i><p id="editAddress">Karaliaus Mindaugo pr. 38</p><br>
                         </address>
