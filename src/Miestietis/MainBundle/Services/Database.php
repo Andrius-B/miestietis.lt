@@ -42,7 +42,7 @@ class Database
         $problem->setUserId($user);
         $problem->setVotes(0);
         $problem->setIsActive(true);
-        $problem->setDate($time['year'].' '.$time['mon'].' '.$time['mday']);
+        $problem->setDate(new \DateTime(date('Y-m-d H:i:s')));
 
         if($this->em == null){
             return 0;

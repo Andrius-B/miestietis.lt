@@ -32,7 +32,7 @@ class Problema
      */
     protected $name;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="datetime")
      */
     protected $date;
     /**
@@ -143,29 +143,6 @@ class Problema
         return $this->name;
     }
 
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     *
-     * @return Problema
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
 
     /**
      * Set description
@@ -346,5 +323,29 @@ class Problema
     public function removeUpvotedBy(\Miestietis\MainBundle\Entity\User $upvotedBy)
     {
         $this->upvoted_by->removeElement($upvotedBy);
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return Problema
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }

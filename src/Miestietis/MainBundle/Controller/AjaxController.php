@@ -164,6 +164,7 @@ class AjaxController extends Controller
         $init = $this->getDoctrine()
             ->getRepository('MiestietisMainBundle:Initiative')
             ->findAll();
+        $participations = [];
         foreach ($init as $i) {
             if($i->getParticipants()->contains($user) && $i->getUserId() != $user ) {
                 $participations[] = $i;

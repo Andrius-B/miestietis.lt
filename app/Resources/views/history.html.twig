@@ -12,7 +12,7 @@
             </div>
 
             <div class="date">
-                <i data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data" class="fa fa-calendar-plus-o"><span>{{ item.date() }}</span></i>
+                <i data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data" class="fa fa-calendar-plus-o"><span>{{ item.date()|date('Y m d') }}</span></i>
             </div>
         </li>
         {% else %}
@@ -27,7 +27,7 @@
                 <i data-toggle="tooltip" data-placement="top" title="Problemai pritaria" class="fa fa-users"><span>0</span></i>
             </div>
             <div class="date">
-                <i data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data" class="fa fa-calendar-plus-o"><span>{{ item.getInitiativeDate() }}</span></i>
+                <i data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data" class="fa fa-calendar-plus-o"><span>{{ item.getInitiativeDate()|date('Y m d') }}</span></i>
             </div>
         </li>
         {% endif %}
