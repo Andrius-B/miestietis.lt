@@ -27,7 +27,7 @@ class Type{
 
         }
         foreach($i as $initiative) {
-            if($initiative->getParticipations()->contains($user)) {
+            if($initiative->getParticipants()->contains($user)) {
                 $initiative->status = 'disabled';
                 $initiative->tooltip = 'Jūs jau dalyvaujate';
             } else {
