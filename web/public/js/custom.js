@@ -591,4 +591,14 @@ $(document).ready( function() {
             }
         });
     });
+    $topProblems = $('.topProblems');
+    $('#top10problems').on('click', function(){
+        $topProblems.toggleClass('hidden');
+    });
+    $('.problemFilterButton').on('click', function(){
+        if($topProblems.hasClass('hidden')){}else{
+            $topProblems.addClass('hidden');
+        }
+
+    });
 });
