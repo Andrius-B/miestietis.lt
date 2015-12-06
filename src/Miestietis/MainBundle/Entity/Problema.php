@@ -5,7 +5,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity
@@ -33,7 +32,7 @@ class Problema
      */
     protected $name;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="datetime")
      */
     protected $date;
     /**
@@ -60,8 +59,8 @@ class Problema
     /**
      * @ORM\ManyToMany(targetEntity="User", inversedBy="upvoted_problems")
      * @ORM\JoinTable(name="problema_upvotes",
-     *      joinColumns={@ORM\JoinColumn(name="problema_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="problema_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      */
     private $upvoted_by;
@@ -144,29 +143,6 @@ class Problema
         return $this->name;
     }
 
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     *
-     * @return Problema
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
 
     /**
      * Set description
@@ -343,9 +319,37 @@ class Problema
      * Remove upvotedBy
      *
      * @param \Miestietis\MainBundle\Entity\User $upvotedBy
+     *
+     * @return Problema
      */
     public function removeUpvotedBy(\Miestietis\MainBundle\Entity\User $upvotedBy)
     {
         $this->upvoted_by->removeElement($upvotedBy);
+
+        return $this;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return Problema
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }

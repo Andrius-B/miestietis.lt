@@ -90,7 +90,7 @@ class User extends BaseUser
     protected $participations;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Problema", mappedBy="user_id")
+     * @ORM\ManyToMany(targetEntity="Problema", mappedBy="upvoted_by")
      */
     protected $upvoted_problems;
 
@@ -311,9 +311,14 @@ class User extends BaseUser
         return $this->upvoted_problems;
     }
 
-    public function isUpvotedProblem($problema){
+    public function isUpvotedProblem(Problema $problema){
         if($this->upvoted_problems->contains($problema))return true;
         else return false;
+    }
+
+    public function removeUpvotedProblem(Problema $problema){
+        $this->upvoted_problems->removeElement($problema);
+        return $this;
     }
 
     /**

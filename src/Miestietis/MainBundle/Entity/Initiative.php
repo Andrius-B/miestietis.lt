@@ -35,11 +35,11 @@ class Initiative
      */
     protected $comments;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="datetime")
      */
     protected $registration_date;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="datetime")
      */
     protected $initiative_date;
     /**
@@ -71,53 +71,7 @@ class Initiative
         return $this->id;
     }
 
-    /**
-     * Set registrationDate
-     *
-     * @param string $registrationDate
-     *
-     * @return Initiative
-     */
-    public function setRegistrationDate($registrationDate)
-    {
-        $this->registration_date = $registrationDate;
-
-        return $this;
-    }
-
-    /**
-     * Get registrationDate
-     *
-     * @return string
-     */
-    public function getRegistrationDate()
-    {
-        return $this->registration_date;
-    }
-
-    /**
-     * Set initiativeDate
-     *
-     * @param string $initiativeDate
-     *
-     * @return Initiative
-     */
-    public function setInitiativeDate($initiativeDate)
-    {
-        $this->initiative_date = $initiativeDate;
-
-        return $this;
-    }
-
-    /**
-     * Get initiativeDate
-     *
-     * @return string
-     */
-    public function getInitiativeDate()
-    {
-        return $this->initiative_date;
-    }
+    
 
     /**
      * Set description
@@ -305,5 +259,53 @@ class Initiative
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Set registrationDate
+     *
+     * @param \DateTime $registrationDate
+     *
+     * @return Initiative
+     */
+    public function setRegistrationDate($registrationDate)
+    {
+        $this->registration_date = $registrationDate;
+
+        return $this;
+    }
+
+    /**
+     * Get registrationDate
+     *
+     * @return \DateTime
+     */
+    public function getRegistrationDate()
+    {
+        return $this->registration_date;
+    }
+
+    /**
+     * Set initiativeDate
+     *
+     * @param \DateTime $initiativeDate
+     *
+     * @return Initiative
+     */
+    public function setInitiativeDate($initiativeDate)
+    {
+        $this->initiative_date = $initiativeDate;
+
+        return $this;
+    }
+
+    /**
+     * Get initiativeDate
+     *
+     * @return \DateTime
+     */
+    public function getInitiativeDate()
+    {
+        return $this->initiative_date;
     }
 }
