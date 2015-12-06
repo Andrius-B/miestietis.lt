@@ -1,7 +1,7 @@
 <ul class="table-like">
     {% for item in items %}
         {% if item.name() is defined %}
-        <li class="table-like__item uploads">
+        <li class="table-like__item problems">
             <div class="description">
                 <h4><a data-toggle="modal" data-target="#project-{{ item.id() }}" data-dismiss="modal">{{ item.name() }}</a></h4>
                 <i data-toggle="tooltip" data-placement="top" title="Ištrinkite problemą" class="fa fa-trash"></i>
@@ -15,7 +15,7 @@
                 <i data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data" class="fa fa-calendar-plus-o"><span>{{ item.date() }}</span></i>
             </div>
         </li>
-    {% else %}
+        {% else %}
         <li class="table-like__item activeInitiatives">
             <div class="description">
                 <h4><a data-toggle="modal" data-target="#project-initiative-{{ item.id() }}" data-dismiss="modal">{{ item.getProblemId().name() }}</a></h4>
@@ -30,6 +30,6 @@
                 <i data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data" class="fa fa-calendar-plus-o"><span>{{ item.getInitiativeDate() }}</span></i>
             </div>
         </li>
-    {% endif %}
+        {% endif %}
     {% endfor %}
 </ul>

@@ -30,11 +30,13 @@
                 <a data-toggle="modal" data-target="#project-initiative-{{ initiative.id() }}" >
                     <i data-toggle="tooltip" data-placement="top" title="Skaityti plačiau" class="fa fa-info-circle"></i>
                 </a>
+                {% if initiative.getUserId() != user %}
                 <a class="{{ initiative.status }}">
                     <i data-toggle="tooltip" data-placement="top" title="{{ initiative.tooltip }}"
                        class="fa fa-users joinInitiative" item_id="{{ initiative.id() }}" date ="{{ initiative.getInitiativeDate() }}"
                        url="{{ path('ajax_initiative_join') }}"></i>
                 </a>
+                {% endif %}
             </div>
         </section>
     </div>
@@ -95,10 +97,12 @@
                         <a class="btn__init"><i data-toggle="tooltip" data-placement="top" title="Komentarai"
                             class="fa fa-comments" url="{{ path('ajax_commentLoad')}}" item="problem" item_id="{{ initiative.getProblemId().getId() }}"></i>
                         </a>
+                        {% if initiative.getUserId() != user %}
                         <a class="btn__init {{ initiative.status }}"><i data-toggle="tooltip" data-placement="top" title="{{ initiative.tooltip }}"
                             class="fa fa-users joinInitiative" item_id="{{ initiative.id() }}"
                             date ="{{ initiative.getInitiativeDate() }}" url="{{ path('ajax_initiative_join') }}"></i>
                         </a>
+                        {% endif %}
                     </div>
                 </div>
                 {#ajax to comment list#}
