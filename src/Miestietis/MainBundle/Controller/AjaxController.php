@@ -154,9 +154,13 @@ class AjaxController extends Controller
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
         }
         $user = $this->getUser();
-        $items = $this->getDoctrine()
+        $problems = $this->getDoctrine()
             ->getRepository('MiestietisMainBundle:Problema')
+            ->findBy(array('user_id'=>$user, 'is_active' => 1));
+        $initiatives = $this->getDoctrine()
+            ->getRepository('MiestietisMainBundle:Initiative')
             ->findBy(array('user_id'=>$user));
+        $items =  array_merge( $problems , $initiatives );
         $template = $this->renderView('history.html.twig', array('items' => $items));
         $response = new Response($template, 200);
         return $response;
