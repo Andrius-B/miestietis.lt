@@ -25,8 +25,18 @@ class Formation{
             'SELECT p
             FROM MiestietisMainBundle:Problema p
             WHERE p.is_active = 1
-            ORDER BY p.votes DESC'
+            ORDER BY p.date DESC'
         )->setMaxResults($n)->setFirstResult($offset);
+        $problems = $query->getResult();
+        return $problems;
+    }
+    public function getTopProblems( $n){
+        $query = $this->em->createQuery(
+            'SELECT p
+            FROM MiestietisMainBundle:Problema p
+            WHERE p.is_active = 1
+            ORDER BY p.votes DESC'
+        )->setMaxResults($n);
         $problems = $query->getResult();
         return $problems;
     }
@@ -34,7 +44,7 @@ class Formation{
         $query = $this->em->createQuery(
             'SELECT i
             FROM MiestietisMainBundle:Initiative i
-            ORDER BY i.votes DESC'
+            ORDER BY i.registration_date DESC'
         )->setMaxResults($n)->setFirstResult($offset);
         $problems = $query->getResult();
         return $problems;
