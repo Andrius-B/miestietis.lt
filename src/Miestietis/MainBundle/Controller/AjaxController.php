@@ -160,7 +160,7 @@ class AjaxController extends Controller
         $initiatives = $this->getDoctrine()
             ->getRepository('MiestietisMainBundle:Initiative')
             ->findBy(array('user_id'=>$user));
-        $items =  array_merge( $problems , $initiatives );
+        $items =  array_merge($problems, $initiatives);
 
         $template = $this->renderView('history.html.twig', array('items' => $items));
         $response = new Response($template, 200);
