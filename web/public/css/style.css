@@ -909,6 +909,42 @@ input[readonly] {
 	}
 }
 
+/* Confirm and success modal
+------------------------------*/
+
+#confirm-join p,
+#success-join p {
+    font-size: 1.25em;
+    text-indent: 0;
+    padding-top: 2em;
+    padding-bottom: 1.5em;
+}
+
+#success-join p {
+    font-size: 1.15em;
+}
+
+#success-join .success-text {
+    padding-bottom: 0;
+}
+
+#success-join .success-time {
+    padding-top: 0;
+}
+
+#confirm-join a,
+#success-join a {
+    margin-bottom: 2.5em;
+}
+
+.button__left {
+    margin-right: 0.5em;
+}
+
+.button__right {
+    margin-left: 0.5em;
+}
+
 /* Profile modal more
 ------------------------------*/
 

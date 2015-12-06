@@ -1,0 +1,26 @@
+<div class="modal fade" id="confirm-join" tabindex="-1" role="dialog" aria-labelledby="project-label" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+
+            <div class="modal-body text-center">
+                <p>Ar tikrai norite prisijungti prie iniciatyvos?</p>
+                <a id="confirmJoin" class="btn btn-default button__left" data-dismiss="modal">Taip</a>
+                <a id="cancelJoin" class="btn btn-default button__right" data-dismiss="modal">Ne</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="success-join" tabindex="-1" role="dialog" aria-labelledby="project-label" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <p class="success-text"></p>
+                <p class="success-time"></p>
+                <a href="{{ path('ajax_history') }}" class="btn btn-default button__left profileHistory" data-toggle="modal" data-target="#profile-more" data-remote="false" data-dismiss="modal">Profilis</a>
+                <a  class="btn btn-default button__right" data-dismiss="modal">Uždaryti</a>
+            </div>
+        </div>
+    </div>
+</div>

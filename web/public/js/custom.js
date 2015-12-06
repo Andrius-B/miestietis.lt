@@ -611,24 +611,40 @@ $(document).ready( function() {
 
     });
     // Prisijungimas prie iniciatyvos
-    $('.joinInitiative').on('click', function(){
-        //alert('Čia reik perklaust ar žmogu sužtikrintas tuo, kad nori prisidėt prie iniciatyvos');
+    $('.joinInitiative').on('click', function() {
         var initiative = $(this).attr('item_id');
+        var itemDisable = $(this);
         var url = $(this).attr('url');
         var date = $(this).attr('date');
         var data = {initiative : initiative};
-        alert(date + url+ initiative);
+        var confirmModal = $('#confirm-join');
+        var successJoin = $('#success-join');
 
-        $.ajax({
-            url: url,
-            type: "POST",
-            data: data,
-            success: function (data) {
-                alert('Sėkmingai prisijungėte prie iniciatyvos, organizatoriai jūsų lauks '+date);
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert('Atsiprašome, įvyko klaida');
+        confirmModal.modal('show');
+
+        confirmModal.on('click', '#confirmJoin', '#cancelJoin', function(event) {
+            var target = event.currentTarget.id;
+            if (target == 'confirmJoin') {
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: data,
+                    success: function (data) {
+                        successJoin.find('.success-text').text('Sėkmingai prisijungėte prie iniciatyvos.');
+                        successJoin.find('.success-time').text('Organizatoriai Jūsų lauks '+date);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        // alert('Atsiprašome, įvyko klaida');
+                    },
+                    complete: function() {
+                        itemDisable.addClass('disabled');
+                        successJoin.modal('show');
+                    }
+                });
+            } else if (target == 'cancelJoin') {
+                confirmModal.modal('hide');
             }
         });
+
     });
 });
