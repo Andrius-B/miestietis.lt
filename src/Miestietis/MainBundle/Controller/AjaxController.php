@@ -208,4 +208,21 @@ class AjaxController extends Controller
         $return = new JsonResponse($c, 200);
         return $return;
     }
+    public function initiativeJoinAction(Request $request){
+        if (!$request->isXmlHttpRequest())
+        {
+            return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
+        }
+        $db_handler = $this->get('db_handler');
+        $user = $this->getUser();
+        $id = $request->request->get('initiative');
+        $data = array('response' => 'ok');
+        if($db_handler->joinInitiative($id, $user)){
+            $response = new JsonResponse($data, 200);
+            return $response;
+        }else{
+            $response = new JsonResponse(array('response' => 'error'));
+            return $response;
+        }
+    }
 }

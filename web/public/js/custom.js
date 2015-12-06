@@ -599,4 +599,36 @@ $(document).ready( function() {
             }
         });
     });
+    // top 10 problemų filtravimas su mygtuku Top 10
+    $topProblems = $('.topProblems');
+    $('#top10problems').on('click', function(){
+        $topProblems.toggleClass('hidden');
+    });
+    $('.problemFilterButton').on('click', function(){
+        if($topProblems.hasClass('hidden')){}else{
+            $topProblems.addClass('hidden');
+        }
+
+    });
+    // Prisijungimas prie iniciatyvos
+    $('.joinInitiative').on('click', function(){
+        //alert('Čia reik perklaust ar žmogu sužtikrintas tuo, kad nori prisidėt prie iniciatyvos');
+        var initiative = $(this).attr('item_id');
+        var url = $(this).attr('url');
+        var date = $(this).attr('date');
+        var data = {initiative : initiative};
+        alert(date + url+ initiative);
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: data,
+            success: function (data) {
+                alert('Sėkmingai prisijungėte prie iniciatyvos, organizatoriai jūsų lauks '+date);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Atsiprašome, įvyko klaida');
+            }
+        });
+    });
 });
