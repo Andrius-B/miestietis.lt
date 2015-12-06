@@ -27,12 +27,17 @@ class Type{
 
         }
         foreach($i as $initiative) {
-            if (!$checker->isGranted('IS_AUTHENTICATED_FULLY')) {
+            if($initiative->getParticipations()->contains($user)) {
                 $initiative->status = 'disabled';
-                $initiative->tooltip = 'Norėdami dalyvauti turite prisijungti';
+                $initiative->tooltip = 'Jūs jau dalyvaujate';
             } else {
                 $initiative->status = '';
                 $initiative->tooltip = 'Dalyvauti iniciatyvoje';
+
+                if (!$checker->isGranted('IS_AUTHENTICATED_FULLY')) {
+                    $initiative->status = 'disabled';
+                    $initiative->tooltip = 'Norėdami dalyvauti turite prisijungti';
+                }
             }
         }
     }
