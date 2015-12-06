@@ -31,8 +31,8 @@
                     <i data-toggle="tooltip" data-placement="top" title="Skaityti plačiau" class="fa fa-info-circle"></i>
                 </a>
                 {#refacotr itemTYPE for status and tooltip#}
-                <a>
-                    <i data-toggle="tooltip" data-placement="top" title="Dalyvauti iniciatyvoje" class="fa fa-users"></i>
+                <a class="{{ initiative.status }}">
+                    <i data-toggle="tooltip" data-placement="top" title="{{ initiative.tooltip }}" class="fa fa-users"></i>
                 </a>
             </div>
         </section>
@@ -91,12 +91,12 @@
                     </div>
                     <div class="wrap-buttons-right">
                         {#ajax upvote initiative; refacotr itemTYPE for status and tooltip; ajax comment load for initiative#}
-                        <a class="btn__init"><i data-toggle="tooltip" data-placement="top" title="Komentarai" class="fa fa-comments" url="{{ path('ajax_commentLoad')}}" item="initiative" item_id="{{ initiative.id() }}"></i></a>
-                        <a class="btn__init"><i data-toggle="tooltip" data-placement="top" title="Dalyvauti iniciatyvoje" class="fa fa-users"></i></a>
+                        <a class="btn__init"><i data-toggle="tooltip" data-placement="top" title="Komentarai" class="fa fa-comments" url="{{ path('ajax_commentLoad')}}" item="problem" item_id="{{ initiative.getProblemId().getId() }}"></i></a>
+                        <a class="btn__init {{ initiative.status }}"><i data-toggle="tooltip" data-placement="top" title="{{ initiative.tooltip }}" class="fa fa-users"></i></a>
                     </div>
                 </div>
                 {#ajax to comment list#}
-                <div class="modal-comments text-center" id="comment_list_">
+                <div class="modal-comments text-center" id="comment_list_{{ initiative.getProblemId().getId() }}">
                      {#here goes comment list#}
                     {#sutvarkyti - jeigu nera komentaru ir neprisijunges, kad rasytu kad prisijungtu ir paliktu komentara#}
                     {% if  user  != null %}

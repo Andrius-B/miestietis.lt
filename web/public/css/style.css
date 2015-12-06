@@ -539,11 +539,13 @@ textarea {
 	cursor: pointer;
 }
 
-.disabled {
+.disabled,
+.initiatives .disabled {
 	color: #ccc;
 	cursor: text !important;
 }
-.disabled:hover {
+.disabled:hover,
+.initiatives .disabled {
 	color: #ccc;
 }
 

@@ -6,7 +6,7 @@ use Miestietis\MainBundle\Entity\Problema;
 
 class Type{
 
-    public function itemType($p, $user, $checker)
+    public function itemType($p, $i, $user, $checker)
     {
         foreach($p as $problem)
         {
@@ -20,8 +20,19 @@ class Type{
 
 
                 if (!$checker->isGranted('IS_AUTHENTICATED_FULLY')) {
+                    $problem->status = 'disabled';
                     $problem->tooltip = 'Norėdami pritarti turite prisijungti';
                 }
+            }
+
+        }
+        foreach($i as $initiative) {
+            if (!$checker->isGranted('IS_AUTHENTICATED_FULLY')) {
+                $initiative->status = 'disabled';
+                $initiative->tooltip = 'Norėdami dalyvauti turite prisijungti';
+            } else {
+                $initiative->status = '';
+                $initiative->tooltip = 'Dalyvauti iniciatyvoje';
             }
         }
     }

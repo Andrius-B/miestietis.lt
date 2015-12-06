@@ -21,7 +21,7 @@ class MainController extends Controller
 
         /* Process problem status and tooltip values   ---> okay, but why????*/
 
-        $this->get('item_type')->itemType($problems, $user, $this->get('security.authorization_checker'));
+        $this->get('item_type')->itemType($problems, $initiatives, $user, $this->get('security.authorization_checker'));
 
 
         //initiative form set-up
