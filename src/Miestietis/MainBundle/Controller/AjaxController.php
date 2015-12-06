@@ -156,7 +156,7 @@ class AjaxController extends Controller
         $user = $this->getUser();
         $items = $this->getDoctrine()
             ->getRepository('MiestietisMainBundle:Problema')
-            ->findBy(array('user_id'=>$user));
+            ->findBy(array('user_id'=>$user, 'is_active'=>1));
         $template = $this->renderView('history.html.twig', array('items' => $items));
         $response = new Response($template, 200);
         return $response;

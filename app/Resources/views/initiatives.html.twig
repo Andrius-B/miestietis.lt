@@ -18,7 +18,6 @@
             <div class="itemInfo">
                 <h4>{{ initiative.getProblemId().name() }}</h4>
                 <div data-toggle="tooltip" data-placement="top" title="Iniciatyvos data"><i class="fa fa-calendar-check-o"></i>{{ initiative.getInitiativeDate() }}</div>
-                <div data-toggle="tooltip" data-placement="top" title="Iniciatyvai pritaria"><i class="fa fa-check-circle"></i><span class="votes-{{ initiative.id() }}"></span>{{ initiative.votes() }}</div>
                 <div data-toggle="tooltip" data-placement="top" title="Komentarų skaičius"><i class="fa fa-comments"></i>13</div>
                 <div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius"><i class="fa fa-users"></i>13</div>
                 <div class="clearfix"></div>
@@ -32,9 +31,6 @@
                     <i data-toggle="tooltip" data-placement="top" title="Skaityti plačiau" class="fa fa-info-circle"></i>
                 </a>
                 {#refacotr itemTYPE for status and tooltip#}
-                <a class="incVote " probId="{{ initiative.id() }}" url="{{ path('ajax_upvote') }}">
-                    <i data-toggle="tooltip" data-placement="top" title="" class="fa fa-check-circle"></i>
-                </a>
                 <a>
                     <i data-toggle="tooltip" data-placement="top" title="Dalyvauti iniciatyvoje" class="fa fa-users"></i>
                 </a>
@@ -87,7 +83,6 @@
                 </div>
                 <div class="modal-footer">
                     <div class="wrap-item-info-left">
-                        <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria"><i class="fa fa-check-circle"></i><span class="votes-{{ initiative.id() }}"></span>{{ initiative.votes() }}</div>
                         <div data-toggle="tooltip" data-placement="top" title="Komentarų skaičius"><i class="fa fa-comments"></i>13</div>
                         <div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius"><i class="fa fa-users"></i>13</div>
                         <address data-toggle="tooltip" data-placement="top" title="Problemos adresas">
@@ -96,7 +91,6 @@
                     </div>
                     <div class="wrap-buttons-right">
                         {#ajax upvote initiative; refacotr itemTYPE for status and tooltip; ajax comment load for initiative#}
-                        <a data-toggle="modal" class="incVote btn__init" probId="{{ initiative.id() }}" url="{{ path('ajax_upvote') }}"><i data-toggle="tooltip" data-placement="top"  title="" class="fa fa-check-circle"></i></a>
                         <a class="btn__init"><i data-toggle="tooltip" data-placement="top" title="Komentarai" class="fa fa-comments" url="{{ path('ajax_commentLoad')}}" item="initiative" item_id="{{ initiative.id() }}"></i></a>
                         <a class="btn__init"><i data-toggle="tooltip" data-placement="top" title="Dalyvauti iniciatyvoje" class="fa fa-users"></i></a>
                     </div>
