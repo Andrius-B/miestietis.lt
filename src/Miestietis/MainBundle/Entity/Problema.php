@@ -59,8 +59,8 @@ class Problema
     /**
      * @ORM\ManyToMany(targetEntity="User", inversedBy="upvoted_problems")
      * @ORM\JoinTable(name="problema_upvotes",
-     *      joinColumns={@ORM\JoinColumn(name="problema_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="problema_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      */
     private $upvoted_by;
@@ -319,10 +319,14 @@ class Problema
      * Remove upvotedBy
      *
      * @param \Miestietis\MainBundle\Entity\User $upvotedBy
+     *
+     * @return Problema
      */
     public function removeUpvotedBy(\Miestietis\MainBundle\Entity\User $upvotedBy)
     {
         $this->upvoted_by->removeElement($upvotedBy);
+
+        return $this;
     }
 
     /**

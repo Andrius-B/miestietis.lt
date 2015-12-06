@@ -246,6 +246,7 @@ $(document).ready( function() {
                 }
             }).done(function () {
                 container.data('loaded', true);
+                handleDelete();
             });
         }
 
@@ -269,14 +270,38 @@ $(document).ready( function() {
                 $(".problemsUpvoted").text(0);
                 var created = data.created;
                 var upvoted = data.upvoted;
-                setTimeout(function(){recursiveAdd(0,created,timeout,".problemsCreated");},400); //initial delay while the modal opens
-                setTimeout(function(){recursiveAdd(0,upvoted,timeout,".problemsUpvoted");},400);
+                setTimeout(function(){recursiveAdd(0,created,timeout,".problemsCreated");},300); //initial delay while the modal opens
+                setTimeout(function(){recursiveAdd(0,upvoted,timeout,".problemsUpvoted");},300  );
             }
         })
     }
 
     // End of ajax load history
     //------------------------------------------------------------
+    // problemos / iniciatyvos istrynimas
+    function handleDelete() {
+        $(".fa-trash").on("click", function(e){
+            var type = $(this).attr('type');
+            var url = $(this).attr('url');
+            var itemId = $(this).attr('itemId');
+            var data = {type: type, itemId: itemId};
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: data,
+                success: function (data) {
+                    if(data.type == 'problem'){
+                        $('#problemHistory-'+data.itemId).hide('fast');
+                    } else if(data.type == 'initiative'){
+                        $('#initiativeHistory-'+data.itemId).hide('fast');
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert('Atsiprašome, įvyko klaida');
+                }
+            });
+        });
+    }
 
     // -------------------------------------------------
     // Add initiative
@@ -385,7 +410,9 @@ $(document).ready( function() {
                     data: data,
                     success: function (data) {
                         if(data.status != null){
-                            alert(data.status);
+                            $("#initiativeError").text(data.status);
+                            $("#initiativeError").attr('class','text text-danger');
+                            $("#initiativeError").show();
                         }else{
                             $('#submitButton').attr('class', 'btn btn-success');
                             $("#initiativeError").html("Iniciatyva pateikta!");
@@ -605,7 +632,7 @@ $(document).ready( function() {
         $topProblems.toggleClass('hidden');
     });
     $('.problemFilterButton').on('click', function(){
-        if($topProblems.hasClass('hidden')){}else{
+        if(!$topProblems.hasClass('hidden')){
             $topProblems.addClass('hidden');
         }
 

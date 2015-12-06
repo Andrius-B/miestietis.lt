@@ -31,3 +31,6 @@ ajax_commentAdd:
 ajax_initiative_join:
     path:     /ajaxInitiativeJoin
     defaults: { _controller: MiestietisMainBundle:Ajax:initiativeJoin }
+ajax_delete_item:
+    path:     /ajaxDeleteItem
+    defaults: { _controller: MiestietisMainBundle:Ajax:deleteItem}
