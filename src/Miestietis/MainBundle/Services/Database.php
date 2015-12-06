@@ -14,24 +14,6 @@ class Database
         $this->em = $entityManager;
     }
 
-    public function getUserStats($user){
-        $qb = $this->em->createQueryBuilder();
-        $qb->select('count(problem.user_id)');
-        $qb->where('problem.user_id = :user');
-        $qb->from('MiestietisMainBundle:Problema','problem');
-        $qb->setParameter('user', $user);
-        $problemCount = $qb->getQuery()->getSingleScalarResult();
-
-        $qb = $this->em->createQuery("
-        SELECT COUNT(problems) FROM MiestietisMainBundle:Problema problems
-        JOIN problems.upvoted_by voter
-        WHERE voter.id = :user
-        ")->setParameter('user', $user);
-        $upvoteCount = $qb->getSingleScalarResult();
-
-        return array('created'=>$problemCount, 'upvoted'=>$upvoteCount);
-    }
-
     public function insertProblem($name, $description, $picture, User $user){
         $problem = new Problema();
         $time = getdate();
@@ -99,9 +81,69 @@ class Database
 
         return $initiative;
     }
+
+    public function getUserStats($user){
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('count(problem.user_id)');
+        $qb->where('problem.user_id = :user');
+        $qb->from('MiestietisMainBundle:Problema','problem');
+        $qb->setParameter('user', $user);
+        $problemCount = $qb->getQuery()->getSingleScalarResult();
+
+        $qb = $this->em->createQuery("
+        SELECT COUNT(problems) FROM MiestietisMainBundle:Problema problems
+        JOIN problems.upvoted_by voter
+        WHERE voter.id = :user
+        ")->setParameter('user', $user);
+        $upvoteCount = $qb->getSingleScalarResult();
+
+        return array('created'=>$problemCount, 'upvoted'=>$upvoteCount);
+    }
+
     public function deleteInitiative(Initiative $initiative, User $user){
+        //delete the initiative comments
+        $user->removeInitiative($initiative);
+
+        $commentQuery = $this->em->createQuery("
+        DELETE MiestietisMainBundle:Comment c
+        WHERE c.initiative_id = :init
+        ")->setParameter('init',$initiative);
+        $commentQuery->execute();
+
+        $problem = $initiative->getProblemId();
+        $problem->removeInitiative();
+        $problem->setIsActive(true);//revive the problem
+        $this->em->persist($problem);
+
         $this->em->remove($initiative);
-        //still need to remove the initiative from problema and maybe check for privelages
+        $this->em->flush();
+        //still need to remove the initiative from problema
+    }
+
+    public function deleteProblem(Problema $problem, User $user){
+        //need to authenticate the user
+        //delete the problems comments
+        $commentQuery = $this->em->createQuery("
+        DELETE MiestietisMainBundle:Comment c
+        WHERE c.problem_id = :problem
+        ")->setParameter('problem',$problem);
+        $commentQuery->execute();
+
+        $user->removeProblem($problem);
+
+        //find users who upvoted
+        $usersUpvoted = $problem->getUpvotedBy();
+        foreach($usersUpvoted as $voter){
+            $problem = $problem->removeUpvotedBy($voter);
+            $voter = $voter->removeUpvotedProblem($problem); //remove their upvote
+            $this->em->persist($voter);
+            $this->em->persist($problem);
+            $this->em->flush();
+        }
+
+        //delete the problem
+        $this->em->remove($problem);
+        $this->em->flush();
     }
 
     public function upvoteProblem(Problema $problem,User $user)

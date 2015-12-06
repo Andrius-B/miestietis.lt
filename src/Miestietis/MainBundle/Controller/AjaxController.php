@@ -78,7 +78,44 @@ class AjaxController extends Controller
         return $response;//$data;
     }
 
+    public function deleteItemAction(Request $request){
+        if (!$request->isXmlHttpRequest())
+        {
+            return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
+        }
+        $type = $request->request->get('type');
+        $itemId = $request->request->get('itemId');
+        $db_handler = $this->get('db_handler');
+        $user = $this->getUser();
+        $status = '';
+        if($type == 'problem'){
+            $problema = $this->getDoctrine()->getRepository("MiestietisMainBundle:Problema")->find($itemId);
+            if($problema->getUserId() == $user){
+                $db_handler->deleteProblem($problema, $user);
+            }else{
+                $status = 'Galite trinti tik problemas, kurias sukurėte';
+            }
+        } else if($type == 'initiative'){
+            $initiative = $this->getDoctrine()->getRepository("MiestietisMainBundle:Initiative")->find($itemId);
+            if($initiative->getUserId() == $user){
+                $db_handler->deleteInitiative($initiative, $user);
+            }else{
+                $status = 'Galite trinti tik iniciatyvas, kurias sukurėte';
+            }
+        }else{
+            $status = 'Netinkamas tipas';
+        }
+
+        $data = array('type'=>$type, 'itemId'=>$itemId, 'status'=>$status);
+        $response = new JsonResponse($data, 200);
+        return $response;//$data;
+    }
+
     public function initiativeEditAction(Request $request){
+        if (!$request->isXmlHttpRequest())
+        {
+            return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
+        }
         $description = $request->request->get('description');
         $date = $request->request->get('date');
         $probId = intval($request->request->get('probId'));

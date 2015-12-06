@@ -268,11 +268,32 @@ $(document).ready( function() {
                 }
             }).done(function () {
                 container.data('loaded', true);
+                handleDelete();
             });
         }
     });
     // End of ajax load history
     //------------------------------------------------------------
+    // problemos / iniciatyvos istrynimas
+    function handleDelete() {
+        $(".fa-trash").on("click", function(e){
+            var type = $(this).attr('type');
+            var url = $(this).attr('url');
+            var itemId = $(this).attr('itemId');
+            var data = {type: type, itemId: itemId};
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: data,
+                success: function (data) {
+                    alert('item deleted:' + data.type + " id: " + data.itemId + " "+ data.status);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert('Atsiprašome, įvyko klaida');
+                }
+            });
+        });
+    }
 
     // -------------------------------------------------
     // Add initiative
@@ -381,7 +402,9 @@ $(document).ready( function() {
                     data: data,
                     success: function (data) {
                         if(data.status != null){
-                            alert(data.status);
+                            $("#initiativeError").text(data.status);
+                            $("#initiativeError").attr('class','text text-danger');
+                            $("#initiativeError").show();
                         }else{
                             $('#submitButton').attr('class', 'btn btn-success');
                             $("#initiativeError").html("Iniciatyva pateikta!");
@@ -597,7 +620,7 @@ $(document).ready( function() {
         $topProblems.toggleClass('hidden');
     });
     $('.problemFilterButton').on('click', function(){
-        if($topProblems.hasClass('hidden')){}else{
+        if(!$topProblems.hasClass('hidden')){
             $topProblems.addClass('hidden');
         }
 

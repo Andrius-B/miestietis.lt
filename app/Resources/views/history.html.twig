@@ -4,7 +4,7 @@
         <li class="table-like__item uploads">
             <div class="description">
                 <h4><a data-toggle="modal" data-target="#project-{{ item.id() }}" data-dismiss="modal">{{ item.name() }}</a></h4>
-                <i data-toggle="tooltip" data-placement="top" title="Ištrinkite problemą" class="fa fa-trash"></i>
+                <i data-toggle="tooltip" data-placement="top" title="Ištrinkite problemą" class="fa fa-trash" type="problem" itemId="{{ item.id() }}" url="{{ path('ajax_delete_item') }}"></i>
             </div>
             <div class="type">Problema</div>
             <div class="votes">
@@ -22,7 +22,7 @@
         <li class="table-like__item uploads">
             <div class="description">
                 <h4><a data-toggle="modal" data-target="#project-initiative-{{ item.id() }}" data-dismiss="modal">{{ item.getProblemId().name() }}</a></h4>
-                <i data-toggle="tooltip" data-placement="top" title="Ištrinkite problemą" class="fa fa-trash"></i>
+                <i data-toggle="tooltip" data-placement="top" title="Ištrinkite iniciatyvą" class="fa fa-trash" id="" type="initiative" itemId="{{ item.id() }}" url="{{ path('ajax_delete_item') }}"></i>
             </div>
             <div class="type">Iniciatyva</div>
             {#sito nerodyti#}
