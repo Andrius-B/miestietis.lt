@@ -170,4 +170,11 @@ class Database
             return 0;
         }
     }
+    public function joinInitiative($id, $user){
+
+        $initiative = $this->em->getRepository('MiestietisMainBundle:Initiative')->find($id);
+        $initiative->addParticipant($user);
+        $this->em->flush();
+        return true;
+    }
 }

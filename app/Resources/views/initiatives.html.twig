@@ -32,7 +32,9 @@
                 </a>
                 {#refacotr itemTYPE for status and tooltip#}
                 <a>
-                    <i data-toggle="tooltip" data-placement="top" title="Dalyvauti iniciatyvoje" class="fa fa-users"></i>
+                    <i data-toggle="tooltip" data-placement="top" title="Dalyvauti iniciatyvoje"
+                       class="fa fa-users joinInitiative" item_id="{{ initiative.id() }}" date ="{{ initiative.getInitiativeDate() }}"
+                       url="{{ path('ajax_initiative_join') }}"></i>
                 </a>
             </div>
         </section>
@@ -91,8 +93,13 @@
                     </div>
                     <div class="wrap-buttons-right">
                         {#ajax upvote initiative; refacotr itemTYPE for status and tooltip; ajax comment load for initiative#}
-                        <a class="btn__init"><i data-toggle="tooltip" data-placement="top" title="Komentarai" class="fa fa-comments" url="{{ path('ajax_commentLoad')}}" item="initiative" item_id="{{ initiative.id() }}"></i></a>
-                        <a class="btn__init"><i data-toggle="tooltip" data-placement="top" title="Dalyvauti iniciatyvoje" class="fa fa-users"></i></a>
+                        <a class="btn__init"><i data-toggle="tooltip" data-placement="top" title="Komentarai"
+                            class="fa fa-comments" url="{{ path('ajax_commentLoad')}}" item="initiative" item_id="{{ initiative.id() }}"></i>
+                        </a>
+                        <a class="btn__init"><i data-toggle="tooltip" data-placement="top" title="Dalyvauti iniciatyvoje"
+                            class="fa fa-users joinInitiative" item_id="{{ initiative.id() }}"
+                            date ="{{ initiative.getInitiativeDate() }}" url="{{ path('ajax_initiative_join') }}"></i>
+                        </a>
                     </div>
                 </div>
                 {#ajax to comment list#}

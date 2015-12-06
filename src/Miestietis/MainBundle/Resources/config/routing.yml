@@ -28,4 +28,6 @@ ajax_commentLoad:
 ajax_commentAdd:
     path:     /ajaxCommentAdd
     defaults: { _controller: MiestietisMainBundle:Ajax:commentAdd }
-    defaults: { _controller: MiestietisMainBundle:Ajax:history }
+ajax_initiative_join:
+    path:     /ajaxInitiativeJoin
+    defaults: { _controller: MiestietisMainBundle:Ajax:initiativeJoin }
