@@ -91,11 +91,11 @@ class AjaxController extends Controller
         $status = '';
         if($type == 'problem'){
             $problema = $this->getDoctrine()->getRepository("MiestietisMainBundle:Problema")->find($itemId);
-            if($problema->getUserId() == $user){
-                $db_handler->deleteProblem($problema, $user);
-            }else{
-                $status = 'Galite trinti tik problemas, kurias sukurėte';
-            }
+                if ($problema->getUserId() == $user) {
+                    $db_handler->deleteProblem($problema, $user);
+                } else {
+                    $status = 'Galite trinti tik problemas, kurias sukurėte';
+                }
         } else if($type == 'initiative'){
             $initiative = $this->getDoctrine()->getRepository("MiestietisMainBundle:Initiative")->find($itemId);
             if($initiative->getUserId() == $user){
@@ -201,6 +201,7 @@ class AjaxController extends Controller
         $init = $this->getDoctrine()
             ->getRepository('MiestietisMainBundle:Initiative')
             ->findAll();
+        $participations = [];
         foreach ($init as $i) {
             if($i->getParticipants()->contains($user) && $i->getUserId() != $user ) {
                 $participations[] = $i;

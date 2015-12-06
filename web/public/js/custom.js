@@ -270,8 +270,8 @@ $(document).ready( function() {
                 $(".problemsUpvoted").text(0);
                 var created = data.created;
                 var upvoted = data.upvoted;
-                setTimeout(function(){recursiveAdd(0,created,timeout,".problemsCreated");},400); //initial delay while the modal opens
-                setTimeout(function(){recursiveAdd(0,upvoted,timeout,".problemsUpvoted");},400);
+                setTimeout(function(){recursiveAdd(0,created,timeout,".problemsCreated");},300); //initial delay while the modal opens
+                setTimeout(function(){recursiveAdd(0,upvoted,timeout,".problemsUpvoted");},300  );
             }
         })
     }
@@ -290,7 +290,11 @@ $(document).ready( function() {
                 type: "POST",
                 data: data,
                 success: function (data) {
-                    alert('item deleted:' + data.type + " id: " + data.itemId + " "+ data.status);
+                    if(data.type == 'problem'){
+                        $('#problemHistory-'+data.itemId).hide('fast');
+                    } else if(data.type == 'initiative'){
+                        $('#initiativeHistory-'+data.itemId).hide('fast');
+                    }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     alert('Atsiprašome, įvyko klaida');

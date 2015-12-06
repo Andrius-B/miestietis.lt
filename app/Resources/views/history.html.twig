@@ -1,7 +1,7 @@
 <ul class="table-like">
     {% for item in items %}
         {% if item.name() is defined %}
-        <li class="table-like__item problems">
+        <li class="table-like__item problems" id="problemHistory-{{ item.id() }}">
             <div class="description">
                 <h4><a data-toggle="modal" data-target="#project-{{ item.id() }}" data-dismiss="modal">{{ item.name() }}</a></h4>
                 <i data-toggle="tooltip" data-placement="top" title="Ištrinkite problemą" class="fa fa-trash" type="problem" itemId="{{ item.id() }}" url="{{ path('ajax_delete_item') }}"></i>
@@ -16,7 +16,7 @@
             </div>
         </li>
         {% else %}
-        <li class="table-like__item activeInitiatives">
+        <li class="table-like__item activeInitiatives" id="initiativeHistory-{{ item.id() }}">
             <div class="description">
                 <h4><a data-toggle="modal" data-target="#project-initiative-{{ item.id() }}" data-dismiss="modal">{{ item.getProblemId().name() }}</a></h4>
                 <i data-toggle="tooltip" data-placement="top" title="Ištrinkite iniciatyvą" class="fa fa-trash" id="" type="initiative" itemId="{{ item.id() }}" url="{{ path('ajax_delete_item') }}"></i>
