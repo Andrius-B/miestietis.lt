@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Doctrine\Common\Collections\Collection;
 
 
 class AjaxController extends Controller
@@ -197,7 +198,15 @@ class AjaxController extends Controller
         $initiatives = $this->getDoctrine()
             ->getRepository('MiestietisMainBundle:Initiative')
             ->findBy(array('user_id'=>$user));
-        $items =  array_merge($problems, $initiatives);
+        $init = $this->getDoctrine()
+            ->getRepository('MiestietisMainBundle:Initiative')
+            ->findAll();
+        foreach ($init as $i) {
+            if($i->getParticipants()->contains($user) && $i->getUserId() != $user ) {
+                $participations[] = $i;
+            }
+        }
+        $items =  array_merge($problems, $initiatives, $participations);
 
         $template = $this->renderView('history.html.twig', array('items' => $items));
         $response = new Response($template, 200);

@@ -6,6 +6,7 @@ namespace Miestietis\MainBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Miestietis\MainBundle\Form\InitiativeType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class MainController extends Controller
 {
@@ -13,16 +14,28 @@ class MainController extends Controller
     {
         
         $ob_former = $this->get('ob_formation');
+        $counter = $this->get('counter');
 
         $user = $this->getUser();
+        $session = new session();
+
+        // Form 10 latest problems and count their comments
         $problems = $ob_former->getProblems(10, 0);
+        $session->set('problems', 10);
+        $problemComments = $counter->problemCommentCount($problems);
+
+        // Form top 10 problems and count their comments
         $topProblems = $ob_former->getTopProblems(10);
+        $topComments = $counter->problemCommentCount($topProblems);
+
+        // Form 10 latest initiatives and count their comments and participants
         $initiatives = $ob_former->getInitiatives(10, 0);
+        $session->set('initiatives', 10);
+        $initiativeComments = $counter->initiativeCommentCount($initiatives);
+        $participants = $counter->joinCount($initiatives);
 
-        /* Process problem status and tooltip values   ---> okay, but why????*/
-
-        $this->get('item_type')->itemType($problems, $user, $this->get('security.authorization_checker'));
-
+        // Process problem status and tooltip values
+        $this->get('item_type')->itemType($problems, $initiatives, $user, $this->get('security.authorization_checker'));
 
         //initiative form set-up
         $initiative = $ob_former->formInitiative();
@@ -34,7 +47,11 @@ class MainController extends Controller
             'topProblems' => $topProblems,
             'initiatives' => $initiatives,
             'user' => $user,
-            'initiativeForm' => $form->createView()
+            'initiativeForm' => $form->createView(),
+            'problemCommentCount' => $problemComments,
+            'initiativeCommentCount' => $initiativeComments,
+            'topProblemCommentCount' => $topComments,
+            'participantCount' => $participants
                 // ...
             ));
     }

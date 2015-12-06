@@ -18,8 +18,8 @@
             <div class="itemInfo">
                 <h4>{{ initiative.getProblemId().name() }}</h4>
                 <div data-toggle="tooltip" data-placement="top" title="Iniciatyvos data"><i class="fa fa-calendar-check-o"></i>{{ initiative.getInitiativeDate() }}</div>
-                <div data-toggle="tooltip" data-placement="top" title="Komentarų skaičius"><i class="fa fa-comments"></i>13</div>
-                <div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius"><i class="fa fa-users"></i>13</div>
+                <div data-toggle="tooltip" data-placement="top" title="Komentarų skaičius"><i class="fa fa-comments"></i>{{ initiativeCommentCount[initiative.id()] }}</div>
+                <div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius"><i class="fa fa-users"></i>{{ participantCount[initiative.id()] }}</div>
                 <div class="clearfix"></div>
                 <div data-toggle="tooltip" data-placement="top" title="Iniciatyvos autorius">
                     {{ initiative.getUserId().getFirstName }}
@@ -30,12 +30,13 @@
                 <a data-toggle="modal" data-target="#project-initiative-{{ initiative.id() }}" >
                     <i data-toggle="tooltip" data-placement="top" title="Skaityti plačiau" class="fa fa-info-circle"></i>
                 </a>
-                {#refacotr itemTYPE for status and tooltip#}
-                <a>
-                    <i data-toggle="tooltip" data-placement="top" title="Dalyvauti iniciatyvoje"
+                {% if initiative.getUserId() != user %}
+                <a class="{{ initiative.status }}">
+                    <i data-toggle="tooltip" data-placement="top" title="{{ initiative.tooltip }}"
                        class="fa fa-users joinInitiative" item_id="{{ initiative.id() }}" date ="{{ initiative.getInitiativeDate() }}"
                        url="{{ path('ajax_initiative_join') }}"></i>
                 </a>
+                {% endif %}
             </div>
         </section>
     </div>
@@ -85,8 +86,8 @@
                 </div>
                 <div class="modal-footer">
                     <div class="wrap-item-info-left">
-                        <div data-toggle="tooltip" data-placement="top" title="Komentarų skaičius"><i class="fa fa-comments"></i>13</div>
-                        <div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius"><i class="fa fa-users"></i>13</div>
+                        <div data-toggle="tooltip" data-placement="top" title="Komentarų skaičius"><i class="fa fa-comments"></i>{{ initiativeCommentCount[initiative.id()] }}</div>
+                        <div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius"><i class="fa fa-users"></i>{{ participantCount[initiative.id()] }}</div>
                         <address data-toggle="tooltip" data-placement="top" title="Problemos adresas">
                             <i class="fa fa-map-marker"></i><p id="editAddress">Karaliaus Mindaugo pr. 38</p><br>
                         </address>
@@ -94,16 +95,18 @@
                     <div class="wrap-buttons-right">
                         {#ajax upvote initiative; refacotr itemTYPE for status and tooltip; ajax comment load for initiative#}
                         <a class="btn__init"><i data-toggle="tooltip" data-placement="top" title="Komentarai"
-                            class="fa fa-comments" url="{{ path('ajax_commentLoad')}}" item="initiative" item_id="{{ initiative.id() }}"></i>
+                            class="fa fa-comments" url="{{ path('ajax_commentLoad')}}" item="problem" item_id="{{ initiative.getProblemId().getId() }}"></i>
                         </a>
-                        <a class="btn__init"><i data-toggle="tooltip" data-placement="top" title="Dalyvauti iniciatyvoje"
+                        {% if initiative.getUserId() != user %}
+                        <a class="btn__init {{ initiative.status }}"><i data-toggle="tooltip" data-placement="top" title="{{ initiative.tooltip }}"
                             class="fa fa-users joinInitiative" item_id="{{ initiative.id() }}"
                             date ="{{ initiative.getInitiativeDate() }}" url="{{ path('ajax_initiative_join') }}"></i>
                         </a>
+                        {% endif %}
                     </div>
                 </div>
                 {#ajax to comment list#}
-                <div class="modal-comments text-center" id="comment_list_">
+                <div class="modal-comments text-center" id="comment_list_{{ initiative.getProblemId().getId() }}">
                      {#here goes comment list#}
                     {#sutvarkyti - jeigu nera komentaru ir neprisijunges, kad rasytu kad prisijungtu ir paliktu komentara#}
                     {% if  user  != null %}

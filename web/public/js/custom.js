@@ -200,34 +200,8 @@ $(document).ready( function() {
     // -------------------------------------------------
     // Ajax request to load profile modal with history
 
-    function recursiveAdd(number, desired ,timeout, selector){
-        $(selector).text(number);
-        if(number<desired){
-            number = number + Math.round((desired-number)/2);
-            setTimeout(function(){recursiveAdd(number,desired,timeout,selector);},timeout);
-        }
-    }
-
-    function setUserStats(){
-
-        var url = $('#userStats').attr('url');
-        $.ajax({
-            url:url,
-            success: function(data){
-                var timeout = 80 //80ms to increment the stats
-                $(".problemsCreated").text(0);
-                $(".problemsUpvoted").text(0);
-                var created = data.created;
-                var upvoted = data.upvoted;
-                setTimeout(function(){recursiveAdd(0,created,timeout,".problemsCreated");},400); //initial delay while the modal opens
-                setTimeout(function(){recursiveAdd(0,upvoted,timeout,".problemsUpvoted");},400);
-            }
-        })
-    }
-
     $(".profileHistory").on('click', function(event){
         event.preventDefault();
-        setUserStats();
         var url = $('.profileHistory').attr('href');
         var container = $(".history-content");
         if (container.data('loaded')) {
@@ -253,6 +227,9 @@ $(document).ready( function() {
                         ).slideDown('slow');
                     } else {
                         container.append(result).slideDown('slow');
+                        filters();
+
+
                     }
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown)
@@ -261,17 +238,44 @@ $(document).ready( function() {
                 },
                 complete: function()
                 {
-                    filters();
-                    var i = $('#profile-more').find('i');
-                    console.log(i);
-                    i.tooltip();
+
+                    setUserStats();
+                    //var i = $('#profile-more').find('i');
+                    //console.log(i);
+                    //i.tooltip();
                 }
             }).done(function () {
                 container.data('loaded', true);
                 handleDelete();
             });
         }
+
     });
+
+    function recursiveAdd(number, desired ,timeout, selector){
+        $(selector).text(number);
+        if(number<desired){
+            number = number + Math.round((desired-number)/2);
+            setTimeout(function(){recursiveAdd(number,desired,timeout,selector);},timeout);
+        }
+    }
+
+    function setUserStats(){
+        var url = $('#userStats').attr('url');
+        $.ajax({
+            url:url,
+            success: function(data){
+                var timeout = 80 //80ms to increment the stats
+                $(".problemsCreated").text(0);
+                $(".problemsUpvoted").text(0);
+                var created = data.created;
+                var upvoted = data.upvoted;
+                setTimeout(function(){recursiveAdd(0,created,timeout,".problemsCreated");},400); //initial delay while the modal opens
+                setTimeout(function(){recursiveAdd(0,upvoted,timeout,".problemsUpvoted");},400);
+            }
+        })
+    }
+
     // End of ajax load history
     //------------------------------------------------------------
     // problemos / iniciatyvos istrynimas
@@ -462,7 +466,6 @@ $(document).ready( function() {
     // End of upvote
     //------------------------------------------------------------
 
-
     function filters() {
         if ($('.table-like').length>0) {
             $('.table-like').fadeIn('slow');
@@ -475,6 +478,7 @@ $(document).ready( function() {
                 });
                 $('.filters-history').on( 'click', 'ul.nav-hist li a', function() {
                     var filterValue = $(this).attr('data-filter');
+                    console.log(filterValue);
                     $(".filters-history").find("li.active").removeClass("active");
                     $(this).parent().addClass("active");
                     $cont.isotope({ filter: filterValue });
@@ -482,6 +486,10 @@ $(document).ready( function() {
                 });
             });
         }
+        $('#profile-more').on('hidden.bs.modal', function() {
+            $(".filters-history").find("li").removeClass("active");
+            $(".filters-history").find('.onHide').addClass("active");
+        });
     }
 
     function requireLogin(hideModal) {
@@ -626,24 +634,40 @@ $(document).ready( function() {
 
     });
     // Prisijungimas prie iniciatyvos
-    $('.joinInitiative').on('click', function(){
-        //alert('Čia reik perklaust ar žmogu sužtikrintas tuo, kad nori prisidėt prie iniciatyvos');
+    $('.joinInitiative').on('click', function() {
         var initiative = $(this).attr('item_id');
+        var itemDisable = $(this);
         var url = $(this).attr('url');
         var date = $(this).attr('date');
         var data = {initiative : initiative};
-        alert(date + url+ initiative);
+        var confirmModal = $('#confirm-join');
+        var successJoin = $('#success-join');
 
-        $.ajax({
-            url: url,
-            type: "POST",
-            data: data,
-            success: function (data) {
-                alert('Sėkmingai prisijungėte prie iniciatyvos, organizatoriai jūsų lauks '+date);
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert('Atsiprašome, įvyko klaida');
+        confirmModal.modal('show');
+
+        confirmModal.on('click', '#confirmJoin', '#cancelJoin', function(event) {
+            var target = event.currentTarget.id;
+            if (target == 'confirmJoin') {
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: data,
+                    success: function (data) {
+                        successJoin.find('.success-text').text('Sėkmingai prisijungėte prie iniciatyvos.');
+                        successJoin.find('.success-time').text('Organizatoriai Jūsų lauks '+date);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        // alert('Atsiprašome, įvyko klaida');
+                    },
+                    complete: function() {
+                        itemDisable.addClass('disabled');
+                        successJoin.modal('show');
+                    }
+                });
+            } else if (target == 'cancelJoin') {
+                confirmModal.modal('hide');
             }
         });
+
     });
 });
