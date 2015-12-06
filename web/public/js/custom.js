@@ -229,6 +229,7 @@ $(document).ready( function() {
                         container.append(result).slideDown('slow');
                         filters();
 
+
                     }
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown)
@@ -237,6 +238,7 @@ $(document).ready( function() {
                 },
                 complete: function()
                 {
+
                     setUserStats();
                     //var i = $('#profile-more').find('i');
                     //console.log(i);
@@ -461,6 +463,10 @@ $(document).ready( function() {
                 });
             });
         }
+        $('#profile-more').on('hidden.bs.modal', function() {
+            $(".filters-history").find("li").removeClass("active");
+            $(".filters-history").find('.onHide').addClass("active");
+        });
     }
 
     function requireLogin(hideModal) {
