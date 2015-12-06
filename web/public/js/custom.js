@@ -200,34 +200,8 @@ $(document).ready( function() {
     // -------------------------------------------------
     // Ajax request to load profile modal with history
 
-    function recursiveAdd(number, desired ,timeout, selector){
-        $(selector).text(number);
-        if(number<desired){
-            number = number + Math.round((desired-number)/2);
-            setTimeout(function(){recursiveAdd(number,desired,timeout,selector);},timeout);
-        }
-    }
-
-    function setUserStats(){
-
-        var url = $('#userStats').attr('url');
-        $.ajax({
-            url:url,
-            success: function(data){
-                var timeout = 80 //80ms to increment the stats
-                $(".problemsCreated").text(0);
-                $(".problemsUpvoted").text(0);
-                var created = data.created;
-                var upvoted = data.upvoted;
-                setTimeout(function(){recursiveAdd(0,created,timeout,".problemsCreated");},400); //initial delay while the modal opens
-                setTimeout(function(){recursiveAdd(0,upvoted,timeout,".problemsUpvoted");},400);
-            }
-        })
-    }
-
     $(".profileHistory").on('click', function(event){
         event.preventDefault();
-        setUserStats();
         var url = $('.profileHistory').attr('href');
         var container = $(".history-content");
         if (container.data('loaded')) {
@@ -253,6 +227,8 @@ $(document).ready( function() {
                         ).slideDown('slow');
                     } else {
                         container.append(result).slideDown('slow');
+                        filters();
+
                     }
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown)
@@ -261,16 +237,42 @@ $(document).ready( function() {
                 },
                 complete: function()
                 {
-                    filters();
-                    var i = $('#profile-more').find('i');
-                    console.log(i);
-                    i.tooltip();
+                    setUserStats();
+                    //var i = $('#profile-more').find('i');
+                    //console.log(i);
+                    //i.tooltip();
                 }
             }).done(function () {
                 container.data('loaded', true);
             });
         }
+
     });
+
+    function recursiveAdd(number, desired ,timeout, selector){
+        $(selector).text(number);
+        if(number<desired){
+            number = number + Math.round((desired-number)/2);
+            setTimeout(function(){recursiveAdd(number,desired,timeout,selector);},timeout);
+        }
+    }
+
+    function setUserStats(){
+        var url = $('#userStats').attr('url');
+        $.ajax({
+            url:url,
+            success: function(data){
+                var timeout = 80 //80ms to increment the stats
+                $(".problemsCreated").text(0);
+                $(".problemsUpvoted").text(0);
+                var created = data.created;
+                var upvoted = data.upvoted;
+                setTimeout(function(){recursiveAdd(0,created,timeout,".problemsCreated");},400); //initial delay while the modal opens
+                setTimeout(function(){recursiveAdd(0,upvoted,timeout,".problemsUpvoted");},400);
+            }
+        })
+    }
+
     // End of ajax load history
     //------------------------------------------------------------
 
@@ -439,7 +441,6 @@ $(document).ready( function() {
     // End of upvote
     //------------------------------------------------------------
 
-
     function filters() {
         if ($('.table-like').length>0) {
             $('.table-like').fadeIn('slow');
@@ -452,6 +453,7 @@ $(document).ready( function() {
                 });
                 $('.filters-history').on( 'click', 'ul.nav-hist li a', function() {
                     var filterValue = $(this).attr('data-filter');
+                    console.log(filterValue);
                     $(".filters-history").find("li.active").removeClass("active");
                     $(this).parent().addClass("active");
                     $cont.isotope({ filter: filterValue });
