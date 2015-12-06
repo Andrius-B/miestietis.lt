@@ -74,10 +74,12 @@ a:active {
 	font-size: 18px;
 }
 .initiatives a,
+#profile-more .modal-header a,
 .btn__init {
     color: #55acee;
 }
 .initiatives a:hover,
+#profile-more .modal-header a,
 .btn__init:hover {
     color: #339BEB;
 }
