@@ -109,6 +109,8 @@ class Database
         foreach($participants as $participant){
             $participant->removeParticipation($initiative);
             $initiative->removeParticipant($participant);
+            $this->em->persist($initiative);
+            $this->em->persist($participant);
             $this->em->flush();
         }
 
