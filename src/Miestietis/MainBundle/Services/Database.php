@@ -11,11 +11,11 @@ use Symfony\Component\Validator\Constraints\DateTime;
 class Database
 {
     private $em;
-    public function __construct(EntityManager $entityManager){
+    public function __construct(EntityManager $entityManager) {
         $this->em = $entityManager;
     }
 
-    public function insertProblem($name, $description, $picture, User $user){
+    public function insertProblem($name, $description, $picture, User $user) {
         $problem = new Problema();
         $time = getdate();
 
@@ -27,7 +27,7 @@ class Database
         $problem->setIsActive(true);
         $problem->setDate(new \DateTime(date('Y-m-d H:i:s')));
 
-        if($this->em == null){
+        if ($this->em == null) {
             return 0;
         }
         $this->em->persist($problem);
@@ -36,15 +36,15 @@ class Database
         return $problem;
     }
 
-    public function editProblem($name, $description, $problem){
-        if($name!=''){ //should this validation be front-end?
+    public function editProblem($name, $description, $problem) {
+        if ($name != '') { //should this validation be front-end?
             $problem->setName($name);
         }
-        if($description!=''){
+        if ($description != '') {
             $problem->setDescription($description);
         }
 
-        if($this->em == null){
+        if ($this->em == null) {
             return 0;
         }
         $this->em->persist($problem);
@@ -53,7 +53,7 @@ class Database
         return $problem;
     }
 
-    public function editInitiative($description, \DateTime $date, $initiative){
+    public function editInitiative($description, \DateTime $date, $initiative) {
         $initiative->setIsActive(true);
         $initiative->setRegistrationDate(new \DateTime(date('Y-m-d H:i:s')));
         $initiative->setInitiativeDate($date);
@@ -64,7 +64,7 @@ class Database
         return $initiative;
     }
 
-    public function insertInitiative($description, $date,Problema $probId, User $user){
+    public function insertInitiative($description, $date, Problema $probId, User $user) {
         $initiative = new Initiative();
 
         $initiative->setVotes(0);
@@ -83,11 +83,11 @@ class Database
         return $initiative;
     }
 
-    public function getUserStats($user){
+    public function getUserStats($user) {
         $qb = $this->em->createQueryBuilder();
         $qb->select('count(problem.user_id)');
         $qb->where('problem.user_id = :user');
-        $qb->from('MiestietisMainBundle:Problema','problem');
+        $qb->from('MiestietisMainBundle:Problema', 'problem');
         $qb->setParameter('user', $user);
         $problemCount = $qb->getQuery()->getSingleScalarResult();
 
@@ -101,12 +101,12 @@ class Database
         return array('created'=>$problemCount, 'upvoted'=>$upvoteCount);
     }
 
-    public function deleteInitiative(Initiative $initiative, User $user){
+    public function deleteInitiative(Initiative $initiative, User $user) {
         $user->removeInitiative($initiative);
 
         //removing all participations
         $participants = $initiative->getParticipants();
-        foreach($participants as $participant){
+        foreach ($participants as $participant) {
             $participant->removeParticipation($initiative);
             $initiative->removeParticipant($participant);
             $this->em->persist($initiative);
@@ -118,33 +118,35 @@ class Database
         $commentQuery = $this->em->createQuery("
         DELETE MiestietisMainBundle:Comment c
         WHERE c.initiative_id = :init
-        ")->setParameter('init',$initiative);
+        ")->setParameter('init', $initiative);
         $commentQuery->execute();
 
         $problem = $initiative->getProblemId();
-        $problem->removeInitiative();
-        $problem->setIsActive(true);//revive the problem
-        $this->em->persist($problem);
+        if($problem!=null) {
+            $problem->removeInitiative();
+            $problem->setIsActive(true); //revive the problem
+            $this->em->persist($problem);
+        }
 
         $this->em->remove($initiative);
         $this->em->flush();
         //still need to remove the initiative from problema
     }
 
-    public function deleteProblem(Problema $problem, User $user){
+    public function deleteProblem(Problema $problem, User $user) {
         //need to authenticate the user
         //delete the problems comments
         $commentQuery = $this->em->createQuery("
         DELETE MiestietisMainBundle:Comment c
         WHERE c.problem_id = :problem
-        ")->setParameter('problem',$problem);
+        ")->setParameter('problem', $problem);
         $commentQuery->execute();
 
         $user->removeProblem($problem);
 
         //find users who upvoted
         $usersUpvoted = $problem->getUpvotedBy();
-        foreach($usersUpvoted as $voter){
+        foreach ($usersUpvoted as $voter) {
             $problem = $problem->removeUpvotedBy($voter);
             $voter = $voter->removeUpvotedProblem($problem); //remove their upvote
             $this->em->persist($voter);
@@ -157,7 +159,7 @@ class Database
         $this->em->flush();
     }
 
-    public function upvoteProblem(Problema $problem,User $user)
+    public function upvoteProblem(Problema $problem, User $user)
     {
         $votes = $problem->incrementVote();
         $user->upvoteProblem($problem);
@@ -166,12 +168,12 @@ class Database
         $this->em->flush();
         return $votes;
     }
-    public function forTest($a){
+    public function forTest($a) {
         return ++$a;
 
     }
-    public function getCommentsById($id, $item){
-        if($item == 'problem'){
+    public function getCommentsById($id, $item) {
+        if ($item == 'problem') {
             $query = $this->em->createQuery(
                 "SELECT c
                 FROM MiestietisMainBundle:Comment c
@@ -181,7 +183,7 @@ class Database
             $comments = $query->getResult();
             return $comments;
 
-        }elseif($item == 'initiative'){
+        }elseif ($item == 'initiative') {
             $query = $this->em->createQuery(
                 "SELECT c
                 FROM MiestietisMainBundle:Comment c
@@ -190,16 +192,16 @@ class Database
             )->setParameter('initiative', $id);
             $comments = $query->getResult();
             return $comments;
-        }else{
+        } else {
             return 0;
         }
     }
-    public function insertComment($item, $item_id, $text, $user){
+    public function insertComment($item, $item_id, $text, $user) {
         $comment = new Comment();
         $comment->setText($text);
         $comment->setUserId($user);
         $comment->setDate(date('Y m d'));
-        if($item == 'problem'){
+        if ($item == 'problem') {
             // Finding a corresponding problem
             $query = $this->em->createQuery(
                 "SELECT p
@@ -207,23 +209,23 @@ class Database
                 WHERE p.id = :initiative"
             )->setParameter('initiative', $item_id);
             $problems = $query->getResult();
-            foreach($problems as $problem) {
+            foreach ($problems as $problem) {
                 $comment->setProblemId($problem);
             }
             $this->em->persist($comment);
             $this->em->flush();
             return $comment;
 
-        }elseif($item == 'initiative'){
+        }elseif ($item == 'initiative') {
             $comment->setInitiativeId($item_id);
             $this->em->persist($comment);
             $this->em->flush();
             return $comment;
-        }else{
+        } else {
             return 0;
         }
     }
-    public function joinInitiative($id, $user){
+    public function joinInitiative($id, $user) {
 
         $initiative = $this->em->getRepository('MiestietisMainBundle:Initiative')->find($id);
         $initiative->addParticipant($user);

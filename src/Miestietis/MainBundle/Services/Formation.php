@@ -4,13 +4,13 @@ namespace Miestietis\MainBundle\Services;
 use Miestietis\MainBundle\Entity\Initiative;
 use Doctrine\ORM\EntityManager;
 
-class Formation{
+class Formation {
 
     private $em;
-    public function __construct(EntityManager $entityManager){
+    public function __construct(EntityManager $entityManager) {
         $this->em = $entityManager;
     }
-    public function getAllProblems(){
+    public function getAllProblems() {
         $query = $this->em->createQuery(
             'SELECT p
             FROM MiestietisMainBundle:Problema p
@@ -20,7 +20,7 @@ class Formation{
         $problems = $query->getResult();
         return $problems;
     }
-    public function getProblems( $n, $offset){
+    public function getProblems($n, $offset) {
         $query = $this->em->createQuery(
             'SELECT p
             FROM MiestietisMainBundle:Problema p
@@ -30,7 +30,7 @@ class Formation{
         $problems = $query->getResult();
         return $problems;
     }
-    public function getTopProblems( $n){
+    public function getTopProblems($n) {
         $query = $this->em->createQuery(
             'SELECT p
             FROM MiestietisMainBundle:Problema p
@@ -40,7 +40,7 @@ class Formation{
         $problems = $query->getResult();
         return $problems;
     }
-    public function getInitiatives( $n, $offset){
+    public function getInitiatives($n, $offset) {
         $query = $this->em->createQuery(
             'SELECT i
             FROM MiestietisMainBundle:Initiative i
@@ -49,7 +49,7 @@ class Formation{
         $problems = $query->getResult();
         return $problems;
     }
-    public function formInitiative(){
+    public function formInitiative() {
         $initiative = new Initiative();
         $initiative->setVotes(0);
         $initiative->setIsActive(true);
