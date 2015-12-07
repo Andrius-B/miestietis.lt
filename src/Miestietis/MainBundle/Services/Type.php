@@ -21,10 +21,16 @@ class Type{
 
                 if (!$checker->isGranted('IS_AUTHENTICATED_FULLY')) {
                     $problem->status = 'disabled';
-                    $problem->tooltip = 'Norėdami pritarti turite prisijungti';
+                    $problem->tooltip = 'Reikalingas prisijungimas';
                 }
             }
-
+            if(!$checker->isGranted('IS_AUTHENTICATED_FULLY')) {
+                $problem->statusAddInitiative = 'disabled';
+                $problem->tooltipAddInitiative = 'Reikalingas prisijungimas';
+            } else {
+                $problem->statusAddInitiative = '';
+                $problem->tooltipAddInitiative = 'Skelbti iniciatyvą';
+            }
         }
         foreach($i as $initiative) {
             if($initiative->getParticipants()->contains($user)) {
@@ -36,7 +42,7 @@ class Type{
 
                 if (!$checker->isGranted('IS_AUTHENTICATED_FULLY')) {
                     $initiative->status = 'disabled';
-                    $initiative->tooltip = 'Norėdami dalyvauti turite prisijungti';
+                    $initiative->tooltip = 'Reikalingas prisijungimas';
                 }
             }
         }

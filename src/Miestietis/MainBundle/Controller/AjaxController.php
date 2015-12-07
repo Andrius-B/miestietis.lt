@@ -118,7 +118,11 @@ class AjaxController extends Controller
         {
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
         }
+
+        $db_handler = $this->get('db_handler');
+        $initId = intval($request->request->get('initid'));
         $description = $request->request->get('description');
+
         $datestr = $request->request->get('date');
         $date = new \DateTime($datestr); //MUST BE FORMATTED Y-m-d h:i:s
         $probId = intval($request->request->get('probId'));
@@ -129,13 +133,11 @@ class AjaxController extends Controller
         $initiative = $this->getDoctrine()
             ->getRepository('MiestietisMainBundle:Initiative')
             ->find($initId);
-        $data = array('description' => $description, 'date'=>$date, 'probId'=>$problem);
-
+        $data = array('description' => $description, 'date'=>$date, 'initid'=>$initiative);
         //using the database service insert to DB
-        $db_handler = $this->get('db_handler');
         $db_handler->editInitiative($description, $date, $initiative);
         $response = new JsonResponse($data, 200);
-        return $response;//$data;
+        return $response;
     }
 
     public function initiativeAction(Request $request)
