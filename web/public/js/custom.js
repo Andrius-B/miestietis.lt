@@ -61,17 +61,16 @@ $(document).ready( function() {
                     $('#itemName').val();
                     $('#itemDescription').val();
                     $('#controlerURL').attr('url');
+                    $('.modal').modal('hide');
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown)
                 {
                     alert('Error : ' + errorThrown);
                 },
-                 /*complete: function() {
-                    createProblem();
-                    $('.modal').modal('hide');
+                complete: function() {
                     allInputs.val('');
-                    location.reload(); // VERY VERY BAD PRACTICE reloads whole page, need some sort of handler maybe in backend, if mysql db is updated update the view
-                }*/
+                    location.reload();
+                }
             });
         }else{
             requireLogin(false);
@@ -209,7 +208,7 @@ $(document).ready( function() {
             data: data,
             success: function (data) {
                 $('.modal').modal('hide');
-                //location.reload();
+                location.reload();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert('Error : ' + errorThrown);
@@ -323,8 +322,6 @@ $(document).ready( function() {
                     } else {
                         container.append(result).slideDown('slow');
                         filters();
-
-
                     }
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown)
@@ -333,11 +330,7 @@ $(document).ready( function() {
                 },
                 complete: function()
                 {
-
                     setUserStats();
-                    //var i = $('#profile-more').find('i');
-                    //console.log(i);
-                    //i.tooltip();
                 }
             }).done(function () {
                 container.data('loaded', true);
@@ -433,6 +426,7 @@ $(document).ready( function() {
     $("#addInitiative").on('hidden.bs.modal', function(e){
         clearInitiativeForm();
         clearInitiativeFormContent();
+        location.reload();
     });
     //---------------------------------------------------
     //handle initiative form data
@@ -517,6 +511,8 @@ $(document).ready( function() {
                                 $('.modal').hide('fast');
                             },700);//700ms patvirtinimui
                         }
+                        $('.modal').modal('hide');
+                        location.reload();
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         alert('Error : ' + errorThrown);
