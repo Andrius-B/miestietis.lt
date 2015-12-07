@@ -88,15 +88,20 @@ $(document).ready( function() {
                         $('#itemName').val();
                         $('#itemDescription').val();
                         $('#controlerURL').attr('url');
-                        $('.modal').modal('hide');
+                        $('#newProblem').attr('class', 'btn btn-success');
+                        error.text('Problema įkelta!');
+                        error.attr('class', 'text text-success');
+                        error.show();
+                        setTimeout(function() {
+                            $('.modal').modal('hide');
+                            allInputs.val('');
+                        }, 500);
+
+                        location.reload();
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown)
                     {
                         alert('Error : ' + errorThrown);
-                    },
-                    complete: function() {
-                        allInputs.val('');
-                        location.reload();
                     }
                 })
             }
@@ -474,7 +479,6 @@ $(document).ready( function() {
     $("#addInitiative").on('hidden.bs.modal', function(e){
         clearInitiativeForm();
         clearInitiativeFormContent();
-        location.reload();
     });
     //---------------------------------------------------
     //handle initiative form data
@@ -533,14 +537,11 @@ $(document).ready( function() {
                 return valid = false;
             }
 
-            if (valid) {//description != '' & year != '' & month != '' & day != '' & hour != '' & minute != ''
+            if (valid) {
                 var date = year.concat("-", month, "-", day, " ", hour, ":", minute,":",0); //for 0seconds
                 var url = $('#ajimedakaqfn').attr('url');
-                //var url='NANI?';
                 var probId = $('#ajimedakaqfn').attr('probId');
                 var data = {description: description, date: date, probId:probId};
-                console.log(data);
-                console.log(url);
                 $.ajax({
                     type: "POST",
                     url: url,
@@ -557,9 +558,8 @@ $(document).ready( function() {
                             $("#initiativeError").show();
                             setTimeout(function(){
                                 $('.modal').hide('fast');
-                            },700);//700ms patvirtinimui
+                            },500);//700ms patvirtinimui
                         }
-                        $('.modal').modal('hide');
                         location.reload();
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
