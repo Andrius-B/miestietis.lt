@@ -29,6 +29,8 @@ $(document).ready( function() {
 
 
     $('#add').on('show.bs.modal', function() {
+        $('#itemDescription').elastic();
+        $('#itemName').elastic();
         var allInputs = $('#add .form-control');
         var error = $('#problemError');
         error.hide();
@@ -120,11 +122,8 @@ $(document).ready( function() {
     function ajaxProblemEdit(url, probid, eTitle, eDescription) {
         var editedUrl = url;
         var editedProbId = probid;
-
         var editedTitle = eTitle.val();
-        //console.log(editedTitle);
         var editedDescription = eDescription.val();
-        console.log(editedDescription);
         var data = {name:editedTitle, description:editedDescription, probId:editedProbId};
         $.ajax({
             type: "POST",
@@ -142,9 +141,9 @@ $(document).ready( function() {
                 alert('Error : ' + errorThrown);
             }
         });
-        //return [editedTitle, editedDescription];
     }
     $(document).on('click', '#editProblem', function() {
+
         var $this = $(this).parents('.modal-content');
 
         var targetTitle = $this.find('#editTitle');
@@ -183,6 +182,7 @@ $(document).ready( function() {
 
         var editedTitle = $this.find('.edit-title');
         var editedDescription = $this.find('.edit-description');
+        //editedDescription.elastic();
 
         $('.modal').on('hidden.bs.modal', function() {
             $this.find('.edit-title').replaceWith(initialTitle);
@@ -244,9 +244,7 @@ $(document).ready( function() {
         var editedDescription = eDescription;
 
         var saveDate = editedDate.val();
-        console.log(saveDate);
         var saveDescription = editedDescription.val();
-        console.log(saveDescription);
         var data = {description:saveDescription, date:saveDate, initid:editedInitid};
 
         $.ajax({
@@ -678,7 +676,7 @@ $(document).ready( function() {
         $comment_list.find('textarea').attr('url', url+'Add');
         $comment_list.find('textarea').attr('item', item);
         $comment_list.find('textarea').attr('item_id', item_id);
-
+        //$('.comment_input').elastic();
         if (!clicks) {
             $.ajax({
                 url: url,
