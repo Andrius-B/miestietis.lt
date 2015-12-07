@@ -740,6 +740,9 @@ hr {
 /* Initiative form modal */
 
 .form-group .text {
+    display: inline-block;
+    vertical-align: middle;
+    padding-top: 10px;
 	padding-left: 10px;
 }
 
@@ -793,6 +796,8 @@ hr {
 #ajimedakaqfn .btn {
     margin-top:12px;
 }
+
+
 
 #addInitiative .modal-body {
     padding-bottom: 0;
