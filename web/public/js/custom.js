@@ -182,7 +182,7 @@ $(document).ready( function() {
 
         var editedTitle = $this.find('.edit-title');
         var editedDescription = $this.find('.edit-description');
-        //editedDescription.elastic();
+        editedDescription.elastic();
 
         $('.modal').on('hidden.bs.modal', function() {
             $this.find('.edit-title').replaceWith(initialTitle);
@@ -302,6 +302,7 @@ $(document).ready( function() {
         var initid = $(this).attr('initid');
         var editedDate = $this.find('.edit-date');
         var editedDescription = $this.find('.edit-description');
+        editedDescription.elastic();
 
         var save = $this.find('.save-button');
 
@@ -475,6 +476,7 @@ $(document).ready( function() {
     //---------------------------------------------------
     //handle initiative form data
     var addInitiative = $('#Miestietis_MainBundle_Initiative');
+    $('#newDescription').elastic();
     $('#submitButton').on('click', addInitiative, function(e){
         clearInitiativeForm();
         e.preventDefault();
