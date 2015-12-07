@@ -95,10 +95,17 @@ $(document).ready( function() {
             data: data,
             success: function (data) {
                 $('.modal').modal('hide');
-                location.reload();
+                //tTitle.val(editedTitle);
+                //console.log(editedTitle);
+                //tDescription.val(editedDescription);
+                //console.log(editedDescription);
+                //location.reload();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert('Error : ' + errorThrown);
+            },
+            complete: function() {
+
             }
         });
     };
@@ -148,11 +155,18 @@ $(document).ready( function() {
 
         var editedTitle = $this.find('.edit-title');
         var editedDescription = $this.find('.edit-description');
+        var newTitle = editedTitle.val();
+        var newDescription = editedDescription.val();
+
 
         var save = $this.find('.save-button');
 
+
+
         save.on('click', function() {
-            ajaxProblemEdit(url, probId, editedTitle, editedDescription)
+            ajaxProblemEdit(url, probId, editedTitle, editedDescription);
+            console.log('newTitle '+newTitle);
+            console.log('newDescription '+newDescription);
         });
     });
 
