@@ -38,19 +38,17 @@ $(document).ready( function() {
     });
 
     $('#newProblem').on('click', addProblem, function(e){
+        e.preventDefault();
+        var $this = $(this);
         var allInputs = $('#add .form-control');
         var error = $('#problemError');
-        console.log
-        e.preventDefault();
+        $this.blur();
         if($('#profileLi').attr('rel') == 'Connected'){
             // information gathering from the form fields
             var name =$('#itemName').val();
             var description = $('#itemDescription').val();
             var url = $('#controlerURL').attr('url');
             var valid = true;
-
-            // final check if everything is
-            $('#loading-img').show();
 
             // Making a form data object that will be passed through ajax
             formData = new FormData();
@@ -87,8 +85,6 @@ $(document).ready( function() {
                     processData:false,        // To send DOMDocument or non processed data file it is set to false
                     success: function(data)
                     {
-                        $('#loading-img').hide();
-                        $("#imgdisplay").html("<img src='../images/problems"+data.picture+"'style='width: 150px'>");
                         $('#itemName').val();
                         $('#itemDescription').val();
                         $('#controlerURL').attr('url');
