@@ -688,15 +688,15 @@ $(document).ready( function() {
             type: "POST",
             success: function (data) {
                 console.log(data);
-                var item;
-                data['problems'].forEach(function(){
-                    item =
-                        ;
-
-
-                    $('.isotope-container').append(item);
+                data['problems'].forEach(function(problem){
+                    $('#theContainerOfItems').append(problem);
                 });
-
+                data['initiatives'].forEach(function(initiatve){
+                    $('#theContainerOfItems').append(initiatve);
+                });
+                if(data['more'] == false){
+                    $('#addMoreItems').addClass('hidden');
+                }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 // alert('Atsiprašome, įvyko klaida');
