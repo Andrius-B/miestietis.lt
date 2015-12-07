@@ -66,7 +66,6 @@ class AjaxController extends Controller
         $probId = $request->request->get('probId');
         $name = $request->request->get('name');
         $description = $request->request->get('description');
-        $address = $request->request->get('address');
 
         $problem = $this->getDoctrine()->getRepository('MiestietisMainBundle:Problema')->find($probId);
 
@@ -74,7 +73,7 @@ class AjaxController extends Controller
         $data = array('name' => $name, 'description' => $description);
         //Persisting problem to a database
 
-        $db_handler->editProblem($name, $description, $address, $problem);
+        $db_handler->editProblem($name, $description, $problem);
 
         $response = new JsonResponse($data, 200);
         return $response;//$data;
@@ -120,13 +119,11 @@ class AjaxController extends Controller
         }
 
         $db_handler = $this->get('db_handler');
+        $probId = intval($request->request->get('probId'));
         $initId = intval($request->request->get('initid'));
         $description = $request->request->get('description');
-
         $datestr = $request->request->get('date');
         $date = new \DateTime($datestr); //MUST BE FORMATTED Y-m-d h:i:s
-        $probId = intval($request->request->get('probId'));
-        $initId = intval($request->request->get('initId'));
         $problem = $this->getDoctrine()
             ->getRepository('MiestietisMainBundle:Problema')
             ->find($probId);
