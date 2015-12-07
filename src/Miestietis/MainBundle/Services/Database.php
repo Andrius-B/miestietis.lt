@@ -122,9 +122,11 @@ class Database
         $commentQuery->execute();
 
         $problem = $initiative->getProblemId();
-        $problem->removeInitiative();
-        $problem->setIsActive(true); //revive the problem
-        $this->em->persist($problem);
+        if($problem!=null) {
+            $problem->removeInitiative();
+            $problem->setIsActive(true); //revive the problem
+            $this->em->persist($problem);
+        }
 
         $this->em->remove($initiative);
         $this->em->flush();

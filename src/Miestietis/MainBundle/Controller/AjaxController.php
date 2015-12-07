@@ -46,7 +46,7 @@ class AjaxController extends Controller
         return $response; //$data;
     }
 
-    public function getUserStatsAction(Request $request) {
+    public function getUserStatsAction() {
         $user = $this->getUser();
         $db_handler = $this->get('db_handler');
         $data = $db_handler->getUserStats($user);
@@ -118,14 +118,10 @@ class AjaxController extends Controller
         }
 
         $db_handler = $this->get('db_handler');
-        $probId = intval($request->request->get('probId'));
         $initId = intval($request->request->get('initid'));
         $description = $request->request->get('description');
         $datestr = $request->request->get('date');
         $date = new \DateTime($datestr); //MUST BE FORMATTED Y-m-d h:i:s
-        $problem = $this->getDoctrine()
-            ->getRepository('MiestietisMainBundle:Problema')
-            ->find($probId);
         $initiative = $this->getDoctrine()
             ->getRepository('MiestietisMainBundle:Initiative')
             ->find($initId);
@@ -248,7 +244,6 @@ class AjaxController extends Controller
         $comment = $request->request->get('comment');
         $item_id = $request->request->get('item_id');
         $item = $request->request->get('item');
-        //$c = array('comment' => $comment, 'item id' => $item_id, 'item' => $item);
         $db_handler->insertComment($item, $item_id, $comment, $user);
         $c = array('text' => $comment, 'user_name' => $user->getFirstName().' '.$user->getLastName(),
             'date' => date('Y m d'), 'picture' => $user->getProfilePicture());
