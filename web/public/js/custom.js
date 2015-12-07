@@ -830,10 +830,14 @@ $(document).ready( function() {
                 if(data['more'] == false){
                     $('#addMoreItems').addClass('hidden');
                 }
+                $('.isotope-container').isotope('reloadItems');
+                $('.isotope-container').isotope('reLayout');
+                $('a[data-filter="*"]').click();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 // alert('Atsiprašome, įvyko klaida');
             }
         });
+        return false;
     });
 });

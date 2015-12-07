@@ -324,7 +324,7 @@ class AjaxController extends Controller
             ));
         }
         foreach($initiatives as $i) {
-            $initiativesTemp[] = $this->renderView('items.html.twig', array(
+            $initiativesTemp[] = $this->renderView('initiatives.html.twig', array(
                 'problem' => $i,
                 'user' => $user,
                 'problemCommentCount' => $initiativeComments,
