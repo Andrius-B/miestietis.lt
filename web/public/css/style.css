@@ -74,12 +74,14 @@ a:active {
 	font-size: 18px;
 }
 .initiatives a,
+#floppy,
 #profile-more .modal-header a,
 .btn__init {
     color: #55acee;
 }
 .initiatives a:hover,
-#profile-more .modal-header a,
+#floppy:hover,
+#profile-more .modal-header a:hover,
 .btn__init:hover {
     color: #339BEB;
 }
@@ -563,8 +565,26 @@ div[data-toggle="tooltip"] > i {
 }
 
 .modal-body p {
+	word-break: break-all;
 	text-indent: 30px;
 	padding-top: 5px;
+}
+
+.modal-body .edit-date {
+    font-size:15px;
+    font-style: italic;
+    outline: 0;
+    border:none;
+    box-shadow:none;
+    padding:0;
+    margin:0;
+    display:inline-block;
+    width: 120px;
+    height: 15px;
+}
+
+.modal-body .edit-date:focus {
+    outline:none;
 }
 
 .modal-body .edit-description {

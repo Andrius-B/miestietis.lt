@@ -131,11 +131,7 @@ $(document).ready( function() {
             data: data,
             success: function (data) {
                 $('.modal').modal('hide');
-                //tTitle.val(editedTitle);
-                //console.log(editedTitle);
-                //tDescription.val(editedDescription);
-                //console.log(editedDescription);
-                //location.reload();
+                location.reload();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert('Error : ' + errorThrown);
@@ -196,8 +192,6 @@ $(document).ready( function() {
 
         save.on('click', function() {
             ajaxProblemEdit(url, probId, editedTitle, editedDescription);
-            //console.log(v[0], v[1]);
-            //console.log($this.find('#editDescription'));
         });
 
 
@@ -287,7 +281,7 @@ $(document).ready( function() {
         });
 
         targetButtons.empty();
-        targetButtons.append('<a ' +
+        targetButtons.append('<a id="floppy" ' +
             'data-toggle="modal" ' +
             'class="save-button">' +
                 '<i ' +
@@ -320,7 +314,6 @@ $(document).ready( function() {
         var date = $('<input />', {
             'type': 'text',
             'class': 'form-control edit-date',
-            'style': 'width:' + widthDate + 'px',
             'value': $(this).text()
         });
         if (target === 'editDescription') {
