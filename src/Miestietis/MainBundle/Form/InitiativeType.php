@@ -14,14 +14,14 @@ class InitiativeType extends AbstractType
             'date_format' => 'yyyy-MM-dd',
             'input'  => 'string',
             'widget' => 'choice',
-            'years' => range((int)date("Y"),(int)date("Y")+20), //20 year range
-            'months' => range(1,12),
+            'years' => range((int)date("Y"), (int)date("Y") + 20), //20 year range
+            'months' => range(1, 12),
             'with_seconds' => false,
             'placeholder' => array('year' => 'Metai', 'month' => 'Mėnuo', 'day' => 'Diena', 'hour'=>'Valanda', 'minute'=>'Minutė'),
             'label' => 'Iniciatyvos data'
             ))
             ->add('description', 'textarea')
-            ->add('save','submit',array('label'=>'Pateikti'));
+            ->add('save', 'submit', array('label'=>'Pateikti'));
     }
 
     public function getName()

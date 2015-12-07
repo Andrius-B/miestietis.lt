@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 
@@ -44,15 +43,15 @@ class AjaxController extends Controller
         //Forming a response
         $data = array('name' => $name, 'description' => $description, 'picture' => $fileName);
         $response = new JsonResponse($data, 200);
-        return $response;//$data;
+        return $response; //$data;
     }
 
-    public function getUserStatsAction(Request $request){
+    public function getUserStatsAction(Request $request) {
         $user = $this->getUser();
         $db_handler = $this->get('db_handler');
         $data = $db_handler->getUserStats($user);
         $response = new JsonResponse($data, 200);
-        return $response;//$data;
+        return $response; //$data;
     }
 
     public function problemEditAction(Request $request)
@@ -76,10 +75,10 @@ class AjaxController extends Controller
         $db_handler->editProblem($name, $description, $problem);
 
         $response = new JsonResponse($data, 200);
-        return $response;//$data;
+        return $response; //$data;
     }
 
-    public function deleteItemAction(Request $request){
+    public function deleteItemAction(Request $request) {
         if (!$request->isXmlHttpRequest())
         {
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
@@ -89,30 +88,30 @@ class AjaxController extends Controller
         $db_handler = $this->get('db_handler');
         $user = $this->getUser();
         $status = '';
-        if($type == 'problem'){
+        if ($type == 'problem') {
             $problema = $this->getDoctrine()->getRepository("MiestietisMainBundle:Problema")->find($itemId);
                 if ($problema->getUserId() == $user) {
                     $db_handler->deleteProblem($problema, $user);
                 } else {
                     $status = 'Galite trinti tik problemas, kurias sukurėte';
                 }
-        } else if($type == 'initiative'){
+        } else if ($type == 'initiative') {
             $initiative = $this->getDoctrine()->getRepository("MiestietisMainBundle:Initiative")->find($itemId);
-            if($initiative->getUserId() == $user){
+            if ($initiative->getUserId() == $user) {
                 $db_handler->deleteInitiative($initiative, $user);
-            }else{
+            } else {
                 $status = 'Galite trinti tik iniciatyvas, kurias sukurėte';
             }
-        }else{
+        } else {
             $status = 'Netinkamas tipas';
         }
 
         $data = array('type'=>$type, 'itemId'=>$itemId, 'status'=>$status);
         $response = new JsonResponse($data, 200);
-        return $response;//$data;
+        return $response; //$data;
     }
 
-    public function initiativeEditAction(Request $request){
+    public function initiativeEditAction(Request $request) {
         if (!$request->isXmlHttpRequest())
         {
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
@@ -154,7 +153,7 @@ class AjaxController extends Controller
             ->getRepository('MiestietisMainBundle:Problema')
             ->find($probId);
 
-        if($this->getDoctrine()->getRepository('MiestietisMainBundle:Initiative')->findBy(array('problem_id'=>$problem)) != null)
+        if ($this->getDoctrine()->getRepository('MiestietisMainBundle:Initiative')->findBy(array('problem_id'=>$problem)) != null)
         {
             $status = 'Ši problema jau turi iniciatyvą!';
             $data = array('description' => $description, 'date'=>$date->format("Y m d"), 'probId'=>$problem, 'status'=>$status);
@@ -167,7 +166,7 @@ class AjaxController extends Controller
         $db_handler = $this->get('db_handler');
         $db_handler->insertInitiative($description, $date, $problem, $user);
         $response = new JsonResponse($data, 200);
-        return $response;//$data;
+        return $response; //$data;
     }
     public function upvoteAction(Request $request)
     {
@@ -178,7 +177,7 @@ class AjaxController extends Controller
             ->find($probId);
         $db_handler = $this->get('db_handler');
         $votes = $problem->getVotes();
-        if(!$problem->getUpvotedBy()->contains($user))
+        if (!$problem->getUpvotedBy()->contains($user))
         {
             $votes = $db_handler->upvoteProblem($problem, $user);
         }
@@ -205,18 +204,18 @@ class AjaxController extends Controller
             ->findAll();
         $participations = [];
         foreach ($init as $i) {
-            if($i->getParticipants()->contains($user) && $i->getUserId() != $user ) {
+            if ($i->getParticipants()->contains($user) && $i->getUserId() != $user) {
                 $participations[] = $i;
             }
         }
-        $items =  array_merge($problems, $initiatives, $participations);
+        $items = array_merge($problems, $initiatives, $participations);
 
         $template = $this->renderView('history.html.twig', array('items' => $items));
         $response = new Response($template, 200);
         return $response;
 
     }
-    public function commentLoadAction(Request $request){
+    public function commentLoadAction(Request $request) {
         if (!$request->isXmlHttpRequest())
         {
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
@@ -226,20 +225,20 @@ class AjaxController extends Controller
         $item_id = $request->request->get('id');
         $comments = $db_handler->getCommentsById($item_id, $item);
         $response = [];
-        foreach($comments as $comment){
+        foreach ($comments as $comment) {
             $response[] = array('user_picture'=> $comment->getUserId()->getProfilePicture(),
-                'user_name'=> $comment->getUserId()->getFirstName().' '. $comment->getUserId()->getLastName() ,
+                'user_name'=> $comment->getUserId()->getFirstName().' '.$comment->getUserId()->getLastName(),
                 'date'=> $comment->getDate(),
                 'comment'=> $comment->getText());
         }
-        if($comments != 0) {
+        if ($comments != 0) {
             $return = new JsonResponse($response, 200);
-        }else{
+        } else {
             return 0;
         }
         return $return;
     }
-    public function commentAddAction(Request $request){
+    public function commentAddAction(Request $request) {
         if (!$request->isXmlHttpRequest())
         {
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
@@ -257,7 +256,7 @@ class AjaxController extends Controller
         $return = new JsonResponse($c, 200);
         return $return;
     }
-    public function initiativeJoinAction(Request $request){
+    public function initiativeJoinAction(Request $request) {
         if (!$request->isXmlHttpRequest())
         {
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
@@ -266,10 +265,10 @@ class AjaxController extends Controller
         $user = $this->getUser();
         $id = $request->request->get('initiative');
         $data = array('response' => 'ok');
-        if($db_handler->joinInitiative($id, $user)){
+        if ($db_handler->joinInitiative($id, $user)) {
             $response = new JsonResponse($data, 200);
             return $response;
-        }else{
+        } else {
             $response = new JsonResponse(array('response' => 'error'));
             return $response;
         }
