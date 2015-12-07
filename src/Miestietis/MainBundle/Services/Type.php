@@ -4,13 +4,13 @@ namespace Miestietis\MainBundle\Services;
 use Miestietis\MainBundle\Entity\Initiative;
 use Miestietis\MainBundle\Entity\Problema;
 
-class Type{
+class Type {
 
     public function itemType($p, $i, $user, $checker)
     {
-        foreach($p as $problem)
+        foreach ($p as $problem)
         {
-            if($problem->getUpvotedBy()->contains($user))
+            if ($problem->getUpvotedBy()->contains($user))
             {
                 $problem->status = 'disabled';
                 $problem->tooltip = 'Pritarti galite tik vieną kartą!';
@@ -24,7 +24,7 @@ class Type{
                     $problem->tooltip = 'Reikalingas prisijungimas';
                 }
             }
-            if(!$checker->isGranted('IS_AUTHENTICATED_FULLY')) {
+            if (!$checker->isGranted('IS_AUTHENTICATED_FULLY')) {
                 $problem->statusAddInitiative = 'disabled';
                 $problem->tooltipAddInitiative = 'Reikalingas prisijungimas';
             } else {
@@ -32,8 +32,8 @@ class Type{
                 $problem->tooltipAddInitiative = 'Skelbti iniciatyvą';
             }
         }
-        foreach($i as $initiative) {
-            if($initiative->getParticipants()->contains($user)) {
+        foreach ($i as $initiative) {
+            if ($initiative->getParticipants()->contains($user)) {
                 $initiative->status = 'disabled';
                 $initiative->tooltip = 'Jūs jau dalyvaujate';
             } else {

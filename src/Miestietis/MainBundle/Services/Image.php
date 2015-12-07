@@ -13,11 +13,11 @@ namespace Miestietis\MainBundle\Services;
  * @return boolean
  * @throws InvalidArgumentException
  */
-class Image{
-    public function handleImage($file, $ext, $width, $height, $dir, $fileName){
+class Image {
+    public function handleImage($file, $ext, $width, $height, $dir, $fileName) {
 
         //Making a resource instead of object
-        switch($ext){
+        switch ($ext) {
             case 'jpeg':
                 $img = imagecreatefromjpeg($file);
                 break;
@@ -31,26 +31,25 @@ class Image{
                 throw new InvalidArgumentException("Image type $file->guessExtension() not supported");
         }
 
-        $x =  imagesx($img);
+        $x = imagesx($img);
         $y = imagesy($img);
 
         $original_aspect = $x / $y;
         $new_aspect = $width / $height;
 
-        if ( $original_aspect >= $new_aspect )
+        if ($original_aspect >= $new_aspect)
         {
             // If image is wider than thumbnail (in aspect ratio sense)
             $new_height = $height;
             $new_width = $x / ($y / $height);
-        }
-        else
+        } else
         {
             // If the thumbnail is wider than the image
             $new_width = $width;
             $new_height = $y / ($x / $width);
         }
 
-        $thumb = imagecreatetruecolor( $width, $height );
+        $thumb = imagecreatetruecolor($width, $height);
 
         // Resize and crop
         imagecopyresampled($thumb,

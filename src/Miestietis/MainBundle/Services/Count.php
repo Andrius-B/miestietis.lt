@@ -10,11 +10,11 @@ class Count {
      * @param array $items
      * @return array
      */
-    public function problemCommentCount($items){
+    public function problemCommentCount($items) {
         //$return =$items[3]->getComments()->count();
         $commentCount = [];
-        foreach($items as $item){
-            $commentCount[ $item->getId()] = $item->getComments()->count();
+        foreach ($items as $item) {
+            $commentCount[$item->getId()] = $item->getComments()->count();
         }
         return $commentCount;
     }
@@ -23,10 +23,10 @@ class Count {
      * @param array $items
      * @return array
      */
-    public function initiativeCommentCount($items){
+    public function initiativeCommentCount($items) {
         $commentCount = [];
-        foreach($items as $item){
-            $commentCount[ $item->getId()] =  $item->getProblemId()->getComments()->count();
+        foreach ($items as $item) {
+            $commentCount[$item->getId()] = $item->getProblemId()->getComments()->count();
         }
         return $commentCount;
     }
@@ -35,9 +35,9 @@ class Count {
      * @param array $items
      * @return array
      */
-    public function joinCount($items){
+    public function joinCount($items) {
         $joinCount = [];
-        foreach($items as $item){
+        foreach ($items as $item) {
             $joinCount[$item->getId()] = $item->getParticipants()->count();
         }
         return $joinCount;

@@ -53,9 +53,9 @@ class FOSUBUserProvider extends BaseClass
             $user->setEmail($data['email']);
             $user->setPassword($username);
             $user->setEnabled(true);
-            if($user->getFacebookId() != null){
+            if ($user->getFacebookId() != null) {
                 $fbid = $user->getFacebookId();
-                $user_fb = "https://graph.facebook.com/" .$fbid;
+                $user_fb = "https://graph.facebook.com/".$fbid;
                 $picture = $user_fb."/picture?width=260&height=260";
                 $user->setProfilePicture($picture);
             }
@@ -68,7 +68,7 @@ class FOSUBUserProvider extends BaseClass
         //if user exists - go with the HWIOAuth way
         $user = parent::loadUserByOAuthUserResponse($response);
         $serviceName = $response->getResourceOwner()->getName();
-        $setter = 'set' . ucfirst($serviceName) . 'AccessToken';
+        $setter = 'set'.ucfirst($serviceName).'AccessToken';
         //update access token
         $user->$setter($response->getAccessToken());
         return $user;
