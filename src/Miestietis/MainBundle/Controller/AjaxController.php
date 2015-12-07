@@ -123,7 +123,7 @@ class AjaxController extends Controller
         $datestr = $request->request->get('date');
         $date = new \DateTime($datestr); //MUST BE FORMATTED Y-m-d h:i;s
         $probId = intval($request->request->get('probId'));
-        $initId = intval($request->request->get('initId'));
+        $initId = intval($request->request->get('initid'));
         $problem = $this->getDoctrine()
             ->getRepository('MiestietisMainBundle:Problema')
             ->find($probId);
