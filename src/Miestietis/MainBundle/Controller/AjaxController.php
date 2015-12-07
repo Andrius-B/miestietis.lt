@@ -258,21 +258,54 @@ class AjaxController extends Controller
         $return = new JsonResponse($c, 200);
         return $return;
     }
-    public function initiativeJoinAction(Request $request){
-        if (!$request->isXmlHttpRequest())
-        {
+    public function initiativeJoinAction(Request $request)
+    {
+        if (!$request->isXmlHttpRequest()) {
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
         }
         $db_handler = $this->get('db_handler');
         $user = $this->getUser();
         $id = $request->request->get('initiative');
         $data = array('response' => 'ok');
-        if($db_handler->joinInitiative($id, $user)){
+        if ($db_handler->joinInitiative($id, $user)) {
             $response = new JsonResponse($data, 200);
             return $response;
-        }else{
+        } else {
             $response = new JsonResponse(array('response' => 'error'));
             return $response;
         }
+    }
+    public function loadMoreAction(){
+        $user = $this->getUser();
+        $session =  $this->container->get('session');
+        $ob_former = $this->get('ob_formation');
+        $problems = [];
+        $initiatives = [];
+        $poffset = $session->get('problems');
+        $ioffset = $session->get('initiatives');
+        if($poffset>0){
+            $problems = $ob_former->getProblems( 10, $poffset);
+        }
+        if($poffset>0){
+            $initiatives = $ob_former->getInitiatives( 10, $ioffset);
+        }
+        $p_count = count($problems);
+        $i_count = count($initiatives);
+        if($p_count<10){
+            $session->set('problems', -1);
+        }else{
+            $session->set('problems', $session->get('problems')+10);
+        }
+        if($i_count<10){
+            $session->set('initiatives', -1);
+        }else{
+            $session->set('initiatives', $session->get('initiatives')+10);
+        }
+        $a = array('p_count' => $p_count,
+            'i_count' => $i_count,
+            'problems'=>$problems,
+            'initiatives'=>$initiatives);
+        $result = new JsonResponse($a, 200);
+        return $result;
     }
 }

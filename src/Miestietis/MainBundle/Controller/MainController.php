@@ -17,7 +17,7 @@ class MainController extends Controller
         $counter = $this->get('counter');
 
         $user = $this->getUser();
-        $session = new session();
+        $session =  $this->container->get('session');
 
         // Form 10 latest problems and count their comments
         $problems = $ob_former->getProblems(10, 0);
@@ -36,6 +36,7 @@ class MainController extends Controller
 
         // Process problem status and tooltip values
         $this->get('item_type')->itemType($problems, $initiatives, $user, $this->get('security.authorization_checker'));
+
 
         //initiative form set-up
         $initiative = $ob_former->formInitiative();

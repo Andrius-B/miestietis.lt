@@ -678,4 +678,20 @@ $(document).ready( function() {
         });
 
     });
+
+    // Add more items to the item list
+
+    $('#addMoreItems').on('click', function(){
+        var url = $(this).attr('url');
+        $.ajax({
+            url: url,
+            type: "POST",
+            success: function (data) {
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                // alert('Atsiprašome, įvyko klaida');
+            }
+        });
+    });
 });

@@ -3,8 +3,8 @@ namespace Miestietis\MainBundle\Services;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-
 class Count {
+
     /**
      * problemCommentCount
      * @param array $items
@@ -42,4 +42,6 @@ class Count {
         }
         return $joinCount;
     }
+
+
 }
