@@ -124,9 +124,8 @@ $(document).ready( function() {
         var editedTitle = eTitle.val();
         //console.log(editedTitle);
         var editedDescription = eDescription.val();
-        var ed = editedDescription;
-        //console.log(editedDescription);
-        var data = {title:editedTitle, description:editedDescription, probId:editedProbId};
+        console.log(editedDescription);
+        var data = {name:editedTitle, description:editedDescription, probId:editedProbId};
         $.ajax({
             type: "POST",
             url: editedUrl,
@@ -137,17 +136,14 @@ $(document).ready( function() {
                 //console.log(editedTitle);
                 //tDescription.val(editedDescription);
                 //console.log(editedDescription);
-                location.reload();
+                //location.reload();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert('Error : ' + errorThrown);
-            },
-            complete: function() {
-
             }
         });
-        return ed;
-    };
+        //return [editedTitle, editedDescription];
+    }
     $(document).on('click', '#editProblem', function() {
         var $this = $(this).parents('.modal-content');
 
@@ -167,8 +163,6 @@ $(document).ready( function() {
         var editButton = $(this)[0].childNodes[1];
         editButton.nodeValue = 'Redaguokite pasvirą tekstą.';
 
-
-
         targetButtons.empty();
         targetButtons.append('<a ' + //man atrodo galima naudot backtick'us multiline stringui (`)
             'data-toggle="modal" ' +
@@ -183,30 +177,30 @@ $(document).ready( function() {
                 '</i>' +
             '</a>');
 
+
         var url = $(this).attr('url');
         var probId = $(this).attr('probId');
 
         var editedTitle = $this.find('.edit-title');
         var editedDescription = $this.find('.edit-description');
-        var newTitle = editedTitle.val();
-        var newDescription = editedDescription.val();
-
-
-        var save = $this.find('.save-button');
-
-
-
-        save.on('click', function() {
-            ajaxProblemEdit(url, probId, editedTitle, editedDescription);
-        });
 
         $('.modal').on('hidden.bs.modal', function() {
             $this.find('.edit-title').replaceWith(initialTitle);
-            $this.find('.edit-description').replaceWith(initialDescription).text(newDescription);
+            $this.find('.edit-description').replaceWith(initialDescription);
             $this.find('.wrap-buttons-right').remove();
             $this.find('.modal-footer').append(initialButtons);
             editButton.nodeValue = 'Redaguoti';
         });
+
+        var save = $this.find('.save-button');
+
+        save.on('click', function() {
+            ajaxProblemEdit(url, probId, editedTitle, editedDescription);
+            //console.log(v[0], v[1]);
+            //console.log($this.find('#editDescription'));
+        });
+
+
     });
 
     $('.modal').on("editItemsEvent", "#editTitle, #editDescription", function (event) {
