@@ -743,6 +743,17 @@ hr {
 	padding-left: 10px;
 }
 
+.form-group select {
+	padding: 8px 15px;
+	font-size: 14px;
+	line-height: 1.42857;
+	min-width: 160px;
+	text-align: center;
+	border-radius: 0px;
+	text-transform: uppercase;
+	transition: all 0.2s ease-in-out 0s;
+}
+
 /* Add item modal form */
 
 .btn-file {
