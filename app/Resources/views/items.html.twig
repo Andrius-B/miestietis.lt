@@ -1,4 +1,4 @@
-<div class="col-sm-6 col-md-6 isotope-item problems " xmlns="http://www.w3.org/1999/html"> <!-- Reikia laukelio papildomo skirstymui pvz problem.type() + parametro, kuris filtruotu pagal problem.votes() -->
+<div class="col-sm-6 col-md-6 isotope-item problems " id="problemDisplay-{{ problem.id() }}" xmlns="http://www.w3.org/1999/html"> <!-- Reikia laukelio papildomo skirstymui pvz problem.type() + parametro, kuris filtruotu pagal problem.votes() -->
     <div class="image-box">
         <div class="overlay-container">
             <img src="{{ asset('public/images/problems/' ~ problem.picture()) }}" alt="">

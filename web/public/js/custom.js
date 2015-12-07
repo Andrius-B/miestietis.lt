@@ -291,7 +291,7 @@ $(document).ready( function() {
                 data: data,
                 success: function (data) {
                     if(data.type == 'problem'){
-                        $('#problemHistory-'+data.itemId).hide('fast');
+                        $('#problemHistory-'+data.itemId).hide('slow    ');
                     } else if(data.type == 'initiative'){
                         $('#initiativeHistory-'+data.itemId).hide('fast');
                     }
@@ -397,7 +397,7 @@ $(document).ready( function() {
             }
 
             if (valid) {//description != '' & year != '' & month != '' & day != '' & hour != '' & minute != ''
-                var date = year.concat(" ", month, " ", day, " ", hour, " ", minute);
+                var date = year.concat("-", month, "-", day, " ", hour, ":", minute,":",0); //for 0seconds
                 var url = $('#ajimedakaqfn').attr('url');
                 //var url='NANI?';
                 var probId = $('#ajimedakaqfn').attr('probId');
@@ -418,7 +418,9 @@ $(document).ready( function() {
                             $("#initiativeError").html("Iniciatyva pateikta!");
                             $("#initiativeError").attr('class','text text-success');
                             $("#initiativeError").show();
-                            //$(".modal").modal("hide");
+                            setTimeout(function(){
+                                $('.modal').hide('fast');
+                            },700);//700ms patvirtinimui
                         }
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -428,7 +430,9 @@ $(document).ready( function() {
             }
         } else {
             requireLogin(false);
-            $('#submitButton').after('<span>Norėdami sukurti iniciatyvą turite prisijungti.</span>');
+            $("#initiativeError").html("Norėdami sukurti iniciatyvą turite prisijungti");
+            $("#initiativeError").attr('class','text text-success');
+            $("#initiativeError").show();
         }
     });
     // End of add initiative
