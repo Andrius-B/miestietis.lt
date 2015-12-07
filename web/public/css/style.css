@@ -558,7 +558,7 @@ textarea {
     border-radius: 0;
 }
 
-div[data-toggle="tooltip"] > i, address .fa-map-marker {
+div[data-toggle="tooltip"] > i {
     padding-right: 5px;
 }
 
@@ -625,19 +625,6 @@ hr {
 
 .modal-footer .wrap-item-info-left p {
     display:inline;
-}
-
-.modal-footer .wrap-item-info-left .edit-address {
-    font-size: 15px;
-    font-style: italic;
-    color:#555;
-    display:inline-block;
-    height: 35px;
-    margin-top:-17px;
-    margin-left: 5px;
-    outline:0;
-    border: none;
-    box-shadow:none;
 }
 
 .modal-footer .wrap-buttons-right {

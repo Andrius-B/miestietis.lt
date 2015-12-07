@@ -83,14 +83,13 @@ $(document).ready( function() {
 
     // -------------------------------------------------
     // Ajax request to edit problem
-    function ajaxProblemEdit(url, probid, eTitle, eDescription, eAdress) {
+    function ajaxProblemEdit(url, probid, eTitle, eDescription) {
         var editedUrl = url;
         var editedProbId = probid;
 
         var editedTitle = eTitle.val();
         var editedDescription = eDescription.val();
-        var editedAddress = eAdress.val();
-        var data = {title:editedTitle, description:editedDescription, address:editedAddress, probId:editedProbId};
+        var data = {title:editedTitle, description:editedDescription, probId:editedProbId};
         $.ajax({
             type: "POST",
             url: editedUrl,
@@ -105,25 +104,18 @@ $(document).ready( function() {
         });
     };
     $(document).on('click', '#editProblem', function() {
-        // galima tiesiog padaryti input'us ir disable'inti pagal reikala, input'ai gali buti stilizuojami kaip nori
-        // jeigu bus laiko padarysiu sitaip
-        // sitas approach'as blogas sukuria papildomu nematomu elementu DOM'e
-        // bandytas approach'as su input fieldais iskarto - neina su jquery priskirti auksciu Pries uzkraunant modal'o css, o jeigu po - split second matosi vaizdo iskraipymas
         var $this = $(this).parents('.modal-content');
 
         var targetTitle = $this.find('#editTitle');
         var targetDescription = $this.find('#editDescription');
-        var targetAddress = $this.find('#editAddress');
         var targetButtons = $this.find('.wrap-buttons-right');
 
         var initialTitle = targetTitle.clone();
         var initialDescription = targetDescription.clone();
-        var initialAddress = targetAddress.clone();
         var initialButtons = targetButtons.clone();
 
         $(this).tooltip('hide');
 
-        targetAddress.trigger('editItemsEvent');
         targetDescription.trigger('editItemsEvent');
         targetTitle.trigger('editItemsEvent');
 
@@ -133,7 +125,6 @@ $(document).ready( function() {
         $('.modal').on('hidden.bs.modal', function() {
             $this.find('.edit-title').replaceWith(initialTitle);
             $this.find('.edit-description').replaceWith(initialDescription);
-            $this.find('.edit-address').replaceWith(initialAddress);
             $this.find('.wrap-buttons-right').remove();
             $this.find('.modal-footer').append(initialButtons);
             editButton.nodeValue = 'Redaguoti';
@@ -158,21 +149,19 @@ $(document).ready( function() {
 
         var editedTitle = $this.find('.edit-title');
         var editedDescription = $this.find('.edit-description');
-        var editedAddress = $this.find('.edit-address');
 
         var save = $this.find('.save-button');
 
         save.on('click', function() {
-            ajaxProblemEdit(url, probId, editedTitle, editedDescription, editedAddress)
+            ajaxProblemEdit(url, probId, editedTitle, editedDescription)
         });
     });
 
-    $('.modal').on("editItemsEvent", "#editTitle, #editDescription, #editAddress", function (event) {
+    $('.modal').on("editItemsEvent", "#editTitle, #editDescription", function (event) {
         var target = event.currentTarget.id;
         var $this = $(this);
         var widthTitle = $this.width()+15;
         var heightDescription = $this.height();
-        var widthAddress = $this.width()+25;
         var title = $('<input />', {
             'type': 'text',
             'class': 'form-control edit-title',
@@ -180,12 +169,6 @@ $(document).ready( function() {
             'value': $(this).text()
         });
         var description = $('<textarea class="form-control edit-description">'+$(this).text()+'</textarea>');
-        var address = $('<input />', {
-            'type': 'text',
-            'class': 'form-control edit-address',
-            'style': 'width:' + widthAddress + 'px',
-            'value': $(this).text()
-        });
 
         if (target === 'editTitle') {
             $this.replaceWith(title);
@@ -197,8 +180,6 @@ $(document).ready( function() {
             description.focus();
             description.val(val);
             description.height(heightDescription);
-        } else if (target === 'editAddress') {
-            $this.replaceWith(address);
         }
     });
     // End of edit problem
@@ -217,7 +198,9 @@ $(document).ready( function() {
         var editedDescription = eDescription;
 
         var saveDate = editedDate.val();
+        console.log(saveDate);
         var saveDescription = editedDescription.val();
+        console.log(saveDescription);
         var data = {description:saveDescription, date:saveDate, initid:editedInitid};
 
         $.ajax({

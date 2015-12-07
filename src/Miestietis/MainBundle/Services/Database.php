@@ -36,7 +36,7 @@ class Database
         return $problem;
     }
 
-    public function editProblem($name, $description, $address, $problem){
+    public function editProblem($name, $description, $problem){
         if($name!=''){ //should this validation be front-end?
             $problem->setName($name);
         }
@@ -53,7 +53,7 @@ class Database
         return $problem;
     }
 
-    public function editInitiative($description,DateTime $date, $initiative){
+    public function editInitiative($description, \DateTime $date, $initiative){
         $initiative->setIsActive(true);
         $initiative->setRegistrationDate(new \DateTime(date('Y-m-d H:i:s')));
         $initiative->setInitiativeDate($date);
