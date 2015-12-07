@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 
 class AjaxController extends Controller
@@ -120,7 +122,14 @@ class AjaxController extends Controller
         $db_handler = $this->get('db_handler');
         $initId = intval($request->request->get('initid'));
         $description = $request->request->get('description');
-        $date = $request->request->get('date');
+
+        $datestr = $request->request->get('date');
+        $date = new \DateTime($datestr); //MUST BE FORMATTED Y-m-d h:i;s
+        $probId = intval($request->request->get('probId'));
+        $initId = intval($request->request->get('initId'));
+        $problem = $this->getDoctrine()
+            ->getRepository('MiestietisMainBundle:Problema')
+            ->find($probId);
         $initiative = $this->getDoctrine()
             ->getRepository('MiestietisMainBundle:Initiative')
             ->find($initId);
@@ -140,7 +149,8 @@ class AjaxController extends Controller
         $status = null;
         $user = $this->getUser();
         $description = $request->request->get('description');
-        $date = $request->request->get('date');
+        $datestr = $request->request->get('date');
+        $date = new \DateTime($datestr);
         $probId = intval($request->request->get('probId'));
 
         $problem = $this->getDoctrine()
@@ -150,12 +160,12 @@ class AjaxController extends Controller
         if($this->getDoctrine()->getRepository('MiestietisMainBundle:Initiative')->findBy(array('problem_id'=>$problem)) != null)
         {
             $status = 'Ši problema jau turi iniciatyvą!';
-            $data = array('description' => $description, 'date'=>$date, 'probId'=>$problem, 'status'=>$status);
+            $data = array('description' => $description, 'date'=>$date->format("Y m d"), 'probId'=>$problem, 'status'=>$status);
             $response = new JsonResponse($data, 200);
             return $response;
         }
 
-        $data = array('description' => $description, 'date'=>$date, 'probId'=>$problem, 'status'=>$status);
+        $data = array('description' => $description, 'date'=>$date->format('Y-m-d H:i'), 'probId'=>$problem, 'status'=>$status);
         //using the database service insert to DB
         $db_handler = $this->get('db_handler');
         $db_handler->insertInitiative($description, $date, $problem, $user);

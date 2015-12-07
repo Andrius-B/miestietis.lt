@@ -6,6 +6,7 @@ use Miestietis\MainBundle\Entity\Initiative;
 use Miestietis\MainBundle\Entity\User;
 use Miestietis\MainBundle\Entity\Comment;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class Database
 {
@@ -52,9 +53,9 @@ class Database
         return $problem;
     }
 
-    public function editInitiative($description, $date, $initiative){
-//        $initiative->setIsActive(true);
-        //$initiative->setRegistrationDate(date("Y m d"));
+    public function editInitiative($description,DateTime $date, $initiative){
+        $initiative->setIsActive(true);
+        $initiative->setRegistrationDate(new \DateTime(date('Y-m-d H:i:s')));
         $initiative->setInitiativeDate($date);
         $initiative->setDescription($description);
         $this->em->persist($initiative);
@@ -68,7 +69,7 @@ class Database
 
         $initiative->setVotes(0);
         $initiative->setIsActive(true);
-        $initiative->setRegistrationDate(date("Y m d"));
+        $initiative->setRegistrationDate(new \DateTime(date('Y-m-d H:i:s')));
         $initiative->setProblemId($probId);
         $initiative->setUserId($user);
         $initiative->setInitiativeDate($date);
