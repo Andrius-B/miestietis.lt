@@ -17,7 +17,7 @@ class MainController extends Controller
         $counter = $this->get('counter');
 
         $user = $this->getUser();
-        $session = new session();
+        $session =  $this->container->get('session');
 
         // Form 10 latest problems and count their comments
         $problems = $ob_former->getProblems(10, 0);

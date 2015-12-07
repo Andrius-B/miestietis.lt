@@ -36,7 +36,7 @@
                     <!-- isotope filters end -->
 
                     <!-- list items start -->
-                    <div class="isotope-container row grid-space-20" >
+                    <div class="isotope-container row grid-space-20" id="theContainerOfItems">
                         {% for problem in problems %}
                             {{ include('items.html.twig') }}
                         {% endfor %}
@@ -51,7 +51,7 @@
                     {{ include('confirmJoin.html.twig') }}
                     <!-- list items end -->
                     <div class="text-center">
-                        <a href="#"><input type="submit" value="Daugiau..." class="btn btn-default"></a>
+                        <a href="#"><input type="submit" value="Daugiau..." class="btn btn-default" url="{{ path('ajax_load_more_items') }}"id="addMoreItems"></a>
 
                         <!-- here should add ajax request from database -->
                     </div>

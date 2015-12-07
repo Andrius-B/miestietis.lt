@@ -46,18 +46,20 @@ class Type {
                 }
             }
         }
-        foreach($tp as $problem)
-        {
-            if($problem->getUpvotedBy()->contains($user))
-            {
-                $problem->status = 'disabled';
-                $problem->tooltip = 'Pritarti galite tik vieną kartą!';
-            } else {
-                $problem->status = '';
-                $problem->tooltip = 'Pritariu problemai';
-                if (!$checker->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if($tp != null) {
+            foreach ($tp as $problem) {
+                if ($problem->getUpvotedBy()->contains($user)) {
                     $problem->status = 'disabled';
-                    $problem->tooltip = 'Norėdami pritarti turite prisijungti';
+                    $problem->tooltip = 'Pritarti galite tik vieną kartą!';
+                } else {
+                    $problem->status = '';
+                    $problem->tooltip = 'Pritariu problemai';
+
+
+                    if (!$checker->isGranted('IS_AUTHENTICATED_FULLY')) {
+                        $problem->status = 'disabled';
+                        $problem->tooltip = 'Norėdami pritarti turite prisijungti';
+                    }
                 }
             }
         }
