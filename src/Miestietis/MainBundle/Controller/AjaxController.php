@@ -120,7 +120,7 @@ class AjaxController extends Controller
         }
         $description = $request->request->get('description');
         $datestr = $request->request->get('date');
-        $date = new \DateTime($datestr); //MUST BE FORMATTED Y-m-d h:i;s
+        $date = new \DateTime($datestr); //MUST BE FORMATTED Y-m-d h:i:s
         $probId = intval($request->request->get('probId'));
         $initId = intval($request->request->get('initId'));
         $problem = $this->getDoctrine()

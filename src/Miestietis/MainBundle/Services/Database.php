@@ -102,9 +102,17 @@ class Database
     }
 
     public function deleteInitiative(Initiative $initiative, User $user){
-        //delete the initiative comments
         $user->removeInitiative($initiative);
 
+        //removing all participations
+        $participants = $initiative->getParticipants();
+        foreach($participants as $participant){
+            $participant->removeParticipation($initiative);
+            $initiative->removeParticipant($participant);
+            $this->em->flush();
+        }
+
+        //delete the initiative comments
         $commentQuery = $this->em->createQuery("
         DELETE MiestietisMainBundle:Comment c
         WHERE c.initiative_id = :init
