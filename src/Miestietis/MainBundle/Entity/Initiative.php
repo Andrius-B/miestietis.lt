@@ -22,7 +22,9 @@ class Initiative
     protected $user_id;
     /**
      * @ORM\ManyToMany(targetEntity="User", inversedBy="participations")
-     * @ORM\JoinTable(name="initiatives_join")
+     * @ORM\JoinTable(name="initiatives_join",
+     * joinColumns={@ORM\JoinColumn(name="initiative_id", referencedColumnName="id", onDelete="CASCADE")},
+     * inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")})
      */
     protected $participants;
     /**

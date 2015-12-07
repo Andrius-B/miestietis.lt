@@ -85,7 +85,7 @@ class User extends BaseUser
      */
     protected $initiatives;
     /**
-     * @ORM\ManyToMany(targetEntity="Initiative", mappedBy="user_id")
+     * @ORM\ManyToMany(targetEntity="Initiative", mappedBy="participants")
      */
     protected $participations;
 
