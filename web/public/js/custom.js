@@ -773,4 +773,29 @@ $(document).ready( function() {
         });
 
     });
+
+    // Add more items to the item list
+
+    $('#addMoreItems').on('click', function(){
+        var url = $(this).attr('url');
+        $.ajax({
+            url: url,
+            type: "POST",
+            success: function (data) {
+                console.log(data);
+                data['problems'].forEach(function(problem){
+                    $('#theContainerOfItems').append(problem);
+                });
+                data['initiatives'].forEach(function(initiatve){
+                    $('#theContainerOfItems').append(initiatve);
+                });
+                if(data['more'] == false){
+                    $('#addMoreItems').addClass('hidden');
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                // alert('Atsiprašome, įvyko klaida');
+            }
+        });
+    });
 });
