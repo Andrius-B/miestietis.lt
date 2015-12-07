@@ -16,21 +16,19 @@
                             <div class="form-group has-feedback" id="initiativeDescriptionDiv">
                                 {{ form_widget(initiativeForm.description, {'id':'newDescription', 'attr':{'class':'form-control', 'placeholder':"Iniciatyvos aprašymas", 'rows':"8"}})}}
                             </div>
-                            <div class="form-group has-feedback">
+                            <div class="form-group form-group__mrgn has-feedback">
                                 {{ form_label(initiativeForm.initiative_date) }}
                                  <div class="form-group has-feedback" id="initiativeDateDiv">
-                                    {{ form_widget(initiativeForm.initiative_date, {'id':'newDate', 'attr':{}, 'class':'btn btn-default'}) }}
+                                    {{ form_widget(initiativeForm.initiative_date, {'id':'newDate', 'attr':{}}) }}
                                  </div>
-                                 </div>
-                            <div id="footer-form">
-                          </div>
+                            </div>
                         </div>
                     </div>
 
                 </div>
             </div>
             <div class="modal-footer" id="ajimedakaqfn" url="{{ path('ajax_initiative') }}" probId = ''>
-                <div class="form-group has-feedback">
+                <div class="form-group form-group__mrgn has-feedback text-center">
                     {{ form_widget(initiativeForm.save, {'id':'submitButton', 'attr':{'class':'btn btn-default'}}) }}
                     <span id="initiativeError" class="label label-danger" aria-hidden="true"></span>
                 </div>
