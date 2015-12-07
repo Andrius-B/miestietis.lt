@@ -687,6 +687,15 @@ $(document).ready( function() {
             url: url,
             type: "POST",
             success: function (data) {
+                console.log(data);
+                var item;
+                data['problems'].forEach(function(){
+                    item =
+                        ;
+
+
+                    $('.isotope-container').append(item);
+                });
 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {

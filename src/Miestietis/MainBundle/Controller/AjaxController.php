@@ -275,8 +275,11 @@ class AjaxController extends Controller
             return $response;
         }
     }
+
+    // load more items to the system
+
     public function loadMoreAction(){
-        $user = $this->getUser();
+        $counter = $this->get('counter');
         $session =  $this->container->get('session');
         $ob_former = $this->get('ob_formation');
         $problems = [];
@@ -301,11 +304,46 @@ class AjaxController extends Controller
         }else{
             $session->set('initiatives', $session->get('initiatives')+10);
         }
+        $jProblems = [];
+        $jInitiatives = [];
+        foreach($problems as $p){
+            $jProblems[] = array('id' => $p->getId(),
+                'name' => $p->getName(),
+                'description' => $p->getDescription(),
+                'date' => $p->getDate(),
+                'votes' => $p->getVotes(),
+                'picture' => $p->getPicture(),
+                'user' => array('id'=>$p->getUserId()->getId(),
+                    'picture'=>$p->getUserId()->getProfilePicture(),
+                    'first name'=>$p->getUserId()->getFirstName(),
+                    'last name'=>$p->getUserId()->getLastName()),
+                'comments' => $counter->problemCommentCount($p));
+        }
+        foreach($initiatives as $p){
+            $jInitiatives[] = array('id' => $p->getId(),
+                'p_id' => $p->getProblemId()->getId(),
+                'p_name' => $p->getProblemId()->getName(),
+                'p_description' => $p->getProblemId()->getDescription(),
+                'description' => $p->getDescription(),
+                'date' => $p->getInitiativeDate(),
+                'p_picture' => $p->getProblemId()->getPicture(),
+                'user' => array('id'=>$p->getUserId()->getId(),
+                    'picture'=>$p->getUserId()->getProfilePicture(),
+                    'first name'=>$p->getUserId()->getFirstName(),
+                    'last name'=>$p->getUserId()->getLastName()),
+                'comments' => $counter->initiativeCommentCount($p));
+        }
+        $more = true;
+
+        if($i_count<10&&$p_count<10) $more =false;
+
         $a = array('p_count' => $p_count,
             'i_count' => $i_count,
-            'problems'=>$problems,
-            'initiatives'=>$initiatives);
+            'problems'=>$jProblems,
+            'initiatives'=>$initiatives,
+            'more' => $more);
         $result = new JsonResponse($a, 200);
+
         return $result;
     }
 }
