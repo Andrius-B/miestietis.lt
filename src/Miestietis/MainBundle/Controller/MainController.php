@@ -35,7 +35,7 @@ class MainController extends Controller
         $participants = $counter->joinCount($initiatives);
 
         // Process problem status and tooltip values
-        $this->get('item_type')->itemType($problems, $initiatives, $user, $this->get('security.authorization_checker'));
+        $this->get('item_type')->itemType($problems, $initiatives, $topProblems, $user, $this->get('security.authorization_checker'));
 
         //initiative form set-up
         $initiative = $ob_former->formInitiative();

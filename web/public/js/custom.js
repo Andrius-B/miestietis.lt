@@ -26,14 +26,29 @@ $(document).ready( function() {
     // Ajax request to add problem
 
     var addProblem = $('#newProblemAjaxForm');
+
+
+    $('#add').on('show.bs.modal', function() {
+        var allInputs = $('#add .form-control');
+        var error = $('#problemError');
+        error.hide();
+        $('.modal').on('hidden.bs.modal', function() {
+            allInputs.val('');
+        });
+    });
+
     $('#newProblem').on('click', addProblem, function(e){
+        var allInputs = $('#add .form-control');
+        var error = $('#problemError');
+        console.log
         e.preventDefault();
         if($('#profileLi').attr('rel') == 'Connected'){
             // information gathering from the form fields
             var name =$('#itemName').val();
             var description = $('#itemDescription').val();
             var url = $('#controlerURL').attr('url');
-            var allInputs = $('#add .form-control');
+            var valid = true;
+
             // final check if everything is
             $('#loading-img').show();
 
@@ -43,38 +58,57 @@ $(document).ready( function() {
             formData.append('name', name);
             formData.append('description', description);
 
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: formData,
-                contentType: false,       // The content type used when sending data to the server.
-                cache: false,             // To unable request pages to be cached
-                processData:false,        // To send DOMDocument or non processed data file it is set to false
-                success: function(data)
-                {
-                    if(data == false){
-                        alert('somethings wrong');
+            if(name.length < 6) {
+                error.text("Įrašykite problemos pavadinimą");
+                error.attr('class', 'text text-danger text-right');
+                error.show();
+                return valid = false;
+            }
+            if(description == "") {
+                error.text("Aprašykite problemą");
+                error.attr('class', 'text text-danger text-right');
+                error.show();
+                return valid = false;
+            }
+            if($('input[type=file]')[0].files[0] == null) {
+                error.text("Įkelkite problemos nuotrauką");
+                error.attr('class', 'text text-danger text-right');
+                error.show();
+                return valid = false;
+            }
+
+            if(valid) {
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: formData,
+                    contentType: false,       // The content type used when sending data to the server.
+                    cache: false,             // To unable request pages to be cached
+                    processData:false,        // To send DOMDocument or non processed data file it is set to false
+                    success: function(data)
+                    {
+                        $('#loading-img').hide();
+                        $("#imgdisplay").html("<img src='../images/problems"+data.picture+"'style='width: 150px'>");
+                        $('#itemName').val();
+                        $('#itemDescription').val();
+                        $('#controlerURL').attr('url');
+                        $('.modal').modal('hide');
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown)
+                    {
+                        alert('Error : ' + errorThrown);
+                    },
+                    complete: function() {
+                        allInputs.val('');
+                        location.reload();
                     }
-                    $('#loading-img').hide();
-                    console.log(data);
-                    $("#imgdisplay").html("<img src='../images/problems"+data.picture+"'style='width: 150px'>");
-                    $('#itemName').val();
-                    $('#itemDescription').val();
-                    $('#controlerURL').attr('url');
-                    $('.modal').modal('hide');
-                },
-                error: function(XMLHttpRequest, textStatus, errorThrown)
-                {
-                    alert('Error : ' + errorThrown);
-                },
-                complete: function() {
-                    allInputs.val('');
-                    location.reload();
-                }
-            });
-        }else{
+                })
+            }
+        } else {
             requireLogin(false);
             $('#newProblem').after('<span>Norėdami sukurti problemą turite prisijungti.</span>');
+            console.log(allInputs);
+
         }
     });
     // End of add problem
