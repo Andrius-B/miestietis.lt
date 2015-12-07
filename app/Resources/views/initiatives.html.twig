@@ -17,7 +17,7 @@
             {% endif %}
             <div class="itemInfo">
                 <h4>{{ initiative.getProblemId().name() }}</h4>
-                <div data-toggle="tooltip" data-placement="top" title="Iniciatyvos data"><i class="fa fa-calendar-check-o"></i>{{ initiative.getInitiativeDate()|date('Y m d') }}</div>
+                <div data-toggle="tooltip" data-placement="top" title="Iniciatyvos data"><i class="fa fa-calendar-check-o"></i>{{ initiative.getInitiativeDate()|date('Y m d  H:i') }}</div>
                 <div data-toggle="tooltip" data-placement="top" title="Komentarų skaičius"><i class="fa fa-comments"></i>{{ initiativeCommentCount[initiative.id()] }}</div>
                 <div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius"><i class="fa fa-users"></i>{{ participantCount[initiative.id()] }}</div>
                 <div class="clearfix"></div>
@@ -68,7 +68,7 @@
                                     {{ initiative.getUserId().getFirstName }} {{ initiative.getUserId().getLastName() }}
                                 </div>
                                 <br> {# quick hax for tooltip, will not work is div display property is changed #}
-                                <div id="editDate" data-toggle="tooltip" data-placement="top" title="Iniciatyvos data"><i class="fa fa-calendar-check-o"></i>{{ initiative.getInitiativeDate()|date('Y m d') }}</div>
+                                <div id="editDate" data-toggle="tooltip" data-placement="top" title="Iniciatyvos data"><i class="fa fa-calendar-check-o"></i>{{ initiative.getInitiativeDate()|date('Y m d H:i') }}</div>
                                 {% if  user  != null and user == initiative.getUSerId() %}
                                     {#PATH TO INITIATIVE EDIT#}
                                     <div id="editInitiative" data-toggle="tooltip" data-placement="top" title="Redaguoti problemą" url="{{ path('ajax_initiativeEdit') }}" initid="{{ initiative.getId() }}"><i class="fa fa-pencil"></i>Redaguoti</div>
