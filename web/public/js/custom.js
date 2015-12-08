@@ -395,10 +395,28 @@ $(document).ready( function() {
                 data: data,
                 success: function (data) {
                     if(data.type == 'problem'){
-                        $('#problemHistory-'+data.itemId).hide('slow    ');
+                        $('#problemHistory-'+data.itemId).hide('slow');
                     } else if(data.type == 'initiative'){
                         $('#initiativeHistory-'+data.itemId).hide('fast');
                     }
+                    $('#'+type+'Display-'+itemId).hide('fast');
+                    setTimeout(function(){
+                        $('.isotope-container').isotope({
+                        itemSelector: '.isotope-item',
+                        layoutMode: 'masonry',
+                        transitionDuration: '0.6s',
+                        filter: "*"
+                    });
+                    },201);
+                    setTimeout(function(){
+                        $('.table-like').isotope({
+                            itemSelector: '.table-like__item',
+                            layoutMode: 'vertical',
+                            transitionDuration: '0.6s',
+                            filter: "*"
+                        });
+                    },601);
+
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     alert('Atsiprašome, įvyko klaida');
