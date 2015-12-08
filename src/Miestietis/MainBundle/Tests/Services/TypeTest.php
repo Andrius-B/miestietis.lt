@@ -1,10 +1,10 @@
 <?php
 namespace Miestietis\MainBundle\Tests\Services;
 
-use Miestietis\MainBundle\Services\Database;
+use Miestietis\MainBundle\Services\Type;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class DatabaseTest extends WebTestCase{
+class TypeTest extends WebTestCase{
     public function test()
     {
 
