@@ -565,7 +565,7 @@ div[data-toggle="tooltip"] > i {
 }
 
 .modal-body p {
-	word-break: break-all;
+	word-break: normal;
 	text-indent: 30px;
 	padding-top: 5px;
 }
