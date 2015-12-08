@@ -21,7 +21,6 @@ $(document).ready( function() {
 
     // -------------------------------------------------
     // Ajax request to add problem
-
     var addProblem = $('#newProblemAjaxForm');
     $('#add').on('show.bs.modal', function() {
         $('#itemDescription').elastic();
@@ -379,7 +378,6 @@ $(document).ready( function() {
             }
         })
     }
-
     // End of ajax load history
     //------------------------------------------------------------
 
@@ -546,7 +544,6 @@ $(document).ready( function() {
 
     // -------------------------------------------------
     // Handle upvoting
-
     $('.incVote').on('click',function() {
         var item = $(this).children('i');
         var itemDisable = $(this);
@@ -582,7 +579,6 @@ $(document).ready( function() {
 
     //------------------------------------------------------------------------------------------------
     // Adding and loading comments
-
     $('.modal-comments').hide();
     $('.fa-comments').on('click', function(e){
         e.preventDefault();
@@ -683,9 +679,12 @@ $(document).ready( function() {
             }
         });
     });
+    // End of comment handling
+    //------------------------------------------------------------
+
 
     //------------------------------------------------------
-    // top 10 problemų filtravimas su mygtuku Top 10
+    // Top10 problem filtering
     $topProblems = $('.topProblems');
     $('#top10problems').on('click', function(){
         $topProblems.toggleClass('hidden');
@@ -696,11 +695,11 @@ $(document).ready( function() {
         }
 
     });
-    // End of top10 filtravimas
+    // End of top10 filtering
     //------------------------------------------------------
 
     //------------------------------------------------------
-    // Prisijungimas prie iniciatyvos
+    // Join initiative
     $('.joinInitiative').on('click', function() {
         var initiative = $(this).attr('item_id');
         var itemDisable = $(this);
@@ -732,8 +731,9 @@ $(document).ready( function() {
                 confirmModal.modal('hide');
             }
         });
-
     });
+    // End of join
+    //------------------------------------------------------
 
     //------------------------------------------------------
     // Add more items to the item list
