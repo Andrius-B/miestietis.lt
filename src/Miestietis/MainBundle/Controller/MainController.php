@@ -2,7 +2,6 @@
 
 namespace Miestietis\MainBundle\Controller;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Miestietis\MainBundle\Form\InitiativeType;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,6 +53,4 @@ class MainController extends Controller
                 // ...
             ));
     }
-
-
 }
