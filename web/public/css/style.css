@@ -1157,7 +1157,7 @@ input[readonly] {
     vertical-align: middle;
 }
 
-.table-like__item .description { width: 72%; }
+.table-like__item .description { width: 71%; }
 .table-like__item .type {
     width: 9%;
     font-style: italic;
@@ -1166,7 +1166,7 @@ input[readonly] {
 .table-like__item .joined {
     width: 5%;
 }
-.table-like__item .date { width: 12%; }
+.table-like__item .date { width: 13%; }
 
 .table-like__item div h4 {
     display: inline-block;
