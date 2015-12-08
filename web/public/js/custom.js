@@ -595,7 +595,7 @@ $(document).ready( function() {
         $comment_list.find('textarea').attr('url', url+'Add');
         $comment_list.find('textarea').attr('item', item);
         $comment_list.find('textarea').attr('item_id', item_id);
-        //$('.comment_input').elastic();
+        $('.comment_input').elastic();
         if (!clicks) {
             $.ajax({
                 url: url,
@@ -613,8 +613,8 @@ $(document).ready( function() {
                             '<p>'+i['comment']+'</p>'+
                             '</div>'+
                             '</div>'+'<hr>');
-
                     });
+
                 },
                 complete: function() {
                     comments.slideDown('slow');
@@ -625,7 +625,7 @@ $(document).ready( function() {
                     });
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alert('Error : ' + errorThrown);
+                    alert('Užlausa nepavyko : ' + errorThrown);
                 }
             });
         } else {
@@ -638,6 +638,10 @@ $(document).ready( function() {
         $(this).data('clicks', !clicks);
 
         $('.comment_input').on('keydown', function(e) {
+            var parent = $(this).parents('.modal-content');
+            var commentSpan = parent.find('.comment-count');
+            var commentCount = commentSpan.text();
+
             if (e.which == 13 && !e.shiftKey) {
                 var comment = $(this).val();
                 if (comment != '' && comment != null && comment.trim() != 0) {
@@ -662,7 +666,7 @@ $(document).ready( function() {
                                     '<p>'+data["text"]+'</p>'+
                                     '</div>'+
                                     '</div>'+'<hr>');
-
+                                commentSpan.text(parseInt(commentCount) + 1);
                             },
                             error: function (XMLHttpRequest, textStatus, errorThrown) {
                                 alert('Užklausa nepavyko : ' + errorThrown);

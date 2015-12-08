@@ -736,6 +736,7 @@ hr {
 }
 
 .modal-comments--comment p {
+	word-break: break-all;
     font-size: 0.75em;
 }
 

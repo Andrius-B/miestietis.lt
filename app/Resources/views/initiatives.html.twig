@@ -23,11 +23,11 @@
                 </div>
                 <div data-toggle="tooltip" data-placement="top" title="Komentarų skaičius">
                     <i class="fa fa-comments"></i>
-                    {{ initiativeCommentCount[initiative.id()] }}
+                    <span class="comment-count">{{ initiativeCommentCount[initiative.id()] }}</span>
                 </div>
                 <div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius">
                     <i class="fa fa-users"></i>
-                    {{ participantCount[initiative.id()] }}
+                   <span class="participant-count">{{ participantCount[initiative.id()] }}</span>
                 </div>
                 <div class="clearfix"></div>
                 <div data-toggle="tooltip" data-placement="top" title="Iniciatyvos autorius">
@@ -99,7 +99,7 @@
                     <div class="wrap-item-info-left">
                         <div data-toggle="tooltip" data-placement="top" title="Komentarų skaičius">
                             <i class="fa fa-comments"></i>
-                            {{ initiativeCommentCount[initiative.id()] }}
+                            <span class="comment-count">{{ initiativeCommentCount[initiative.id()] }}</span>
                         </div>
                         <div data-toggle="tooltip" data-placement="top" title="Prisijungusių žmonių skaičius">
                             <i class="fa fa-users"></i>

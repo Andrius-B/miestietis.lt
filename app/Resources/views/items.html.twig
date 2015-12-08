@@ -23,12 +23,11 @@
                 </div>
                 <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria">
                     <i class="fa fa-check-circle"></i>
-                    <span class="votes-{{ problem.id() }}">
-                        {{  problem.votes() }}</span>
+                    <span class="votes-{{ problem.id() }}">{{  problem.votes() }}</span>
                 </div>
                 <div data-toggle="tooltip" data-placement="top" title="Komentarų skaičius">
                     <i class="fa fa-comments"></i>
-                    {{ problemCommentCount[problem.id()] }}
+                    <span class="comment-count">{{ problemCommentCount[problem.id()] }}</span>
                 </div>
                 <div class="clearfix"></div>
                 <div data-toggle="tooltip" data-placement="top" title="Problemos autorius">
@@ -99,7 +98,8 @@
                             <span class="votes-{{ problem.id() }}">{{  problem.votes() }}</span>
                         </div>
                         <div data-toggle="tooltip" data-placement="top" title="Komentarų skaičius">
-                            <i class="fa fa-comments"></i>{{ problemCommentCount[problem.id()] }}
+                            <i class="fa fa-comments"></i>
+                            <span class="comment-count">{{ problemCommentCount[problem.id()] }}</span>
                         </div>
                     </div>
                     <div class="wrap-buttons-right">
