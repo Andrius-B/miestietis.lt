@@ -546,7 +546,9 @@ $(document).ready( function() {
     // Handle upvoting
     $('.incVote').on('click',function() {
         var item = $(this).children('i');
-        var itemDisable = $(this);
+        var $this = $(this);
+        var itemParent = $this.parents('.isotope-item');
+        var itemDisable = itemParent.find('.incVote');
         var status = 'Pritarti galite tik vieną kartą!';
         if ($('#profileLi').attr('rel') == 'Connected') {
             var url = $(this).attr('url');
@@ -560,7 +562,6 @@ $(document).ready( function() {
                     var probId = data.probId;
                     var votes = data.votes;
                     $('.votes-'.concat(probId)).text(votes);
-
                 },
                 complete: function() {
                     itemDisable.addClass('disabled');

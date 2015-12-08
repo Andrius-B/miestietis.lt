@@ -110,12 +110,6 @@
                         <a class="btn__init">
                             <i data-toggle="tooltip" data-placement="top" title="Komentarai" class="fa fa-comments" url="{{ path('ajax_commentLoad')}}" item="problem" item_id="{{ initiative.getProblemId().getId() }}"></i>
                         </a>
-                        {% if initiative.getUserId() != user %}
-                        <a class="btn__init {{ initiative.status }}">
-                            <i data-toggle="tooltip" data-placement="top" title="{{ initiative.tooltip }}" class="fa fa-users joinInitiative" item_id="{{ initiative.id() }}"
-                            date ="{{ initiative.getInitiativeDate()|date('Y m d') }}" url="{{ path('ajax_initiative_join') }}"></i>
-                        </a>
-                        {% endif %}
                     </div>
                 </div>
                 <div class="modal-comments text-center" id="comment_list_{{ initiative.getProblemId().getId() }}">
