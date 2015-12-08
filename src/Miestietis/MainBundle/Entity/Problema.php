@@ -1,6 +1,7 @@
 <?php
-// src/Miestietis/MainBundle/Entity/Product.php
+
 namespace Miestietis\MainBundle\Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -64,22 +65,23 @@ class Problema
      */
     private $upvoted_by;
 
-
-    // -------------------------------------------------
-
-    public function __construct() {
+    public function __construct()
+    {
         $this->upvoted_by = new ArrayCollection();
     }
-    public function upvoteBy(User $user) {
+    public function upvoteBy(User $user)
+    {
         $this->upvoted_by->add($user);
         return $this;
     }
     /** @return ArrayCollection */
-    public function getUpvotedBy() {
+    public function getUpvotedBy()
+    {
         return $this->upvoted_by;
     }
 
-    public function  incrementVote() {
+    public function  incrementVote()
+    {
         $this->votes++;
         return $this->votes;
     }
@@ -141,7 +143,6 @@ class Problema
     {
         return $this->name;
     }
-
 
     /**
      * Set description

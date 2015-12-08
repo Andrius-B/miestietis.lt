@@ -1,12 +1,13 @@
 <?php
-// src/Miestietis/MainBundle/Entity/User.php
 //  puslapis:    https://gist.github.com/danvbe/4476697
 
 
 namespace Miestietis\MainBundle\Entity;
+
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * @ORM\Entity(repositoryClass="Miestietis\MainBundle\Repository\UserRepository")
  * @ORM\Table(name="lcl_user")
@@ -27,29 +28,6 @@ class User extends BaseUser
     protected $google_id;
     /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
     protected $google_access_token;
-//    /**
-//     * @var string
-//     *
-//     * @ORM\Column(name="last_login", type="datetime", nullable=true)
-//     */
-//    protected $lastLogin;
-//
-//    /**
-//     * @ORM\Column(name="last_login", type="datetime", nullable=true)
-//     */
-//    public function getLastLogin()
-//    {
-//        return $this->lastLogin;
-//    }
-//
-//    /**
-//     * @param mixed $lastLogin
-//     */
-//    public function setLastLogin($lastLogin)
-//    {
-//        $this->lastLogin = $lastLogin;
-//    }
-
 
     /**
      * @var string
@@ -94,7 +72,6 @@ class User extends BaseUser
      */
     protected $upvoted_problems;
 
-    //YOU CAN ADD MORE CODE HERE !
     public function __construct()
     {
         parent::__construct();
@@ -103,10 +80,6 @@ class User extends BaseUser
         $this->participations = new ArrayCollection();
         $this->upvoted_problems = new ArrayCollection();
     }
-
-
-
- //----------------------------------------------------------------
 
     /**
      * Get id

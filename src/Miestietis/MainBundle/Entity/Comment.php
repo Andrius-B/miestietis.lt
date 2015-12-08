@@ -1,8 +1,10 @@
 <?php
 namespace Miestietis\MainBundle\Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+
 /**
      * @ORM\Entity
      * @ORM\Table(name="comments")
@@ -38,9 +40,6 @@ class Comment
      * @ORM\Column(type="text")
      */
     protected $text;
-
-
-    //----------------------------------------------------------------------------
 
     /**
      * Get id

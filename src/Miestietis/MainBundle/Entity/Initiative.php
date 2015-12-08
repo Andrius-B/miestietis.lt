@@ -1,8 +1,9 @@
 <?php
-// src/Miestietis/MainBundle/Entity/Product.php
 namespace Miestietis\MainBundle\Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+
 /**
      * @ORM\Entity
      * @ORM\Table(name="initiative")
@@ -62,7 +63,6 @@ class Initiative
         $this->comments = new ArrayCollection();
     }
 
-    //------------------------------------------------------------------
     /**
      * Get id
      *
@@ -72,8 +72,6 @@ class Initiative
     {
         return $this->id;
     }
-
-    
 
     /**
      * Set description
