@@ -1,4 +1,3 @@
-// i have no idea what these do | Marius
 $(document).on('change', '.btn-file :file', function() {
     var input = $(this),
         numFiles = input.get(0).files ? input.get(0).files.length : 1,
@@ -7,8 +6,6 @@ $(document).on('change', '.btn-file :file', function() {
 });
 
 $(document).ready( function() {
-
-    // i have no idea what these do | Marius
     $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
 
         var input = $(this).parents('.input-group').find(':text'),
@@ -26,8 +23,6 @@ $(document).ready( function() {
     // Ajax request to add problem
 
     var addProblem = $('#newProblemAjaxForm');
-
-
     $('#add').on('show.bs.modal', function() {
         $('#itemDescription').elastic();
         $('#itemName').elastic();
@@ -39,13 +34,13 @@ $(document).ready( function() {
         });
     });
 
-    $('#newProblem').on('click', addProblem, function(e){
+    $('#newProblem').on('click', addProblem, function(e) {
         e.preventDefault();
         var $this = $(this);
         var allInputs = $('#add .form-control');
         var error = $('#problemError');
         $this.blur();
-        if($('#profileLi').attr('rel') == 'Connected'){
+        if ($('#profileLi').attr('rel') == 'Connected') {
             // information gathering from the form fields
             var name =$('#itemName').val();
             var description = $('#itemDescription').val();
@@ -58,26 +53,28 @@ $(document).ready( function() {
             formData.append('name', name);
             formData.append('description', description);
 
-            if(name.length < 6) {
+            if (name.length < 6) {
                 error.text("Įrašykite problemos pavadinimą");
                 error.attr('class', 'text text-danger text-right');
                 error.show();
                 return valid = false;
             }
-            if(description == "") {
+
+            if (description == "") {
                 error.text("Aprašykite problemą");
                 error.attr('class', 'text text-danger text-right');
                 error.show();
                 return valid = false;
             }
-            if($('input[type=file]')[0].files[0] == null) {
+
+            if ($('input[type=file]')[0].files[0] == null) {
                 error.text("Įkelkite problemos nuotrauką");
                 error.attr('class', 'text text-danger text-right');
                 error.show();
                 return valid = false;
             }
 
-            if(valid) {
+            if (valid) {
                 $.ajax({
                     url: url,
                     type: "POST",
@@ -85,8 +82,7 @@ $(document).ready( function() {
                     contentType: false,       // The content type used when sending data to the server.
                     cache: false,             // To unable request pages to be cached
                     processData:false,        // To send DOMDocument or non processed data file it is set to false
-                    success: function(data)
-                    {
+                    success: function(data) {
                         $('#itemName').val();
                         $('#itemDescription').val();
                         $('#controlerURL').attr('url');
@@ -98,20 +94,16 @@ $(document).ready( function() {
                             $('.modal').modal('hide');
                             allInputs.val('');
                         }, 500);
-
                         location.reload();
                     },
-                    error: function(XMLHttpRequest, textStatus, errorThrown)
-                    {
-                        alert('Error : ' + errorThrown);
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        alert('Užklausa nepavyko : ' + errorThrown);
                     }
                 })
             }
         } else {
             requireLogin(false);
             $('#newProblem').after('<span id="problemConnect" class="text text-danger">Norėdami sukurti problemą turite prisijungti.</span>');
-            console.log(allInputs);
-
         }
     });
     // End of add problem
@@ -134,7 +126,7 @@ $(document).ready( function() {
                 location.reload();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert('Error : ' + errorThrown);
+                alert('Užklausa nepavyko : ' + errorThrown);
             }
         });
     }
@@ -159,11 +151,9 @@ $(document).ready( function() {
         editButton.nodeValue = 'Redaguokite pasvirą tekstą.';
 
         targetButtons.empty();
-        targetButtons.append('<a ' + //man atrodo galima naudot backtick'us multiline stringui (`)
+        targetButtons.append('<a ' +
             'data-toggle="modal" ' +
             'class="save-button">' +
-            //'probId="{{ problem.id() }}" ' +
-            //'url="{{ path(ajax_problemEdit) }}">' + //twig'as veikia tik back-end'e
                 '<i ' +
                     'data-toggle="tooltip" ' +
                     'data-placement="top"  ' +
@@ -171,7 +161,6 @@ $(document).ready( function() {
                     'class="fa fa-floppy-o">' +
                 '</i>' +
             '</a>');
-
 
         var url = $(this).attr('url');
         var probId = $(this).attr('probId');
@@ -189,12 +178,9 @@ $(document).ready( function() {
         });
 
         var save = $this.find('.save-button');
-
         save.on('click', function() {
             ajaxProblemEdit(url, probId, editedTitle, editedDescription);
         });
-
-
     });
 
     $('.modal').on("editItemsEvent", "#editTitle, #editDescription", function (event) {
@@ -212,7 +198,6 @@ $(document).ready( function() {
 
         if (target === 'editTitle') {
             $this.replaceWith(title);
-            //title.focus();
         } else if (target === 'editDescription') {
             $this.replaceWith(description);
             var val = description.val();
@@ -225,11 +210,8 @@ $(document).ready( function() {
     // End of edit problem
     //------------------------------------------------------------
 
-
-
     // -------------------------------------------------
     // Ajax request to edit initiative
-
     function ajaxInitiativeEdit(url, initid, eDate, eDescription) {
         var editedUrl = url;
         var editedInitid = initid;
@@ -250,7 +232,7 @@ $(document).ready( function() {
                 location.reload();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert('Error : ' + errorThrown);
+                alert('Užklausa nepavyko : ' + errorThrown);
             }
         });
     }
@@ -345,8 +327,7 @@ $(document).ready( function() {
                 url: url,
                 cache: "false",
                 dataType: "html",
-                success: function(result)
-                {
+                success: function(result) {
                     if (result == undefined) {
                         $(".filters-history").find("li").removeClass("active").addClass("disabled");
                         closeAndScroll('html, body', '#list');
@@ -362,12 +343,10 @@ $(document).ready( function() {
                         filters();
                     }
                 },
-                error: function(XMLHttpRequest, textStatus, errorThrown)
-                {
-                    alert('Error : ' + errorThrown);
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert('Užklausa nepavyko : ' + errorThrown);
                 },
-                complete: function()
-                {
+                complete: function() {
                     setUserStats();
                 }
             }).done(function () {
@@ -375,7 +354,6 @@ $(document).ready( function() {
                 handleDelete();
             });
         }
-
     });
 
     function recursiveAdd(number, desired ,timeout, selector){
@@ -391,20 +369,22 @@ $(document).ready( function() {
         $.ajax({
             url:url,
             success: function(data){
-                var timeout = 80 //80ms to increment the stats
+                var timeout = 80;
                 $(".problemsCreated").text(0);
                 $(".problemsUpvoted").text(0);
                 var created = data.created;
                 var upvoted = data.upvoted;
-                setTimeout(function(){recursiveAdd(0,created,timeout,".problemsCreated");},300); //initial delay while the modal opens
-                setTimeout(function(){recursiveAdd(0,upvoted,timeout,".problemsUpvoted");},300  );
+                setTimeout(function(){recursiveAdd(0,created,timeout,".problemsCreated");},300);
+                setTimeout(function(){recursiveAdd(0,upvoted,timeout,".problemsUpvoted");},300);
             }
         })
     }
 
     // End of ajax load history
     //------------------------------------------------------------
-    // problemos / iniciatyvos istrynimas
+
+    // -------------------------------------------------
+    // Problemos / iniciatyvos istrynimas
     function handleDelete() {
         $(".fa-trash").on("click", function(e){
             var type = $(this).attr('type');
@@ -432,7 +412,7 @@ $(document).ready( function() {
     // -------------------------------------------------
     // Add initiative
 
-    //A function to clear the initiatvie form
+    // A function to clear the initiative form
     function clearInitiativeFormContent(){
         $('#newDescription').val('');
         $('#newDate select:nth-child(1)').val('');
@@ -443,7 +423,6 @@ $(document).ready( function() {
     }
 
     function clearInitiativeForm(){
-        //clearInitiativeFormContent();
         $("#initiativeDescriptionDiv").attr('class','form-group has-feedback');
         $("#initiativeDateDiv").attr('class','form-group has-feedback');
         $("#submitButton").attr('class', 'btn btn-default');
@@ -451,12 +430,11 @@ $(document).ready( function() {
         $("#initiativeError").hide();
     }
 
-    //handle initiative form modal
+    // handle initiative form modal
 
     $('.openInitiativeModal').on('click', function(e){
-        //hide opened problem modal
         $('.modal').modal('hide');
-        //open initiative form for that problem via ID
+        // open initiative form for that problem via ID
         clearInitiativeFormContent();
         $('#ajimedakaqfn').attr('probId', $(this).attr('probId'));
     });
@@ -465,8 +443,9 @@ $(document).ready( function() {
         clearInitiativeForm();
         clearInitiativeFormContent();
     });
-    //---------------------------------------------------
-    //handle initiative form data
+
+    // handle initiative form data
+
     var addInitiative = $('#Miestietis_MainBundle_Initiative');
     $('#newDescription').elastic();
     $('#submitButton').on('click', addInitiative, function(e){
@@ -480,43 +459,44 @@ $(document).ready( function() {
             var hour = $('#newDate div:nth-child(2) select:nth-child(1)').val();
             var minute = $('#newDate div:nth-child(2) select:nth-child(2)').val();
             var valid = true;
-            //validation:
-            if(description.length<6){
+
+            if (description.length<6) {
                 $("#initiativeDescriptionDiv").attr('class','form-group has-error text-right');
                 $("#initiativeError").text("Nepakankamas aprašymas");
                 $("#initiativeError").attr('class','text text-danger text-right');
                 $("#initiativeError").show();
                  return valid = false;
             }
-            if(year==""){
+
+            if (year=="") {
                 $("#initiativeError").text("Pasirinkite metus");
                 $("#initiativeError").attr('class','text text-danger');
                 $("#initiativeError").show();
                  return valid = false;
             }
 
-            if(month==""){
+            if (month=="") {
                 $("#initiativeError").text("Pasirinkite mėnesį");
                 $("#initiativeError").attr('class','text text-danger');
                 $("#initiativeError").show();
                  return valid = false;
             }
 
-            if(day==""){
+            if (day=="") {
                 $("#initiativeError").text("Pasirinkite dieną");
                 $("#initiativeError").attr('class','text text-danger');
                 $("#initiativeError").show();
                 return valid = false;
             }
 
-            if(hour==""){
+            if (hour=="") {
                 $("#initiativeError").text("Pasirinkite valnandą");
                 $("#initiativeError").attr('class','text text-danger');
                 $("#initiativeError").show();
                 return valid = false;
             }
 
-            if(minute==""){
+            if (minute=="") {
                 $("#initiativeError").text("Pasirinkite minutę");
                 $("#initiativeError").attr('class','text text-danger');
                 $("#initiativeError").show();
@@ -544,12 +524,12 @@ $(document).ready( function() {
                             $("#initiativeError").show();
                             setTimeout(function(){
                                 $('.modal').hide('fast');
-                            },500);//700ms patvirtinimui
+                            },500);
                         }
                         location.reload();
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alert('Error : ' + errorThrown);
+                        alert('Užklausa nepavyko : ' + errorThrown);
                     }
                 });
             }
@@ -567,7 +547,7 @@ $(document).ready( function() {
     // -------------------------------------------------
     // Handle upvoting
 
-    $('.incVote').on('click',function(){ //increment vote
+    $('.incVote').on('click',function() {
         var item = $(this).children('i');
         var itemDisable = $(this);
         var status = 'Pritarti galite tik vieną kartą!';
@@ -598,57 +578,6 @@ $(document).ready( function() {
     });
     // End of upvote
     //------------------------------------------------------------
-
-    function filters() {
-        if ($('.table-like').length>0) {
-            $('.table-like').fadeIn('slow');
-            $('#profile-more').on('shown.bs.modal', function() {
-                var $cont = $('.table-like').isotope({
-                    itemSelector: '.table-like__item',
-                    layoutMode: 'vertical',
-                    transitionDuration: '0.6s',
-                    filter: "*"
-                });
-                $('.filters-history').on( 'click', 'ul.nav-hist li a', function() {
-                    var filterValue = $(this).attr('data-filter');
-                    console.log(filterValue);
-                    $(".filters-history").find("li.active").removeClass("active");
-                    $(this).parent().addClass("active");
-                    $cont.isotope({ filter: filterValue });
-                    return false;
-                });
-            });
-        }
-        $('#profile-more').on('hidden.bs.modal', function() {
-            $(".filters-history").find("li").removeClass("active");
-            $(".filters-history").find('.onHide').addClass("active");
-        });
-    }
-
-    function requireLogin(hideModal) {
-        if(hideModal) {
-            $('.modal').modal('hide');
-        }
-        $('#profileLi > a').css('animation', 'bounceIn 1s')
-            .css('animation-iteration-count', 'infinite');
-
-
-        $(document).on('scroll shown.bs.modal', function() {
-                $('#profileLi > a').css('animation-iteration-count', '1');
-            }
-        );
-        $('.isotope-item').mouseleave(function() {
-            $('#profileLi > a').css('animation-iteration-count', '1');
-        });
-    }
-
-    function closeAndScroll(modal, target) {
-        $(modal).on('hidden.bs.modal', function() {
-            $('html, body').animate({
-                scrollTop: $(target).offset().top-151
-            }, 1000);
-        })
-    }
 
 
     //------------------------------------------------------------------------------------------------
@@ -709,8 +638,8 @@ $(document).ready( function() {
                 rm.remove();
             });
         }
-        $(this).data('clicks', !clicks);
 
+        $(this).data('clicks', !clicks);
 
         $('.comment_input').on('keydown', function(e) {
             if (e.which == 13 && !e.shiftKey) {
@@ -740,12 +669,11 @@ $(document).ready( function() {
 
                             },
                             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                alert('Error : ' + errorThrown);
+                                alert('Užklausa nepavyko : ' + errorThrown);
                             }
                         });
                     $(this).attr('placeholder', 'Jūsų komentaras');
                     $(this).removeClass('comment-input__danger');
-
                 } else {
                     e.preventDefault();
                     $(this).attr('placeholder', 'Įrašykite komentarą');
@@ -755,6 +683,8 @@ $(document).ready( function() {
             }
         });
     });
+
+    //------------------------------------------------------
     // top 10 problemų filtravimas su mygtuku Top 10
     $topProblems = $('.topProblems');
     $('#top10problems').on('click', function(){
@@ -766,6 +696,10 @@ $(document).ready( function() {
         }
 
     });
+    // End of top10 filtravimas
+    //------------------------------------------------------
+
+    //------------------------------------------------------
     // Prisijungimas prie iniciatyvos
     $('.joinInitiative').on('click', function() {
         var initiative = $(this).attr('item_id');
@@ -789,9 +723,6 @@ $(document).ready( function() {
                         successJoin.find('.success-text').text('Sėkmingai prisijungėte prie iniciatyvos.');
                         successJoin.find('.success-time').text('Organizatoriai Jūsų lauks '+date);
                     },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        // alert('Atsiprašome, įvyko klaida');
-                    },
                     complete: function() {
                         itemDisable.addClass('disabled');
                         successJoin.modal('show');
@@ -804,8 +735,8 @@ $(document).ready( function() {
 
     });
 
+    //------------------------------------------------------
     // Add more items to the item list
-
     $('#addMoreItems').on('click', function(){
         var url = $(this).attr('url');
         $.ajax({
@@ -819,17 +750,70 @@ $(document).ready( function() {
                 data['initiatives'].forEach(function(initiatve){
                     $('#theContainerOfItems').append(initiatve);
                 });
-                if(data['more'] == false){
+                if (data['more'] == false) {
                     $('#addMoreItems').addClass('hidden');
                 }
                 $('.isotope-container').isotope('reloadItems');
                 $('.isotope-container').isotope('reLayout');
                 $('a[data-filter="*"]').click();
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                // alert('Atsiprašome, įvyko klaida');
             }
         });
         return false;
     });
+
+
+    //------------------------------------------------------
+    // Santa's little helpers
+    function filters() {
+        if ($('.table-like').length>0) {
+            $('.table-like').fadeIn('slow');
+            $('#profile-more').on('shown.bs.modal', function() {
+                var $cont = $('.table-like').isotope({
+                    itemSelector: '.table-like__item',
+                    layoutMode: 'vertical',
+                    transitionDuration: '0.6s',
+                    filter: "*"
+                });
+                $('.filters-history').on( 'click', 'ul.nav-hist li a', function() {
+                    var filterValue = $(this).attr('data-filter');
+                    console.log(filterValue);
+                    $(".filters-history").find("li.active").removeClass("active");
+                    $(this).parent().addClass("active");
+                    $cont.isotope({ filter: filterValue });
+                    return false;
+                });
+            });
+        }
+        $('#profile-more').on('hidden.bs.modal', function() {
+            $(".filters-history").find("li").removeClass("active");
+            $(".filters-history").find('.onHide').addClass("active");
+        });
+    }
+
+    function requireLogin(hideModal) {
+        if(hideModal) {
+            $('.modal').modal('hide');
+        }
+        $('#profileLi > a').css('animation', 'bounceIn 1s')
+            .css('animation-iteration-count', 'infinite');
+
+
+        $(document).on('scroll shown.bs.modal', function() {
+                $('#profileLi > a').css('animation-iteration-count', '1');
+            }
+        );
+        $('.isotope-item').mouseleave(function() {
+            $('#profileLi > a').css('animation-iteration-count', '1');
+        });
+    }
+
+    function closeAndScroll(modal, target) {
+        $(modal).on('hidden.bs.modal', function() {
+            $('html, body').animate({
+                scrollTop: $(target).offset().top-151
+            }, 1000);
+        })
+    }
+    // End of helpers
+    //------------------------------------------------------
 });
