@@ -115,7 +115,7 @@
                     {# here goes comment list #}
                     {% if  user  != null %}
                         <div class="modal-comments--post">
-                            <img src="{{ problem.getUSerId().getProfilePicture() }}" class="profile-picture" alt="">
+                            <img src="{{ user.getProfilePicture() }}" class="profile-picture" alt="">
                             <textarea class="form-control comment_input" placeholder="Jūsų komentaras" title="Įrašykite savo komentarą" required></textarea>
                         </div>
                     {% endif %}

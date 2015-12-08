@@ -91,8 +91,8 @@ $(document).ready( function() {
                         error.show();
                         setTimeout(function() {
                             $('.modal').modal('hide');
-                            allInputs.val('');
                         }, 500);
+                        allInputs.val('');
                         location.reload();
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
