@@ -1,4 +1,4 @@
-<div class="col-sm-6 col-md-6 isotope-item {% if initiative.getIsActive() == 1 %}initiatives{% endif %}" xmlns="http://www.w3.org/1999/html">
+<div class="col-sm-6 col-md-6 isotope-item {% if initiative.getIsActive() == 1 %}initiatives{% endif %}" id="initiativeDisplay-{{ initiative.getId() }}" xmlns="http://www.w3.org/1999/html">
     <div class="image-box">
         <div class="overlay-container">
             <img src="{{ asset('public/images/problems/' ~ initiative.getProblemId().getPicture()) }}" alt="">

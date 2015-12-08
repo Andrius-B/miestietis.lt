@@ -14,7 +14,8 @@ class Count {
         //$return =$items[3]->getComments()->count();
         $commentCount = [];
         foreach ($items as $item) {
-            $commentCount[$item->getId()] = $item->getComments()->count();
+       //     $commentCount[$item->getId()] = $item->getComments()->count();
+            $commentCount[$item->getId()] = count($item->getComments());
         }
         return $commentCount;
     }
@@ -26,7 +27,7 @@ class Count {
     public function initiativeCommentCount($items) {
         $commentCount = [];
         foreach ($items as $item) {
-            $commentCount[$item->getId()] = $item->getProblemId()->getComments()->count();
+            $commentCount[$item->getId()] = count($item->getProblemId()->getComments());
         }
         return $commentCount;
     }
