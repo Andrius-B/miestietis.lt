@@ -309,7 +309,6 @@ $(document).ready( function() {
         var target = event.currentTarget.id;
         var $this = $(this);
         var heightDescription = $this.height();
-        var widthDate = $this.width()+25;
         var description = $('<textarea class="form-control edit-description">'+$(this).text()+'</textarea>');
         var date = $('<input />', {
             'type': 'text',
