@@ -109,7 +109,7 @@ $(document).ready( function() {
             }
         } else {
             requireLogin(false);
-            $('#newProblem').after('<span>Norėdami sukurti problemą turite prisijungti.</span>');
+            $('#newProblem').after('<span id="problemConnect" class="text text-danger">Norėdami sukurti problemą turite prisijungti.</span>');
             console.log(allInputs);
 
         }

@@ -1,4 +1,4 @@
-<div class="col-sm-6 col-md-6 isotope-item problems " id="problemDisplay-{{ problem.id() }}" xmlns="http://www.w3.org/1999/html"> <!-- Reikia laukelio papildomo skirstymui pvz problem.type() + parametro, kuris filtruotu pagal problem.votes() -->
+<div class="col-sm-6 col-md-6 isotope-item problems" id="problemDisplay-{{ problem.id() }}" xmlns="http://www.w3.org/1999/html">
     <div class="image-box">
         <div class="overlay-container">
             <img src="{{ asset('public/images/problems/' ~ problem.picture()) }}" alt="">
@@ -17,9 +17,17 @@
             {% endif %}
             <div class="itemInfo">
                 <h4>{{ problem.name() }}</h4>
-                <div data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data"><i class="fa fa-calendar-plus-o"></i>{{ problem.date()|date('Y-m-d') }}</div>
-                <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria"><i class="fa fa-check-circle"></i><span class="votes-{{ problem.id() }}">{{  problem.votes() }}</span></div>
-                <div data-toggle="tooltip" data-placement="top" title="Komentarų skaičius"><i class="fa fa-comments"></i>
+                <div data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data">
+                    <i class="fa fa-calendar-plus-o"></i>
+                    {{ problem.date()|date('Y-m-d') }}
+                </div>
+                <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria">
+                    <i class="fa fa-check-circle"></i>
+                    <span class="votes-{{ problem.id() }}">
+                        {{  problem.votes() }}</span>
+                </div>
+                <div data-toggle="tooltip" data-placement="top" title="Komentarų skaičius">
+                    <i class="fa fa-comments"></i>
                     {{ problemCommentCount[problem.id()] }}
                 </div>
                 <div class="clearfix"></div>
@@ -63,45 +71,57 @@
                             {% endif %}
                             <div class="itemInfo">
                                 <div data-toggle="tooltip" data-placement="top" title="Problemos autorius">
-                                    {{ problem.getUserId().getFirstName }} {{ problem.getUserId().getLastName() }}
+                                    {{ problem.getUserId().getFirstName }}
+                                    {{ problem.getUserId().getLastName() }}
                                 </div>
-                                <br> {# quick hax for tooltip, will not work is div display property is changed #}
-                                <div data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data"><i class="fa fa-calendar-plus-o"></i>{{ problem.date()|date('Y-m-d') }}</div>
+                                <br> {# Hax for tooltip, will not work if div display property is changed #}
+                                <div data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data">
+                                    <i class="fa fa-calendar-plus-o"></i>
+                                    {{ problem.date()|date('Y-m-d') }}
+                                </div>
                                 {% if  user  != null and user == problem.getUSerId() %}
-
-                                    <div id="editProblem" data-toggle="tooltip" data-placement="top" title="Redaguoti problemą" url="{{ path('ajax_problemEdit') }}" probId="{{ problem.id() }}"><i class="fa fa-pencil"></i>Redaguoti</div>
-
+                                    <div id="editProblem" data-toggle="tooltip" data-placement="top" title="Redaguoti problemą" url="{{ path('ajax_problemEdit') }}" probId="{{ problem.id() }}">
+                                        <i class="fa fa-pencil"></i>
+                                        Redaguoti
+                                    </div>
                                 {% endif %}
                             </div>
                             <div class="clearfix"></div>
                             <hr>
                             <p id="editDescription">{{ problem.description() }}</p>
                         </div>
-
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="wrap-item-info-left">
-                        <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria"><i class="fa fa-check-circle"></i><span class="votes-{{ problem.id() }}">{{  problem.votes() }}</span></div>
-                        <div data-toggle="tooltip" data-placement="top" title="Komentarų skaičius"><i class="fa fa-comments"></i>{{ problemCommentCount[problem.id()] }}</div>
-
+                        <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria">
+                            <i class="fa fa-check-circle"></i>
+                            <span class="votes-{{ problem.id() }}">{{  problem.votes() }}</span>
+                        </div>
+                        <div data-toggle="tooltip" data-placement="top" title="Komentarų skaičius">
+                            <i class="fa fa-comments"></i>{{ problemCommentCount[problem.id()] }}
+                        </div>
                     </div>
                     <div class="wrap-buttons-right">
-                        <a data-toggle="modal" class="incVote {{ problem.status }}" probId="{{ problem.id() }}" url="{{ path('ajax_upvote') }}"><i data-toggle="tooltip" data-placement="top"  title="{{ problem.tooltip }}" class="fa fa-check-circle"></i></a>
-                        <a data-toggle="modal"><i data-toggle="tooltip" data-placement="top" title="Komentarai" class="fa fa-comments" url="{{ path('ajax_commentLoad')}}" item="problem" item_id="{{ problem.id() }}"></i></a>
-                        <a data-toggle="modal" class="openInitiativeModal {{ problem.statusAddInitiative }}" data-target="#addInitiative" probId="{{ problem.id() }}"><i data-toggle="tooltip" data-placement="top" title="{{ problem.tooltipAddInitiative }}" class="fa fa-bullhorn"></i></a>
+                        <a data-toggle="modal" class="incVote {{ problem.status }}" probId="{{ problem.id() }}" url="{{ path('ajax_upvote') }}">
+                            <i data-toggle="tooltip" data-placement="top"  title="{{ problem.tooltip }}" class="fa fa-check-circle"></i>
+                        </a>
+                        <a data-toggle="modal">
+                            <i data-toggle="tooltip" data-placement="top" title="Komentarai" class="fa fa-comments" url="{{ path('ajax_commentLoad')}}" item="problem" item_id="{{ problem.id() }}"></i>
+                        </a>
+                        <a data-toggle="modal" class="openInitiativeModal {{ problem.statusAddInitiative }}" data-target="#addInitiative" probId="{{ problem.id() }}">
+                            <i data-toggle="tooltip" data-placement="top" title="{{ problem.tooltipAddInitiative }}" class="fa fa-bullhorn"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="modal-comments text-center" id="comment_list_{{ problem.id() }}">
                     {# here goes comment list #}
                     {% if  user  != null %}
                         <div class="modal-comments--post">
-                            {# nerodyti jeigu useris neprisijunges #}
                             <img src="{{ problem.getUSerId().getProfilePicture() }}" class="profile-picture" alt="">
                             <textarea class="form-control comment_input" placeholder="Jūsų komentaras" title="Įrašykite savo komentarą" required></textarea>
                         </div>
                     {% endif %}
-
                 </div>
             </div>
         </div>

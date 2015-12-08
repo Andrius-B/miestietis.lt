@@ -3,31 +3,41 @@
         {% if item.name() is defined %}
         <li class="table-like__item problems" id="problemHistory-{{ item.id() }}">
             <div class="description">
-                <h4><a data-toggle="modal" data-target="#project-{{ item.id() }}" data-dismiss="modal">{{ item.name() }}</a></h4>
+                <h4>
+                    <a data-toggle="modal" data-target="#project-{{ item.id() }}" data-dismiss="modal">{{ item.name() }}</a>
+                </h4>
                 <i data-toggle="tooltip" data-placement="top" title="Ištrinkite problemą" class="fa fa-trash" type="problem" itemId="{{ item.id() }}" url="{{ path('ajax_delete_item') }}"></i>
             </div>
             <div class="type">Problema</div>
             <div class="votes">
-                <i data-toggle="tooltip" data-placement="top" title="Problemai pritaria" class="fa fa-check-circle"><span>{{ item.votes() }}</span></i>
+                <i data-toggle="tooltip" data-placement="top" title="Problemai pritaria" class="fa fa-check-circle">
+                    <span>{{ item.votes() }}</span>
+                </i>
             </div>
-
             <div class="date">
-                <i data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data" class="fa fa-calendar-plus-o"><span>{{ item.date()|date('Y m d') }}</span></i>
+                <i data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data" class="fa fa-calendar-plus-o">
+                    <span>{{ item.date()|date('Y m d') }}</span>
+                </i>
             </div>
         </li>
         {% else %}
         <li class="table-like__item activeInitiatives" id="initiativeHistory-{{ item.id() }}">
             <div class="description">
-                <h4><a data-toggle="modal" data-target="#project-initiative-{{ item.id() }}" data-dismiss="modal">{{ item.getProblemId().name() }}</a></h4>
+                <h4>
+                    <a data-toggle="modal" data-target="#project-initiative-{{ item.id() }}" data-dismiss="modal">{{ item.getProblemId().name() }}</a>
+                </h4>
                 <i data-toggle="tooltip" data-placement="top" title="Ištrinkite iniciatyvą" class="fa fa-trash" id="" type="initiative" itemId="{{ item.id() }}" url="{{ path('ajax_delete_item') }}"></i>
             </div>
             <div class="type">Iniciatyva</div>
-
             <div class="joined">
-                <i data-toggle="tooltip" data-placement="top" title="Problemai pritaria" class="fa fa-users"><span>0</span></i>
+                <i data-toggle="tooltip" data-placement="top" title="Dalyvauja žmonių" class="fa fa-users">
+                    <span>0</span>
+                </i>
             </div>
             <div class="date">
-                <i data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data" class="fa fa-calendar-plus-o"><span>{{ item.getInitiativeDate()|date('Y m d') }}</span></i>
+                <i data-toggle="tooltip" data-placement="top" title="Iniciatyvos data" class="fa fa-calendar-plus-o">
+                    <span>{{ item.getInitiativeDate()|date('Y m d') }}</span>
+                </i>
             </div>
         </li>
         {% endif %}

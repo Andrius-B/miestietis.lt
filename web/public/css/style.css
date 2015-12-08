@@ -760,6 +760,7 @@ hr {
 /* Initiative form modal */
 
 .form-group .text,
+#problemConnect,
 #problemError {
     display: inline-block;
     vertical-align: middle;

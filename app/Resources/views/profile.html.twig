@@ -32,7 +32,6 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-1">
-
                         <!-- isotope filters start -->
                         <div class="filters text-center filters-history">
                             <ul class="nav nav-pills nav-hist">
@@ -42,27 +41,17 @@
                             </ul>
                         </div>
                         <!-- isotope filters end -->
-                        <div class="history-content">
-
-                        </div>
                         <!-- list items start -->
-
-
-
-                        {#there was div with history content class#}
-
-                        {#<div class="text-center">#}
-                            {#<a class="moreHistory" href="{{ path('ajax_history') }}"><i data-toggle="tooltip" data-placement="top" title="Peržiūrėti istoriją" class="fa fa-angle-double-down"></i></a>#}
-                        {#</div>#}
+                        <div class="history-content"></div>
                         <!-- list items end -->
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <div class="text-center">
-                    <a href="{{ path('fos_user_security_logout') }}"><input type="submit" value="Atsijungti" class="btn btn-default"></a>
-
-                    <!-- here should add ajax request from database -->
+                    <a href="{{ path('fos_user_security_logout') }}">
+                        <input type="submit" value="Atsijungti" class="btn btn-default">
+                    </a>
                 </div>
             </div>
         </div>

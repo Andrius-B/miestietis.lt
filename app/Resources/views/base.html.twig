@@ -13,18 +13,15 @@
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700,300&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Raleway:700,400,300' rel='stylesheet' type='text/css'>
         <link href="{{ asset('public/css/bootstrap.min.css') }}" rel="stylesheet">
-        {#<link href="{{ asset('public/css/fileinput.min.css') }}" rel="stylesheet" >#}
         <link href="{{ asset('public/css/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
         <link href="{{ asset('public/css/animations.css') }}" rel="stylesheet">
         <link href="{{ asset('public/css/style.css') }}" rel="stylesheet">
         <link href="{{ asset('public/css/main.css') }}" rel="stylesheet" >
         <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}
-
         {% endblock %}
     </head>
     <body class="no-trans">
-
         <div class="scrollToTop"><i class="icon-up-open-big"></i></div>
 
         <!-- header start -->
@@ -89,7 +86,6 @@
                                                 {% else %}
                                                 <li id="profileLi" rel="notConnected"><a href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook' }) }}" alt="Prisijungti su Facebook"><i class="fa fa-facebook"></i></a></li>
                                                 {% endif %}
-
                                             </ul>
                                         </div>
                                     </div>
@@ -116,7 +112,6 @@
             <script type="text/javascript" src="{{ asset('public/plugins/jquery.appear.js') }}"></script>
             <script type="text/javascript" src="{{ asset('public/plugins/jquery.elastic.source.js') }}"></script>
             <script src="http://malsup.github.com/jquery.form.js"></script>
-            {#<script type="text/javascript" src="{{ asset('public/plugins/fileinput.min.js') }}"></script>#}
             <script type="text/javascript" src="{{ asset('public/js/template.js') }}"></script>
             <script type="text/javascript" src="{{ asset('public/js/custom.js') }}"></script>
         {% endblock %}

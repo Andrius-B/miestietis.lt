@@ -23,7 +23,6 @@
             <br>
             <div class="row object-non-visible" data-animation-effect="fadeIn">
                 <div class="col-md-12">
-
                     <!-- isotope filters start -->
                     <div class="filters text-center filters-main">
                         <ul class="nav nav-pills nav-main">
@@ -47,13 +46,12 @@
                             {{ include('topProblems.html.twig') }}
                         {% endfor %}
                     </div>
-
-                    {{ include('confirmJoin.html.twig') }}
                     <!-- list items end -->
+                    {{ include('confirmJoin.html.twig') }}
                     <div class="text-center">
-                        <a href="#"><input type="submit" value="Daugiau..." class="btn btn-default" url="{{ path('ajax_load_more_items') }}"id="addMoreItems"></a>
-
-                        <!-- here should add ajax request from database -->
+                        <a href="#">
+                            <input type="submit" value="Daugiau..." class="btn btn-default" url="{{ path('ajax_load_more_items') }}"id="addMoreItems">
+                        </a>
                     </div>
                 </div>
             </div>
@@ -66,8 +64,6 @@
     {{ include('addInitiative.html.twig') }}
 
     {{ include('about.html.twig') }}
-
-    {{ include('contact.html.twig') }}
 
     {{ include('profile.html.twig') }}
 
