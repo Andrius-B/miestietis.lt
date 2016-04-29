@@ -23,11 +23,6 @@ class Comment
      */
     protected $user_id;
     /**
-     * @ORM\ManyToOne(targetEntity="Problema", inversedBy="comments")
-     * @ORM\JoinColumn(name="problem_id", referencedColumnName="id")
-     */
-    protected $problem_id;
-    /**
      * @ORM\ManyToOne(targetEntity="Initiative", inversedBy="comments")
      * @ORM\JoinColumn(name="initiative_id", referencedColumnName="id")
      */
@@ -121,30 +116,6 @@ class Comment
     public function getUserId()
     {
         return $this->user_id;
-    }
-
-    /**
-     * Set problemId
-     *
-     * @param \Miestietis\MainBundle\Entity\Problema $problemId
-     *
-     * @return Comment
-     */
-    public function setProblemId(\Miestietis\MainBundle\Entity\Problema $problemId = null)
-    {
-        $this->problem_id = $problemId;
-
-        return $this;
-    }
-
-    /**
-     * Get problemId
-     *
-     * @return \Miestietis\MainBundle\Entity\Problema
-     */
-    public function getProblemId()
-    {
-        return $this->problem_id;
     }
 
     /**

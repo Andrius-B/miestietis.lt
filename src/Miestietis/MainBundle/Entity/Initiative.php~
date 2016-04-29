@@ -1,11 +1,14 @@
 <?php
-// src/Miestietis/MainBundle/Entity/Product.php
+
 namespace Miestietis\MainBundle\Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+
 /**
  * @ORM\Entity
- * @ORM\Table(name="initiative")
+ * @ORM\Table(name="initiatives")
  */
 class Initiative
 {
@@ -15,52 +18,96 @@ class Initiative
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="initiatives")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="problems")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    protected $user_id;
+    protected $userId;
+
     /**
-     * @ORM\ManyToMany(targetEntity="User", inversedBy="participations")
-     * @ORM\JoinTable(name="initiatives_join")
-     */
-    protected $participants;
-    /**
-     * @ORM\OneToOne(targetEntity="Problema")
-     * @ORM\JoinColumn(name="problem_id", referencedColumnName="id")
-     */
-    protected $problem_id;
-    /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="initiative_id")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="problem_id")
      */
     protected $comments;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $name;
+
     /**
      * @ORM\Column(type="datetime")
      */
-    protected $registration_date;
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    protected $initiative_date;
+    protected $date;
+
     /**
      * @ORM\Column(type="text")
      */
     protected $description;
+
     /**
      * @ORM\Column(type="smallint")
      */
     protected $votes;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $picture;
+
     /**
      * @ORM\Column(type="boolean")
      */
-    protected $is_active;
+    protected $isActive;
 
-    public function __construct() {
-        $this->participants = new ArrayCollection();
-        $this->comments = new ArrayCollection();
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $registrationDate;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $initiativeDate;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="participations")
+     * @ORM\JoinTable(name="initiatives_join",
+     * joinColumns={@ORM\JoinColumn(name="initiative_id", referencedColumnName="id", onDelete="CASCADE")},
+     * inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")})
+     */
+    protected $participants;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="upvoted_problems")
+     * @ORM\JoinTable(name="initiative_upvotes",
+     *      joinColumns={@ORM\JoinColumn(name="initiative_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")}
+     *      )
+     */
+    private $upvoted_by;
+
+    public function __construct()
+    {
+        $this->upvoted_by = new ArrayCollection();
+    }
+    public function upvoteBy(User $user)
+    {
+        $this->upvoted_by->add($user);
+        return $this;
+    }
+    /** @return ArrayCollection */
+    public function getUpvotedBy()
+    {
+        return $this->upvoted_by;
     }
 
-    //------------------------------------------------------------------
+    public function  incrementVote()
+    {
+        $this->votes++;
+        return $this->votes;
+    }
+
     /**
      * Get id
      *
@@ -70,8 +117,64 @@ class Initiative
     {
         return $this->id;
     }
+    /**
+     * Set id
+     * @param integer $id
+     * @return Initiative
+     */
+    public function setId($id)
+    {
+        $this->id =$id;
+        return $this;
+    }
 
-    
+    /**
+     * Set userId
+     *
+     * @param User $userId
+     *
+     * @return Initiative
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return User
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Initiative
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Set description
@@ -120,6 +223,29 @@ class Initiative
     {
         return $this->votes;
     }
+    /**
+     * Set picture
+     *
+     * @param string $picture
+     *
+     * @return Initiative
+     */
+    public function setPicture($picture)
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * Get picture
+     *
+     * @return string
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
 
     /**
      * Set isActive
@@ -130,7 +256,7 @@ class Initiative
      */
     public function setIsActive($isActive)
     {
-        $this->is_active = $isActive;
+        $this->isActive = $isActive;
 
         return $this;
     }
@@ -142,89 +268,7 @@ class Initiative
      */
     public function getIsActive()
     {
-        return $this->is_active;
-    }
-
-    /**
-     * Set userId
-     *
-     * @param \Miestietis\MainBundle\Entity\User $userId
-     *
-     * @return Initiative
-     */
-    public function setUserId(\Miestietis\MainBundle\Entity\User $userId = null)
-    {
-        $this->user_id = $userId;
-
-        return $this;
-    }
-
-    /**
-     * Get userId
-     *
-     * @return \Miestietis\MainBundle\Entity\User
-     */
-    public function getUserId()
-    {
-        return $this->user_id;
-    }
-
-    /**
-     * Add participant
-     *
-     * @param \Miestietis\MainBundle\Entity\User $participant
-     *
-     * @return Initiative
-     */
-    public function addParticipant(\Miestietis\MainBundle\Entity\User $participant)
-    {
-        $this->participants[] = $participant;
-
-        return $this;
-    }
-
-    /**
-     * Remove participant
-     *
-     * @param \Miestietis\MainBundle\Entity\User $participant
-     */
-    public function removeParticipant(\Miestietis\MainBundle\Entity\User $participant)
-    {
-        $this->participants->removeElement($participant);
-    }
-
-    /**
-     * Get participants
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getParticipants()
-    {
-        return $this->participants;
-    }
-
-    /**
-     * Set problemId
-     *
-     * @param \Miestietis\MainBundle\Entity\Problema $problemId
-     *
-     * @return Initiative
-     */
-    public function setProblemId(\Miestietis\MainBundle\Entity\Problema $problemId = null)
-    {
-        $this->problem_id = $problemId;
-
-        return $this;
-    }
-
-    /**
-     * Get problemId
-     *
-     * @return \Miestietis\MainBundle\Entity\Problema
-     */
-    public function getProblemId()
-    {
-        return $this->problem_id;
+        return $this->isActive;
     }
 
     /**
@@ -254,10 +298,62 @@ class Initiative
     /**
      * Get comments
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Comment[]
      */
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Add upvotedBy
+     *
+     * @param \Miestietis\MainBundle\Entity\User $upvotedBy
+     *
+     * @return Initiative
+     */
+    public function addUpvotedBy(\Miestietis\MainBundle\Entity\User $upvotedBy)
+    {
+        $this->upvoted_by[] = $upvotedBy;
+
+        return $this;
+    }
+
+    /**
+     * Remove upvotedBy
+     *
+     * @param \Miestietis\MainBundle\Entity\User $upvotedBy
+     *
+     * @return Initiative
+     */
+    public function removeUpvotedBy(\Miestietis\MainBundle\Entity\User $upvotedBy)
+    {
+        $this->upvoted_by->removeElement($upvotedBy);
+
+        return $this;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return Initiative
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }

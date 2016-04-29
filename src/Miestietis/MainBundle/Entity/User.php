@@ -51,10 +51,6 @@ class User extends BaseUser
      */
     protected $lastName;
     /**
-     * @ORM\OneToMany(targetEntity="Problema", mappedBy="user_id")
-     */
-    protected $problems;
-    /**
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="user_id")
      */
     protected $comments;
@@ -68,17 +64,17 @@ class User extends BaseUser
     protected $participations;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Problema", mappedBy="upvoted_by")
+     * @ORM\ManyToMany(targetEntity="Initiative", mappedBy="upvoted_by")
      */
-    protected $upvoted_problems;
+    protected $upvotedInitiatives;
 
     public function __construct()
     {
         parent::__construct();
-        $this->problems = new ArrayCollection();
+        $this->initiatives = new ArrayCollection();
         $this->initiatives = new ArrayCollection();
         $this->participations = new ArrayCollection();
-        $this->upvoted_problems = new ArrayCollection();
+        $this->upvotedInitiatives = new ArrayCollection();
     }
 
     /**
@@ -267,12 +263,12 @@ class User extends BaseUser
     /**
      * Add upvoted problem
      *
-     * @param \Miestietis\MainBundle\Entity\Problema $problem
+     * @param \Miestietis\MainBundle\Entity\Initiative $problem
      *
      * @return User
      */
-    public function upvoteProblem(\Miestietis\MainBundle\Entity\Problema $problem){
-        $this->upvoted_problems->add($problem);
+    public function upvoteProblem(\Miestietis\MainBundle\Entity\Initiative $problem){
+        $this->upvotedInitiatives->add($problem);
         $problem->upvoteBy($this);
         return $this;
     }
@@ -280,30 +276,30 @@ class User extends BaseUser
     /**
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getUpvotedProblems(){
-        return $this->upvoted_problems;
+    public function getUpvotedInitiatives(){
+        return $this->upvotedInitiatives;
     }
 
-    public function isUpvotedProblem(Problema $problema){
-        if($this->upvoted_problems->contains($problema))return true;
+    public function isUpvotedProblem(Initiative $problema){
+        if($this->upvotedInitiatives->contains($problema))return true;
         else return false;
     }
 
-    public function removeUpvotedProblem(Problema $problema){
-        $this->upvoted_problems->removeElement($problema);
+    public function removeUpvotedProblem(Initiative $problema){
+        $this->upvotedInitiatives->removeElement($problema);
         return $this;
     }
 
     /**
      * Add problem
      *
-     * @param \Miestietis\MainBundle\Entity\Problema $problem
+     * @param \Miestietis\MainBundle\Entity\Initiative $problem
      *
      * @return User
      */
-    public function addProblem(\Miestietis\MainBundle\Entity\Problema $problem)
+    public function addProblem(\Miestietis\MainBundle\Entity\Initiative $problem)
     {
-        $this->problems->add($problem);
+        $this->initiatives->add($problem);
 
         return $this;
     }
@@ -311,21 +307,21 @@ class User extends BaseUser
     /**
      * Remove problem
      *
-     * @param \Miestietis\MainBundle\Entity\Problema $problem
+     * @param \Miestietis\MainBundle\Entity\Initiative $problem
      */
-    public function removeProblem(\Miestietis\MainBundle\Entity\Problema $problem)
+    public function removeProblem(\Miestietis\MainBundle\Entity\Initiative $problem)
     {
-        $this->problems->removeElement($problem);
+        $this->initiatives->removeElement($problem);
     }
 
     /**
-     * Get problems
+     * Get Initiatives
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getProblems()
+    public function getInitiatives()
     {
-        return $this->problems;
+        return $this->initiatives;
     }
 
     /**
@@ -350,16 +346,6 @@ class User extends BaseUser
     public function removeInitiative(\Miestietis\MainBundle\Entity\Initiative $initiative)
     {
         $this->initiatives->removeElement($initiative);
-    }
-
-    /**
-     * Get initiatives
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getInitiatives()
-    {
-        return $this->initiatives;
     }
 
     /**
