@@ -14,7 +14,7 @@ class Formation {
         $query = $this->em->createQuery(
             'SELECT i
             FROM MiestietisMainBundle:Initiative i
-            ORDER BY i.registration_date DESC'
+            ORDER BY i.registrationDate DESC'
         )->setMaxResults($n)->setFirstResult($offset);
         $problems = $query->getResult();
         return $problems;

@@ -26,7 +26,7 @@ class Initiative
     protected $userId;
 
     /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="problem_id")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="initiative_id")
      */
     protected $comments;
 
@@ -63,7 +63,7 @@ class Initiative
     /**
      * @ORM\Column(name="registration_date", type="datetime")
      */
-    protected $registration_date;
+    protected $registrationDate;
 
     /**
      * @ORM\Column(name="initiative_date", type="datetime")
@@ -90,6 +90,7 @@ class Initiative
     public function __construct()
     {
         $this->upvoted_by = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
     public function upvoteBy(User $user)
     {
