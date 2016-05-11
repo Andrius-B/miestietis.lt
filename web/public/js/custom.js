@@ -33,7 +33,7 @@ $(document).ready( function() {
         });
     });
 
-    $('#newProblem').on('click', addProblem, function(e) {
+    $('#newInitiative').on('click', addProblem, function(e) {
         e.preventDefault();
         var $this = $(this);
         var allInputs = $('#add .form-control');

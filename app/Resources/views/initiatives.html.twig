@@ -1,8 +1,8 @@
 <div class="col-sm-6 col-md-6 isotope-item {% if initiative.getIsActive() == 1 %}initiatives{% endif %}" id="initiativeDisplay-{{ initiative.getId() }}" xmlns="http://www.w3.org/1999/html">
     <div class="image-box">
         <div class="overlay-container">
-            <img src="{{ asset('public/images/problems/' ~ initiative.getProblemId().getPicture()) }}" alt="">
-            <a class="overlay" data-toggle="modal" data-target="#project-initiative-{{ initiative.id() }}">
+            <img src="{{ asset('public/images/problems/' ~ initiative.getPicture()) }}" alt="">
+            <a class="overlay" href="{{ path('initiative_display', {'initiative': initiative.generateUrlName()}) }}">
                 <i class="fa fa-search-plus"></i>
                 <span>Plačiau</span>
             </a>
@@ -16,7 +16,7 @@
                 <img src="{{ initiative.getUserId().getProfilePicture() }}" class="profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Iniciatyvos autorius">
             {% endif %}
             <div class="itemInfo">
-                <h4>{{ initiative.getProblemId().name() }}</h4>
+                <h4>{{ initiative.name() }}</h4>
                 <div data-toggle="tooltip" data-placement="top" title="Iniciatyvos data">
                     <i class="fa fa-calendar-check-o"></i>
                     {{ initiative.getInitiativeDate()|date('Y-m-d  H:i') }}
@@ -57,12 +57,12 @@
                     <button type="button" class="close" data-dismiss="modal">
                         <span aria-hidden="true">&times;</span><span class="sr-only">Uždaryti</span>
                     </button>
-                    <h4 id="editTitle" class="modal-title" id="project-1-label">{{ initiative.getProblemId().name() }}</h4>
+                    <h4 id="editTitle" class="modal-title" id="project-1-label">{{ initiative.name() }}</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <img src="{{ asset('public/images/problems/' ~ initiative.getProblemId().getPicture()) }}" alt="">
+                            <img src="{{ asset('public/images/problems/' ~ initiative.getPicture()) }}" alt="">
                         </div>
                         <div class="col-md-6">
                             {% if  user  != null and user == initiative.getUSerId() %}
@@ -90,7 +90,7 @@
                             </div>
                             <div class="clearfix"></div>
                             <hr>
-                            <p>{{ initiative.getProblemId().description() }}</p>
+                            <p>{{ initiative.description() }}</p>
                             <p id="editDescription">{{ initiative.description() }}</p>
                         </div>
                     </div>
@@ -108,11 +108,11 @@
                     </div>
                     <div class="wrap-buttons-right">
                         <a class="btn__init">
-                            <i data-toggle="tooltip" data-placement="top" title="Komentarai" class="fa fa-comments" url="{{ path('ajax_commentLoad')}}" item="problem" item_id="{{ initiative.getProblemId().getId() }}"></i>
+                            <i data-toggle="tooltip" data-placement="top" title="Komentarai" class="fa fa-comments" url="{{ path('ajax_commentLoad')}}" item="problem" item_id="{{ initiative.getId() }}"></i>
                         </a>
                     </div>
                 </div>
-                <div class="modal-comments text-center" id="comment_list_{{ initiative.getProblemId().getId() }}">
+                <div class="modal-comments text-center" id="comment_list_{{ initiative.getId() }}">
                     {# Here goes comment list #}
                     {% if  user  != null %}
                         <div class="modal-comments--post">

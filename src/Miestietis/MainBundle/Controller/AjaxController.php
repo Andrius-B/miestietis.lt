@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
 
 class AjaxController extends Controller
 {
-    public function problemAction(Request $request)
+    public function addInitiativeAction(Request $request)
     {
         if (!$request->isXmlHttpRequest())
         {
@@ -38,7 +38,7 @@ class AjaxController extends Controller
         $image_handler->handleImage($file, $ext, 750, 500, $fileDir, $fileName);
 
         //Persisting problem to a database
-        $db_handler->insertProblem($name, $description, $fileName, $user);
+        $db_handler->insertInitiative($name, $description, $fileName, $user);
 
         //Forming a response
         $data = array('name' => $name, 'description' => $description, 'picture' => $fileName);

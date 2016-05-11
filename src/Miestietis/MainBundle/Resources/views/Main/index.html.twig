@@ -26,24 +26,15 @@
                     <!-- isotope filters start -->
                     <div class="filters text-center filters-main">
                         <ul class="nav nav-pills nav-main">
-                            <li class="active"><a href="#" data-filter="*" class="problemFilterButton">Visi</a></li>
-                            <li><a href="#" data-filter=".problems" class="problemFilterButton">Problemos</a></li>
                             <li><a href="#" data-filter=".initiatives"class="problemFilterButton">Iniciatyvos</a></li>
-                            <li><a href="#" data-filter=".topProblems" id="top10problems">Top 10</a></li>
                         </ul>
                     </div>
                     <!-- isotope filters end -->
 
                     <!-- list items start -->
                     <div class="isotope-container row grid-space-20" id="theContainerOfItems">
-                        {% for problem in problems %}
-                            {{ include('items.html.twig') }}
-                        {% endfor %}
                         {% for initiative in initiatives %}
                             {{ include('initiatives.html.twig') }}
-                        {% endfor %}
-                        {% for problem in topProblems %}
-                            {{ include('topProblems.html.twig') }}
                         {% endfor %}
                     </div>
                     <!-- list items end -->
@@ -60,8 +51,6 @@
     <!-- section end -->
 
     {{ include('add.html.twig') }}
-
-    {{ include('addInitiative.html.twig') }}
 
     {{ include('about.html.twig') }}
 

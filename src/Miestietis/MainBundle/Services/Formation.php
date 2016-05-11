@@ -10,41 +10,11 @@ class Formation {
     public function __construct(EntityManager $entityManager) {
         $this->em = $entityManager;
     }
-    public function getAllProblems() {
-        $query = $this->em->createQuery(
-            'SELECT p
-            FROM MiestietisMainBundle:Problema p
-            WHERE p.is_active = 1
-            ORDER BY p.votes DESC'
-        );
-        $problems = $query->getResult();
-        return $problems;
-    }
-    public function getProblems($n, $offset) {
-        $query = $this->em->createQuery(
-            'SELECT p
-            FROM MiestietisMainBundle:Problema p
-            WHERE p.is_active = 1
-            ORDER BY p.date DESC'
-        )->setMaxResults($n)->setFirstResult($offset);
-        $problems = $query->getResult();
-        return $problems;
-    }
-    public function getTopProblems($n) {
-        $query = $this->em->createQuery(
-            'SELECT p
-            FROM MiestietisMainBundle:Problema p
-            WHERE p.is_active = 1
-            ORDER BY p.votes DESC'
-        )->setMaxResults($n);
-        $problems = $query->getResult();
-        return $problems;
-    }
     public function getInitiatives($n, $offset) {
         $query = $this->em->createQuery(
             'SELECT i
             FROM MiestietisMainBundle:Initiative i
-            ORDER BY i.registration_date DESC'
+            ORDER BY i.registrationDate DESC'
         )->setMaxResults($n)->setFirstResult($offset);
         $problems = $query->getResult();
         return $problems;

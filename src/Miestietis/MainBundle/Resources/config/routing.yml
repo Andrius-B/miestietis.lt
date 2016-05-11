@@ -1,9 +1,12 @@
 miestietis_main_homepage:
     path:     /
     defaults: { _controller: MiestietisMainBundle:Main:index }
-ajax_problem:
-    path:     /ajaxProblem
-    defaults: { _controller: MiestietisMainBundle:Ajax:problem }
+initiative_display:
+    path:     /initiative/{initiative}
+    defaults: { _controller: MiestietisMainBundle:Initiative:display }
+ajax_initiative_add:
+    path:     /ajaxInitiativeAdd
+    defaults: { _controller: MiestietisMainBundle:Ajax:addInitiative }
 ajax_problemEdit:
     path:     /ajaxProblemEdit
     defaults: { _controller: MiestietisMainBundle:Ajax:problemEdit }

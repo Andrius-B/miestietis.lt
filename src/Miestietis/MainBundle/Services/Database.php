@@ -15,9 +15,8 @@ class Database
         $this->em = $entityManager;
     }
 
-    public function insertProblem($name, $description, $picture, User $user) {
-        $problem = new Problema();
-        $time = getdate();
+    public function insertInitiative($name, $description, $picture, User $user) {
+        $problem = new Initiative();
 
         $problem->setName($name);
         $problem->setPicture($picture);
@@ -26,6 +25,8 @@ class Database
         $problem->setVotes(0);
         $problem->setIsActive(true);
         $problem->setDate(new \DateTime(date('Y-m-d H:i:s')));
+        $problem->setRegistrationDate(new \DateTime(date('Y-m-d H:i:s')));
+        $problem->setInitiativeDate(new \DateTime(date('Y-m-d H:i:s')));
 
         if ($this->em == null) {
             return 0;
@@ -64,24 +65,24 @@ class Database
         return $initiative;
     }
 
-    public function insertInitiative($description, $date, Problema $probId, User $user) {
-        $initiative = new Initiative();
-
-        $initiative->setVotes(0);
-        $initiative->setIsActive(true);
-        $initiative->setRegistrationDate(new \DateTime(date('Y-m-d H:i:s')));
-        $initiative->setProblemId($probId);
-        $initiative->setUserId($user);
-        $initiative->setInitiativeDate($date);
-        $initiative->setDescription($description);
-        $probId->setInitiative($initiative); //inserts initiative ref to problem
-        $probId->setIsActive(false);
-        $this->em->persist($initiative);
-        $this->em->persist($probId);
-        $this->em->flush();
-
-        return $initiative;
-    }
+//    public function insertInitiative($description, $date, Problema $probId, User $user) {
+//        $initiative = new Initiative();
+//
+//        $initiative->setVotes(0);
+//        $initiative->setIsActive(true);
+//        $initiative->setRegistrationDate(new \DateTime(date('Y-m-d H:i:s')));
+//        $initiative->setProblemId($probId);
+//        $initiative->setUserId($user);
+//        $initiative->setInitiativeDate($date);
+//        $initiative->setDescription($description);
+//        $probId->setInitiative($initiative); //inserts initiative ref to problem
+//        $probId->setIsActive(false);
+//        $this->em->persist($initiative);
+//        $this->em->persist($probId);
+//        $this->em->flush();
+//
+//        return $initiative;
+//    }
 
     public function getUserStats($user) {
         $qb = $this->em->createQueryBuilder();
