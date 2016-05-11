@@ -2,7 +2,7 @@
     <div class="image-box">
         <div class="overlay-container">
             <img src="{{ asset('public/images/problems/' ~ initiative.getPicture()) }}" alt="">
-            <a class="overlay" data-toggle="modal" data-target="#project-initiative-{{ initiative.id() }}">
+            <a class="overlay" href="{{ path('initiative_display', {'initiative': initiative.generateUrlName()}) }}">
                 <i class="fa fa-search-plus"></i>
                 <span>Plačiau</span>
             </a>

@@ -439,4 +439,12 @@ class Initiative
     {
         return $this->participants;
     }
+
+    /**
+     * Generates a unique name for usage in the url
+     */
+    public function generateUrlName()
+    {
+        return str_replace(' ', '_', $this->name).'_'.$this->id;
+    }
 }

@@ -1,7 +1,7 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-<div class="modal fade" id="project-{{ initiative.id() }}" tabindex="-1" role="dialog" aria-labelledby="project-1-label" aria-hidden="true">
+<div id="project-{{ initiative.id() }}" tabindex="-1" role="dialog" aria-labelledby="project-1-label" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -18,23 +18,23 @@
                     <div class="col-md-6">
                         {% if  user  != null and user == initiative.getUSerId() %}
                             <a href="{{ path('ajax_history') }}" class="profileHistory" data-toggle="modal" data-target="#profile-more" data-remote="false" data-dismiss="modal">
-                                <img src="{{ initiative.getUSerId().getProfilePicture() }}" class="profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Problemos autorius">
+                                <img src="{{ initiative.getUSerId().getProfilePicture() }}" class="profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Iniciatyvos autorius">
                             </a>
                         {% else %}
-                            <img src="{{ initiative.getUSerId().getProfilePicture() }}" class="profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Problemos autorius">
+                            <img src="{{ initiative.getUSerId().getProfilePicture() }}" class="profile-picture" alt="" data-toggle="tooltip" data-placement="top" title="Iniciatyvos autorius">
                         {% endif %}
                         <div class="itemInfo">
-                            <div data-toggle="tooltip" data-placement="top" title="Problemos autorius">
+                            <div data-toggle="tooltip" data-placement="top" title="Iniciatyvos autorius">
                                 {{ initiative.getUserId().getFirstName }}
                                 {{ initiative.getUserId().getLastName() }}
                             </div>
                             <br> {# Hax for tooltip, will not work if div display property is changed #}
-                            <div data-toggle="tooltip" data-placement="top" title="Problemos įkėlimo data">
+                            <div data-toggle="tooltip" data-placement="top" title="Iniciatyvos įkėlimo data">
                                 <i class="fa fa-calendar-plus-o"></i>
                                 {{ initiative.date()|date('Y-m-d') }}
                             </div>
                             {% if  user  != null and user == initiative.getUSerId() %}
-                                <div id="editProblem" data-toggle="tooltip" data-placement="top" title="Redaguoti problemą" url="{{ path('ajax_problemEdit') }}" probId="{{ problem.id() }}">
+                                <div id="editInitiative" data-toggle="tooltip" data-placement="top" title="Redaguoti iniciatyvą" url="{{ path('ajax_initiativeEdit') }}" id="{{ initiative.id() }}">
                                     <i class="fa fa-pencil"></i>
                                     Redaguoti
                                 </div>
@@ -48,21 +48,21 @@
             </div>
             <div class="modal-footer">
                 <div class="wrap-item-info-left">
-                    <div data-toggle="tooltip" data-placement="top" title="Problemai pritaria">
+                    <div data-toggle="tooltip" data-placement="top" title="Iniciatyvai pritaria">
                         <i class="fa fa-check-circle"></i>
                         <span class="votes-{{ initiative.id() }}">{{  initiative.votes() }}</span>
                     </div>
                     <div data-toggle="tooltip" data-placement="top" title="Komentarų skaičius">
                         <i class="fa fa-comments"></i>
-                        <span class="comment-count">{{ problemCommentCount[initiative.id()] }}</span>
+                        <span class="comment-count">{{ initiativeCommentCount[initiative.id()] }}</span>
                     </div>
                 </div>
                 <div class="wrap-buttons-right">
                     <a data-toggle="modal">
-                        <i data-toggle="tooltip" data-placement="top" title="Komentarai" class="fa fa-comments" url="{{ path('ajax_commentLoad')}}" item="problem" item_id="{{ initiative.id() }}"></i>
+                        <i data-toggle="tooltip" data-placement="top" title="Komentarai" class="fa fa-comments" url="{{ path('ajax_commentLoad')}}" item="initiative" item_id="{{ initiative.id() }}"></i>
                     </a>
-                    <a data-toggle="modal" class="openInitiativeModal {{ initiative.statusAddInitiative }}" data-target="#addInitiative" probId="{{ initiative.id() }}">
-                        <i data-toggle="tooltip" data-placement="top" title="{{ initiative.tooltipAddInitiative }}" class="fa fa-bullhorn"></i>
+                    <a data-toggle="modal" class="openInitiativeModal" data-target="#addInitiative" initId="{{ initiative.id() }}">
+                        <i data-toggle="tooltip" data-placement="top" title="{{ initiative.name }}" class="fa fa-bullhorn"></i>
                     </a>
                 </div>
             </div>
